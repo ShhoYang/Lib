@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api "com.android.support:design:$rootProject.supportVersion"
+    api "com.android.support:appcompat-v7:$rootProject.supportVersion"
+    api 'com.squareup.retrofit2:retrofit:2.2.0'
+    api 'com.squareup.retrofit2:converter-gson:2.2.0'
+    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    api 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    api 'com.zhy:base-rvadapter:3.0.3'
+    api 'com.youth.banner:banner:1.4.10'
+    api 'com.contrarywind:Android-PickerView:3.2.7'
+    api 'com.github.zhaokaiqiang.klog:library:1.6.0'
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.7'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4'
+    api 'cat.ereza:customactivityoncrash:2.1.0'
+    api 'com.android.support:multidex:1.0.0'
+    api "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+
+    api 'org.glassfish:javax.annotation:10.0-b28'
+    api "com.google.dagger:dagger:$rootProject.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+}

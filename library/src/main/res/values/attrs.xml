@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="text" format="string" />
+    <attr name="text_left" format="string" />
+    <attr name="text_right" format="string" />
+    <attr name="text_hint" format="string" />
+    <attr name="text_size" format="dimension" />
+    <attr name="text_color" format="color" />
+    <attr name="icon" format="reference" />
+
+    <declare-styleable name="TabView">
+        <attr name="tab_selected" format="boolean" />
+        <attr name="tab_text" format="string" />
+        <attr name="tab_icon" format="reference" />
+        <attr name="tab_color" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ClearEditView">
+        <attr name="text_size" />
+        <attr name="text_color" />
+        <attr name="text_hint" />
+        <attr name="icon" />
+        <attr name="max_length" format="integer" />
+        <attr name="input_type">
+            <enum name="text" value="1" />
+            <enum name="number" value="2" />
+            <enum name="password" value="128" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RatioImageView">
+        <attr name="height_width" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="SquareRelativityLayout">
+        <attr name="spec">
+            <enum name="h_w" value="1" />
+            <enum name="w_h" value="2" />
+        </attr>
+    </declare-styleable>
+
+</resources>

@@ -27,7 +27,7 @@ import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 /**
  * @author Yang Shihao
  */
-public abstract class BaseListFragment<P extends AListPresenter> extends BaseFragment
+public abstract class BaseListFragment<P extends AListPresenter> extends BaseFragment<P>
         implements OnRefreshListener, OnLoadmoreListener, MultiItemTypeAdapter.OnItemClickListener {
 
 
@@ -35,7 +35,6 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
 
     protected RecyclerView mRecyclerView;
 
-    protected P mPresenter;
     protected LinearLayout mEmptyView;
     protected ImageView mIvEmpty;
     public TextView mTvEmptyView;
@@ -79,9 +78,6 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     @Override
     protected void initUI() {
         super.initUI();
-        if (mPresenter != null) {
-            mPresenter.mContext = mActivity;
-        }
         mRefreshLayout = (SmartRefreshLayout) $(R.id.base_refresh_view);
         mRecyclerView = (RecyclerView) $(R.id.base_recycler_view);
         mRecyclerView.setFocusable(false);

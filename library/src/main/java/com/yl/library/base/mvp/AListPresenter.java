@@ -8,18 +8,13 @@ import java.util.List;
 /**
  * @author Yang Shihao
  */
-public abstract class AListPresenter<V extends IListView, D> extends BasePresenter {
+public abstract class AListPresenter<V extends IListView, D> extends APresenter<V> {
 
     private static final int PAGE_SIZE = 20;
 
-    protected V mView;
     protected List<D> mDataList = new ArrayList<>();
     protected int mPage = 1;
     protected boolean mIsRefresh = false;
-
-    public void onCreate(V view) {
-        mView = view;
-    }
 
     @Override
     public void onDestroy() {

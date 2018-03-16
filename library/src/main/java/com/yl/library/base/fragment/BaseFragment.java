@@ -22,7 +22,7 @@ import butterknife.Unbinder;
 /**
  * @author Yang Shihao
  */
-public abstract class BaseFragment<P extends APresenter> extends Fragment {
+public abstract class BaseFragment<P extends APresenter> extends Fragment implements View.OnClickListener {
 
     protected P mPresenter;
     protected Activity mActivity;
@@ -37,9 +37,6 @@ public abstract class BaseFragment<P extends APresenter> extends Fragment {
         mUnbinder = ButterKnife.bind(this, mRootView);
         mActivity = getActivity();
         initMVP();
-        if (mPresenter != null) {
-            mPresenter.mContext = mActivity;
-        }
         initUI();
 
         initView();

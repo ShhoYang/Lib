@@ -1,15 +1,23 @@
 package com.hao.mylibdemo.api;
 
 
+import com.hao.mylibdemo.App;
+import com.hao.mylibdemo.bean.News;
+
+import io.reactivex.Observable;
+
 /**
  * @author Yang Shihao
  */
 public class Api {
 
-    private ApiService mApiService;
+    String BASE_URL = "http://v.juhe.cn/toutiao/";
 
-    public Api(ApiService apiService) {
-        mApiService = apiService;
+    static ApiService apiService= null;
+
+    public static Observable<News> getNews(String type) {
+
+        return apiService.getNews(App.KEY, App.TYEP);
     }
 }
 

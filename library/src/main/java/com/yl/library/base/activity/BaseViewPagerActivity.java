@@ -18,12 +18,11 @@ import java.util.List;
 /**
  * @author Yang Shihao
  */
-public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseActivity {
+public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseActivity<P> {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private LinearLayout mLlEmpty;
-    protected P mPresenter;
 
     @Override
     public void onStop() {
@@ -50,9 +49,6 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
     @Override
     protected void initUI() {
         super.initUI();
-        if (mPresenter != null) {
-            mPresenter.mContext = this;
-        }
         mTabLayout = (TabLayout) $(R.id.base_tab_layout);
         mViewPager = (ViewPager) $(R.id.base_view_pager);
         mLlEmpty = (LinearLayout) $(R.id.base_vp_ll_empty);

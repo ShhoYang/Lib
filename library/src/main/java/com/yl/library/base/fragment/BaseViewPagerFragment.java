@@ -19,8 +19,7 @@ import java.util.List;
 /**
  * @author Yang Shihao
  */
-public abstract class BaseViewPagerFragment<P extends APresenter> extends BaseFragment
-        implements View.OnClickListener {
+public abstract class BaseViewPagerFragment<P extends APresenter> extends BaseFragment<P> {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -53,9 +52,6 @@ public abstract class BaseViewPagerFragment<P extends APresenter> extends BaseFr
     @Override
     protected void initUI() {
         super.initUI();
-        if (mPresenter != null) {
-            mPresenter.mContext = mActivity;
-        }
         mTabLayout = (TabLayout) $(R.id.base_tab_layout);
         mViewPager = (ViewPager) $(R.id.base_view_pager);
         mLlEmpty = (LinearLayout) $(R.id.base_vp_ll_empty);

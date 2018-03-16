@@ -68,9 +68,6 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         AppManager.getInstance().pushActivity(this);
         mContext = this;
         initMVP();
-        if (mPresenter != null) {
-            mPresenter.mContext = this;
-        }
         initUI();
         initView();
         initData();

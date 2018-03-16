@@ -26,13 +26,12 @@ import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 /**
  * @author Yang Shihao
  */
-public abstract class BaseListActivity<P extends AListPresenter> extends BaseActivity
+public abstract class BaseListActivity<P extends AListPresenter> extends BaseActivity<P>
         implements OnRefreshListener, OnLoadmoreListener, MultiItemTypeAdapter.OnItemClickListener {
 
     private SmartRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
 
-    protected P mPresenter;
     private LinearLayout mEmptyView;
     private TextView mTvEmptyView;
     private EmptyWrapper mAdapter;
@@ -75,9 +74,6 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
     @Override
     protected void initUI() {
         super.initUI();
-        if (mPresenter != null) {
-            mPresenter.mContext = this;
-        }
         mRefreshLayout = (SmartRefreshLayout) $(R.id.base_refresh_view);
         mRecyclerView = (RecyclerView) $(R.id.base_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

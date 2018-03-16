@@ -1,5 +1,6 @@
 package com.yl.library.rx.porxy;
 
+import android.app.Application;
 import android.support.annotation.NonNull;
 
 import com.yl.library.rx.exception.TokenInvalidException;
@@ -18,18 +19,17 @@ import io.reactivex.functions.Function;
  */
 public abstract class ProxyHandler implements InvocationHandler {
 
-    private IGlobalManager mGlobalManager;
+    protected Application mApplication;
     private Object mProxyObject;
     protected Disposable mDisposable;
     protected boolean mIsTokenNeedRefresh;
 
+    public ProxyHandler(Application application) {
+        mApplication = application;
+    }
 
     public void setProxyObject(Object proxyObject) {
         mProxyObject = proxyObject;
-    }
-
-    public void setGlobalManager(IGlobalManager globalManager) {
-        mGlobalManager = globalManager;
     }
 
     @Override
@@ -65,13 +65,11 @@ public abstract class ProxyHandler implements InvocationHandler {
         });
     }
 
-    protected void refreshTokenSuccess() {
-        mIsTokenNeedRefresh = true;
-        dis();
-    }
-
-    protected void refreshTokenFail() {
-        mGlobalManager.cancelAllRequest();
+    protected void refreshTokenFinished(boolean isSuccess) {
+        mIsTokenNeedRefresh = isSuccess;
+        if (!isSuccess) {
+            exit();
+        }
         dis();
     }
 
@@ -81,7 +79,17 @@ public abstract class ProxyHandler implements InvocationHandler {
         }
     }
 
+
+    private void updateMethodToken(Method method, Object[] args) {
+        if (mIsTokenNeedRefresh) {
+            updateToken(method, args);
+            mIsTokenNeedRefresh = false;
+        }
+    }
+
     protected abstract Observable<?> refreshTokenWhenTokenInvalid();
 
-    protected abstract void updateMethodToken(Method method, Object[] args);
+    protected abstract void updateToken(Method method, Object[] args);
+
+    protected abstract void exit();
 }

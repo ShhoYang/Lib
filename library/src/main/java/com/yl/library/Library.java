@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.socks.library.KLog;
-import com.yl.library.rx.RetrofitUtils;
+import com.yl.library.rx.HttpManager;
 import com.yl.library.utils.FileLocalUtils;
 
 /**
@@ -39,7 +39,7 @@ public class Library {
     }
 
     public void cookieClear() {
-        RetrofitUtils.getInstance().cookieClear();
+        HttpManager.getInstance().cookieClear();
     }
 
     public static Library getInstance() {

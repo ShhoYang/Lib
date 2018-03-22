@@ -66,7 +66,7 @@ public class PreviewImageActivity extends BaseActivity implements ViewPager.OnPa
     }
 
     @Override
-    protected void initMVP() {
+    protected void initInject() {
 
     }
 

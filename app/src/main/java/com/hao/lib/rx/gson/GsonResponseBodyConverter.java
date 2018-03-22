@@ -29,18 +29,17 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, Obje
         try {
             String json = new String(value.bytes());
             KLog.json("json----------", json);
-            JSONObject jsonObject = new JSONObject(json);
-            int code = jsonObject.optInt("code");
-            if (code == 0) {
-                HttpResult h = (HttpResult) adapter.fromJson(json);
-                return h.getData();
-            } else if (code == 20005) {
-                throw new TokenInvalidException();
+            HttpResult result = (HttpResult) adapter.fromJson(json);
+            if (result == null) {
+                throw new ApiException(HttpCode.CODE_10031.getCode());
+
+            } else if (result.isOk()) {
+                return result.getResult().getData();
             } else {
-                throw new ApiException("" + code);
+                throw new ApiException(result.getError_code() + "");
             }
-        } catch (IOException | JSONException | JsonSyntaxException e) {
-            throw new ApiException(HttpCode.CODE_30002.getCode());
+        } catch (IOException | JsonSyntaxException e) {
+            throw new ApiException(HttpCode.CODE_10031.getCode());
         } finally {
             if (value != null) {
                 value.close();

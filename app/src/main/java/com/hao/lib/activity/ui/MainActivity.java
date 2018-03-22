@@ -11,12 +11,11 @@ import com.zhy.adapter.recyclerview.CommonAdapter;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseListActivity<MainContract.Presenter>
-implements MainContract.View{
+        implements MainContract.View {
 
     @Override
-    protected void initMVP() {
-        mPresenter = new MainPresenter();
-        mPresenter.onCreate(this);
+    protected void initInject() {
+
     }
 
     @Override
@@ -26,6 +25,6 @@ implements MainContract.View{
 
     @Override
     protected CommonAdapter getAdapter() {
-        return new MainAdapter(this, R.layout.item_main,new ArrayList<News.DataBean>());
+        return new MainAdapter(this, R.layout.item_main, new ArrayList<News>());
     }
 }

@@ -9,12 +9,18 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.hao.lib.Constant;
 import com.hao.lib.base.mvp.APresenter;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -24,6 +30,7 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment<P extends APresenter> extends Fragment implements View.OnClickListener {
 
+    @Inject
     protected P mPresenter;
     protected Activity mActivity;
     private View mRootView;
@@ -36,7 +43,7 @@ public abstract class BaseFragment<P extends APresenter> extends Fragment implem
         mRootView = inflater.inflate(getLayoutId(), container, false);
         mUnbinder = ButterKnife.bind(this, mRootView);
         mActivity = getActivity();
-        initMVP();
+        initInject();
         initUI();
 
         initView();
@@ -84,7 +91,7 @@ public abstract class BaseFragment<P extends APresenter> extends Fragment implem
     protected abstract @LayoutRes
     int getLayoutId();
 
-    protected abstract void initMVP();
+    protected abstract void initInject();
 
     protected abstract void initView();
 
@@ -134,16 +141,33 @@ public abstract class BaseFragment<P extends APresenter> extends Fragment implem
     /**
      * Activity跳转----------------------------------------------------------------------------------
      */
-    public void gotoActivity(Intent intent) {
+    public void startActivity(Class<?> cls) {
+        startActivity(null, cls);
+    }
+
+    public void startActivity(Bundle bundle, Class<?> cls) {
+        Intent intent = new Intent(mActivity, cls);
+        if (bundle != null) {
+            intent.putExtra(Constant.EXTRA_BUNDLE, bundle);
+        }
         startActivity(intent);
     }
 
-    public void gotoActivityAndFinish(Intent intent) {
-        startActivity(intent);
+    public void startActivityAndFinish(Class<?> cls) {
+        startActivity(null, cls);
+        mActivity.finish();
+    }
+
+    public void startActivityAndFinish(Bundle bundle, Class<?> cls) {
+        startActivity(bundle, cls);
         mActivity.finish();
     }
 
     public void finishActivity() {
         mActivity.finish();
+    }
+
+    public Bundle getBundle() {
+        return getArguments();
     }
 }

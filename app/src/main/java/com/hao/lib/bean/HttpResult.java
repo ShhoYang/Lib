@@ -6,31 +6,57 @@ package com.hao.lib.bean;
 
 public class HttpResult<D> {
 
-    private int code;
-    private String desc;
-    private D data;
+    private String reason;
+    private Result result;
+    private int error_code;
 
-    public int getCode() {
-        return code;
+    public class Result {
+
+        private String stat;
+        private D data;
+
+        public String getStat() {
+            return stat;
+        }
+
+        public void setStat(String stat) {
+            this.stat = stat;
+        }
+
+        public D getData() {
+            return data;
+        }
+
+        public void setData(D data) {
+            this.data = data;
+        }
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public String getReason() {
+        return reason;
     }
 
-    public String getDesc() {
-        return desc;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public Result getResult() {
+        return result;
     }
 
-    public D getData() {
-        return data;
+    public void setResult(Result result) {
+        this.result = result;
     }
 
-    public void setData(D data) {
-        this.data = data;
+    public int getError_code() {
+        return error_code;
+    }
+
+    public void setError_code(int error_code) {
+        this.error_code = error_code;
+    }
+
+    public boolean isOk() {
+        return 0 == error_code;
     }
 }

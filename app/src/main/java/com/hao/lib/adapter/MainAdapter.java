@@ -13,14 +13,14 @@ import java.util.List;
  * @date 2018/3/16
  */
 
-public class MainAdapter extends CommonAdapter<News.DataBean> {
+public class MainAdapter extends CommonAdapter<News> {
 
-    public MainAdapter(Context context, int layoutId, List<News.DataBean> datas) {
+    public MainAdapter(Context context, int layoutId, List<News> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, News.DataBean dataBean, int position) {
+    protected void convert(ViewHolder holder, News news, int position) {
 
     }
 }

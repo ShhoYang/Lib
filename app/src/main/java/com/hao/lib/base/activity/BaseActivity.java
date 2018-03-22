@@ -8,6 +8,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -19,11 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hao.lib.Constant;
 import com.hao.lib.R;
 import com.hao.lib.base.mvp.APresenter;
 import com.hao.lib.utils.AppManager;
 import com.hao.lib.utils.DisplayUtils;
 import com.hao.lib.widget.StatusBarUtils;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +40,7 @@ import butterknife.Unbinder;
  */
 public abstract class BaseActivity<P extends APresenter> extends AppCompatActivity {
 
+    @Inject
     protected P mPresenter;
     protected Activity mContext;
     private Unbinder mUnbinder;
@@ -79,7 +84,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         mUnbinder = ButterKnife.bind(this);
         AppManager.getInstance().pushActivity(this);
         mContext = this;
-        initMVP();
+        initInject();
         initUI();
         initView();
         initData();
@@ -140,7 +145,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     protected abstract @LayoutRes
     int getLayoutId();
 
-    protected abstract void initMVP();
+    protected abstract void initInject();
 
     protected abstract void initView();
 
@@ -315,19 +320,46 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         mToast.show();
     }
 
+    public void toast(@StringRes int resId) {
+        toast(getString(resId));
+    }
+
     /**
      * Activity跳转------------------------------------------------------------------------------------
      */
-    public void gotoActivity(Intent intent) {
+    public void startActivity(Class<?> cls) {
+        startActivity(null, cls);
+    }
+
+    public void startActivity(Bundle bundle, Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        if (bundle != null) {
+            intent.putExtra(Constant.EXTRA_BUNDLE, bundle);
+        }
         startActivity(intent);
     }
 
-    public void gotoActivityAndFinish(Intent intent) {
-        startActivity(intent);
+    public void startActivityAndFinish(Class<?> cls) {
+        startActivity(null, cls);
+        finish();
+
+    }
+
+    public void startActivityAndFinish(Bundle bundle, Class<?> cls) {
+        startActivity(bundle, cls);
         finish();
     }
 
     public void finishActivity() {
         finish();
+    }
+
+    public Bundle getBundle() {
+        Intent intent = getIntent();
+        if (intent == null) {
+            return null;
+        }
+
+        return intent.getBundleExtra(Constant.EXTRA_BUNDLE);
     }
 }

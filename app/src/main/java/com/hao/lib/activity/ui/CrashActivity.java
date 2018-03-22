@@ -33,7 +33,7 @@ public class CrashActivity extends BaseActivity {
     }
 
     @Override
-    protected void initMVP() {
+    protected void initInject() {
 
     }
 

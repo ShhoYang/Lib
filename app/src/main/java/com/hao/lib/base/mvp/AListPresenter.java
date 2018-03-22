@@ -2,8 +2,15 @@ package com.hao.lib.base.mvp;
 
 import android.view.View;
 
+import com.hao.lib.rx.Api;
+import com.hao.lib.rx.RxSubscriber;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import io.reactivex.Observable;
 
 /**
  * @author Yang Shihao
@@ -15,6 +22,10 @@ public abstract class AListPresenter<V extends IListView, D> extends APresenter<
     protected List<D> mDataList = new ArrayList<>();
     protected int mPage = 1;
     protected boolean mIsRefresh = false;
+
+    public AListPresenter(V view, Api api) {
+        super(view, api);
+    }
 
     @Override
     public void onDestroy() {
@@ -44,6 +55,21 @@ public abstract class AListPresenter<V extends IListView, D> extends APresenter<
                 mView.noMoreData();
             }
         }
+    }
+
+    public void setObservable(Observable<List<D>> observable) {
+        addRx2Destroy(new RxSubscriber<List<D>>(observable) {
+            @Override
+            protected void _onNext(List<D> ds) {
+                setDataList(ds);
+            }
+
+            @Override
+            protected void _onError(String code) {
+                super._onError(code);
+                mView.loadError();
+            }
+        });
     }
 
     protected void clear() {

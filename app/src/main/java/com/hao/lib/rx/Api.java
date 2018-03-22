@@ -4,6 +4,8 @@ package com.hao.lib.rx;
 import com.hao.lib.App;
 import com.hao.lib.bean.News;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
@@ -22,7 +24,7 @@ public class Api {
         this.apiService = apiService;
     }
 
-    public Observable<News> getNews(String type) {
+    public Observable<List<News>> getNews(String type) {
 
         return apiService.getNews(App.KEY, App.TYEP);
     }

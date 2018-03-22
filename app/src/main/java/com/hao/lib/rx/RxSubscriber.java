@@ -55,7 +55,7 @@ public abstract class RxSubscriber<D> {
                         || throwable instanceof SocketTimeoutException
                         || throwable instanceof ConnectException
                         || throwable instanceof UnknownHostException) {
-                    _onError(HttpCode.CODE_30001.getCode());
+                    _onError(HttpCode.CODE_10031.getCode());
                 } else if (throwable instanceof ApiException) {
                     _onError(throwable.getMessage());
                 } else {

@@ -1,7 +1,7 @@
 package com.hao.lib.rx;
 
 
-import com.hao.lib.App;
+import com.hao.lib.Constant;
 import com.hao.lib.bean.News;
 
 import java.util.List;
@@ -15,8 +15,6 @@ import io.reactivex.Observable;
  */
 public class Api {
 
-    String BASE_URL = "http://v.juhe.cn/toutiao/";
-
     private ApiService apiService= null;
 
     @Inject
@@ -26,7 +24,7 @@ public class Api {
 
     public Observable<List<News>> getNews(String type) {
 
-        return apiService.getNews(App.KEY, App.TYEP);
+        return apiService.getNews(Constant.KEY, Constant.TYEP).compose(RxSchedulers.<List<News>>io_main());
     }
 }
 

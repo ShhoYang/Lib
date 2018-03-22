@@ -22,6 +22,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 
 /**
@@ -32,9 +34,12 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
 
     @BindView(R.id.base_recycler_view)
     RecyclerView mRecyclerView;
+
     @BindView(R.id.base_refresh_view)
     SmartRefreshLayout mRefreshLayout;
 
+    @Inject
+    MultiItemTypeAdapter mMultiItemTypeAdapter;
     private TextView mTvEmptyView;
     private EmptyWrapper mAdapter;
     private boolean mIsRefresh = false;
@@ -76,9 +81,8 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
     protected void initUI() {
         super.initUI();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        MultiItemTypeAdapter multiItemTypeAdapter = getAdapter();
-        multiItemTypeAdapter.setOnItemClickListener(this);
-        mAdapter = new EmptyWrapper(multiItemTypeAdapter);
+        mMultiItemTypeAdapter.setOnItemClickListener(this);
+        mAdapter = new EmptyWrapper(mMultiItemTypeAdapter);
         LinearLayout emptyView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.empty_view,
                 mRecyclerView, false);
         mTvEmptyView = $(emptyView, R.id.base_tv_empty);
@@ -93,7 +97,7 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
         mRefreshLayout.autoRefresh();
     }
 
-    protected abstract MultiItemTypeAdapter getAdapter();
+    //protected abstract MultiItemTypeAdapter getAdapter();
 
     /**
      * 是否可以下拉刷新,默认true

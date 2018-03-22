@@ -108,7 +108,7 @@
         <item name="android:layout_width">@dimen/title_height</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:foreground">@drawable/foreground</item>
-        <item name="android:padding">@dimen/margin_l</item>
+        <item name="android:padding">15dp</item>
         <item name="android:visibility">gone</item>
     </style>
 

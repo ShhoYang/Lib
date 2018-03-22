@@ -1,8 +1,15 @@
 package com.hao.lib.di.module.activity;
 
+import android.content.Context;
+
+import com.hao.lib.R;
 import com.hao.lib.activity.contract.MainContract;
 import com.hao.lib.activity.presenter.MainPresenter;
+import com.hao.lib.activity.ui.MainActivity;
+import com.hao.lib.adapter.MainAdapter;
+import com.hao.lib.di.scope.ActivityScope;
 import com.hao.lib.rx.Api;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,24 +21,22 @@ import dagger.Provides;
 @Module
 public class MainModule {
 
-    MainContract.View mView;
+    final Context mContext;
+    final MainContract.View mView;
 
-    public MainModule(MainContract.View view) {
+    public MainModule(MainActivity view) {
         mView = view;
+        mContext = view;
     }
 
     @Provides
-    MainContract.View provideView() {
-        return mView;
+    @ActivityScope
+    MainPresenter provideMainPresenter(Api api) {
+        return new MainPresenter(mView, api);
     }
 
     @Provides
-    Api provideApi() {
-        return new Api(null);
-    }
-
-    @Provides
-    MainPresenter providePresenter(MainContract.View view, Api api) {
-        return new MainPresenter(view, api);
+    MultiItemTypeAdapter provideMainAdapter(MainPresenter mainPresenter) {
+        return new MainAdapter(mContext, R.layout.item_main, mainPresenter.getDataList());
     }
 }

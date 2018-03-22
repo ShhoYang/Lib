@@ -1,12 +1,9 @@
 package com.hao.lib.di.module;
 
-import android.content.Context;
-
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.hao.lib.App;
-import com.hao.lib.rx.Api;
 import com.hao.lib.rx.ApiService;
 import com.hao.lib.rx.gson.GsonConverterFactory;
 import com.hao.lib.rx.porxy.HttpProxyHandler;
@@ -41,19 +38,19 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public Context provideApplication() {
+     App provideApplication() {
         return mApplication;
     }
 
     @Provides
     @Singleton
-    public PersistentCookieJar providePersistentCookieJar() {
+     PersistentCookieJar providePersistentCookieJar() {
         return new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(mApplication));
     }
 
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient(PersistentCookieJar cookieJar) {
+     OkHttpClient provideOkHttpClient(PersistentCookieJar cookieJar) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
@@ -72,7 +69,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public ApiService provideApiService(OkHttpClient okHttpClient){
+     ApiService provideApi(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -84,11 +81,6 @@ public class AppModule {
         ApiService apiService = retrofit.create(ApiService.class);
         proxyHandler.setProxyObject(apiService);
         return (ApiService) Proxy.newProxyInstance(ApiService.class.getClassLoader(), new Class<?>[]{ApiService.class}, proxyHandler);
-    }
-
-    @Provides
-    @Singleton
-    public Api provideApi(ApiService apiService) {
-        return new Api(apiService);
+        //return new Api(apiService1);
     }
 }

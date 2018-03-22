@@ -1,11 +1,12 @@
 package com.hao.lib.rx.gson;
 
+import android.text.TextUtils;
+
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.hao.lib.bean.HttpResult;
 import com.hao.lib.rx.HttpCode;
 import com.hao.lib.rx.exception.ApiException;
-import com.hao.lib.rx.exception.TokenInvalidException;
 import com.socks.library.KLog;
 
 import org.json.JSONException;
@@ -29,17 +30,22 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, Obje
         try {
             String json = new String(value.bytes());
             KLog.json("json----------", json);
-            HttpResult result = (HttpResult) adapter.fromJson(json);
-            if (result == null) {
+            JSONObject jsonObject = new JSONObject(json);
+            String code = jsonObject.optString("error_code", HttpCode.CODE_10031.getCode());
+            if (!"0".equals(code)) {
                 throw new ApiException(HttpCode.CODE_10031.getCode());
-
-            } else if (result.isOk()) {
-                return result.getResult().getData();
-            } else {
-                throw new ApiException(result.getError_code() + "");
             }
-        } catch (IOException | JsonSyntaxException e) {
+            String data = jsonObject.optString("result");
+            if (TextUtils.isEmpty(data)) {
+                throw new ApiException(HttpCode.CODE_10031.getCode());
+            }
+
+            HttpResult httpResult = (HttpResult) adapter.fromJson(data);
+            return httpResult.getData();
+
+        } catch (IOException | JSONException | JsonSyntaxException e) {
             throw new ApiException(HttpCode.CODE_10031.getCode());
+
         } finally {
             if (value != null) {
                 value.close();

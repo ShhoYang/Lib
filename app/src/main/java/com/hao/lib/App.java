@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
 
-import com.hao.lib.activity.ui.CrashActivity;
-import com.hao.lib.activity.ui.MainActivity;
+import com.hao.lib.mvp.ui.activity.CrashActivity;
+import com.hao.lib.mvp.ui.activity.MainActivity;
 import com.hao.lib.di.component.AppComponent;
 import com.hao.lib.di.component.DaggerAppComponent;
 import com.hao.lib.di.module.AppModule;
@@ -28,11 +28,14 @@ import cat.ereza.customactivityoncrash.config.CaocConfig;
 
 public class App extends MultiDexApplication {
 
-    private AppComponent mAppComponent;
+    private static App mApp;
+    private static AppComponent mAppComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        mApp = this;
 
         CaocConfig.Builder.create()
                 .restartActivity(MainActivity.class)
@@ -44,7 +47,12 @@ public class App extends MultiDexApplication {
                 .build();
     }
 
-    public AppComponent getAppComponent() {
+
+    public static App getApplication(){
+        return mApp;
+    }
+
+    public static AppComponent getAppComponent() {
         return mAppComponent;
     }
 

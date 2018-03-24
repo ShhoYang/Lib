@@ -1,4 +1,4 @@
-package com.hao.lib.activity.contract;
+package com.hao.lib.mvp.contract.fragment;
 
 import com.hao.lib.base.mvp.AListPresenter;
 import com.hao.lib.base.mvp.IListView;

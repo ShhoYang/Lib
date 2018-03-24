@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +49,10 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     private ProgressDialog mDialog;
 
     @Nullable
+    @BindView(R.id.base_rl_title)
+    RelativeLayout mRlTitle;
+
+    @Nullable
     @BindView(R.id.base_iv_left)
     ImageView mIvLeft;
 
@@ -66,7 +72,6 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     @BindView(R.id.base_tv_right)
     TextView mTvRight;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +84,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         } else {
             setContentView(R.layout.activity_base);
             createUI();
-            StatusBarUtils.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
+            //StatusBarUtils.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
         }
         mUnbinder = ButterKnife.bind(this);
         AppManager.getInstance().pushActivity(this);
@@ -171,6 +176,17 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         } else {
             mIvLeft.setVisibility(View.GONE);
         }
+    }
+
+
+    /**
+     * 设置Title背景颜色
+     */
+    protected void setTitleBackground(@ColorInt int color) {
+        if (mRlTitle == null) {
+            return;
+        }
+        mRlTitle.setBackgroundColor(color);
     }
 
     /**

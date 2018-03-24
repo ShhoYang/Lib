@@ -97,8 +97,6 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
         mRefreshLayout.autoRefresh();
     }
 
-    //protected abstract MultiItemTypeAdapter getAdapter();
-
     /**
      * 是否可以下拉刷新,默认true
      */

@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -28,7 +26,7 @@ import butterknife.Unbinder;
 /**
  * @author Yang Shihao
  */
-public abstract class BaseFragment<P extends APresenter> extends Fragment implements View.OnClickListener {
+public abstract class BaseFragment<P extends APresenter> extends Fragment {
 
     @Inject
     protected P mPresenter;
@@ -136,6 +134,10 @@ public abstract class BaseFragment<P extends APresenter> extends Fragment implem
         }
         mToast.setDuration(Toast.LENGTH_SHORT);
         mToast.show();
+    }
+
+    public void toast(@StringRes int resId) {
+        toast(getString(resId));
     }
 
     /**

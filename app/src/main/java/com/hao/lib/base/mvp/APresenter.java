@@ -3,8 +3,6 @@ package com.hao.lib.base.mvp;
 import com.hao.lib.rx.Api;
 import com.hao.lib.rx.RxSubscriber;
 
-import javax.inject.Inject;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -23,9 +21,11 @@ public class APresenter<V extends IView> {
     public APresenter(V view, Api api) {
         mView = view;
         mApi = api;
+
+        initBundle();
     }
 
-    public void initBundle() {
+    protected void initBundle() {
 
     }
 

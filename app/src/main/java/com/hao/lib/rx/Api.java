@@ -24,7 +24,7 @@ public class Api {
 
     public Observable<List<News>> getNews(String type) {
 
-        return apiService.getNews(Constant.KEY, Constant.TYEP).compose(RxSchedulers.<List<News>>io_main());
+        return apiService.getNews(Constant.API_KEY, type).compose(RxSchedulers.<List<News>>io_main());
     }
 }
 

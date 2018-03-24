@@ -8,8 +8,6 @@ import com.hao.lib.rx.RxSubscriber;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import io.reactivex.Observable;
 
 /**

@@ -6,6 +6,7 @@
 
 
     //title
+    <item name="base_rl_title" type="id"/>
     <item name="base_iv_left" type="id"/>
     <item name="base_tv_left" type="id"/>
     <item name="base_tv_title" type="id"/>

@@ -35,7 +35,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.ui.MainActivity"
+            android:name=".mvp.ui.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,10 +44,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ui.CrashActivity"
+            android:name=".mvp.ui.activity.CrashActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ui.PreviewImageActivity"
+            android:name=".mvp.ui.activity.PreviewImageActivity"
             android:screenOrientation="portrait" />
     </application>
 

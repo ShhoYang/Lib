@@ -1,13 +1,12 @@
-package com.hao.lib.di.module.activity;
+package com.hao.lib.di.module.fragment;
 
-import android.content.Context;
+import android.app.Activity;
 
 import com.hao.lib.R;
-import com.hao.lib.activity.contract.MainContract;
-import com.hao.lib.activity.presenter.MainPresenter;
-import com.hao.lib.activity.ui.MainActivity;
 import com.hao.lib.adapter.MainAdapter;
-import com.hao.lib.di.scope.ActivityScope;
+import com.hao.lib.di.scope.FragmentScope;
+import com.hao.lib.mvp.contract.fragment.MainContract;
+import com.hao.lib.mvp.presenter.fragment.MainPresenter;
 import com.hao.lib.rx.Api;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
@@ -21,22 +20,22 @@ import dagger.Provides;
 @Module
 public class MainModule {
 
-    final Context mContext;
+    final Activity mActivity;
     final MainContract.View mView;
 
-    public MainModule(MainActivity view) {
+    public MainModule(Activity activity, MainContract.View view) {
+        mActivity = activity;
         mView = view;
-        mContext = view;
     }
 
     @Provides
-    @ActivityScope
+    @FragmentScope
     MainPresenter provideMainPresenter(Api api) {
         return new MainPresenter(mView, api);
     }
 
     @Provides
     MultiItemTypeAdapter provideMainAdapter(MainPresenter mainPresenter) {
-        return new MainAdapter(mContext, R.layout.item_main, mainPresenter.getDataList());
+        return new MainAdapter(mActivity, R.layout.item_main, mainPresenter.getDataList());
     }
 }

@@ -1,4 +1,4 @@
-package com.hao.lib.activity.ui;
+package com.hao.lib.mvp.ui.activity;
 
 import android.Manifest;
 import android.content.pm.PackageInfo;

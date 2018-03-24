@@ -1,4 +1,4 @@
-package com.hao.lib.activity.ui;
+package com.hao.lib.mvp.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;

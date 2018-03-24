@@ -1,5 +1,6 @@
 package com.hao.lib.base.activity;
 
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -21,7 +22,7 @@ import butterknife.Optional;
 /**
  * @author Yang Shihao
  */
-public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseActivity<P> {
+public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseActivity<P> implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.base_tab_layout)
     TabLayout mTabLayout;
@@ -59,6 +60,7 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
     protected void initUI() {
         super.initUI();
         mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -74,6 +76,10 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
 
     protected void setPageLimit(int limit) {
         mViewPager.setOffscreenPageLimit(limit);
+    }
+
+    protected void setTabLayoutBackground(@ColorInt int color) {
+        mTabLayout.setBackgroundColor(color);
     }
 
     public void setViewPagerData(String[] titles, Fragment[] fragments) {
@@ -111,4 +117,19 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
     protected abstract String[] getTitles();
 
     protected abstract Fragment[] getFragments();
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }

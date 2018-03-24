@@ -33,7 +33,7 @@ ext {
     minSdkVersion = 15
     targetSdkVersion = 27
 
-    supportLibraryVersion = '27.0.2'
+    supportLibraryVersion = '27.1.0'
     butterknifeVersion = '8.8.1'
     daggerVersion = '2.4'
 }

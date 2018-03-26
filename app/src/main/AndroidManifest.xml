@@ -35,6 +35,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:theme="@style/MainTheme"
             android:name=".mvp.ui.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>

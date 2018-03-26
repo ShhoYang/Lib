@@ -80,11 +80,11 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
             setContentView(getLayoutId());
         } else if (!hasToolbar()) {
             setContentView(getLayoutId());
-            StatusBarUtils.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
+            setStatsBarColor();
         } else {
             setContentView(R.layout.activity_base);
             createUI();
-            //StatusBarUtils.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
+            setStatsBarColor();
         }
         mUnbinder = ButterKnife.bind(this);
         AppManager.getInstance().pushActivity(this);
@@ -133,6 +133,10 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     private void createUI() {
         LinearLayout activity = $(R.id.activity_base);
         View.inflate(this, getLayoutId(), activity);
+    }
+
+    protected void setStatsBarColor() {
+        StatusBarUtils.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
     }
 
     protected void initUI() {

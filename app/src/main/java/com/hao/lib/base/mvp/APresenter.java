@@ -33,30 +33,56 @@ public class APresenter<V extends IView> {
      * 网络请求控制在生命周期OnStop
      */
     public void addRx2Stop(RxSubscriber rxSubscriber) {
-        add(mDisposableStop, rxSubscriber);
+        Disposable subscribe = rxSubscriber.getSubscribe();
+        if (subscribe != null && !subscribe.isDisposed()) {
+            if (mDisposableStop == null) {
+                mDisposableStop = new CompositeDisposable();
+            }
+            mDisposableStop.add(subscribe);
+        }
     }
 
     public void addRx2Stop(Disposable disposable) {
-        add(mDisposableStop, disposable);
+        if (disposable != null && !disposable.isDisposed()) {
+            if (mDisposableStop == null) {
+                mDisposableStop = new CompositeDisposable();
+            }
+            mDisposableStop.add(disposable);
+        }
     }
 
     public void onStop() {
-        clear(mDisposableStop);
+        if (mDisposableStop != null && !mDisposableStop.isDisposed()) {
+            mDisposableStop.clear();
+        }
     }
 
     /**
      * 网络请求控制在生命周期onDestroy
      */
     public void addRx2Destroy(RxSubscriber rxSubscriber) {
-        add(mDisposableDestroy, rxSubscriber);
+        Disposable subscribe = rxSubscriber.getSubscribe();
+        if (subscribe != null && !subscribe.isDisposed()) {
+            if (mDisposableDestroy == null) {
+                mDisposableDestroy = new CompositeDisposable();
+            }
+            mDisposableDestroy.add(subscribe);
+        }
     }
 
     public void addRx2Destroy(Disposable disposable) {
-        add(mDisposableDestroy, disposable);
+        if (disposable != null && !disposable.isDisposed()) {
+            if (mDisposableDestroy == null) {
+                mDisposableDestroy = new CompositeDisposable();
+            }
+            mDisposableDestroy.add(disposable);
+        }
     }
 
     public void onDestroy() {
-        clear(mDisposableDestroy);
+        if (mDisposableDestroy != null && !mDisposableDestroy.isDisposed()) {
+            mDisposableDestroy.clear();
+        }
         mView = null;
     }
 
@@ -65,31 +91,5 @@ public class APresenter<V extends IView> {
             mDisposableDestroy = new CompositeDisposable();
         }
         return mDisposableDestroy;
-    }
-
-    private void add(CompositeDisposable compositeDisposable, RxSubscriber rxSubscriber) {
-        Disposable subscribe = rxSubscriber.getSubscribe();
-        if (subscribe != null && !subscribe.isDisposed()) {
-            if (compositeDisposable == null) {
-                compositeDisposable = new CompositeDisposable();
-            }
-            compositeDisposable.add(subscribe);
-        }
-    }
-
-    private void add(CompositeDisposable compositeDisposable, Disposable disposable) {
-
-        if (disposable != null && !disposable.isDisposed()) {
-            if (compositeDisposable == null) {
-                compositeDisposable = new CompositeDisposable();
-            }
-            compositeDisposable.add(disposable);
-        }
-    }
-
-    private void clear(CompositeDisposable compositeDisposable) {
-        if (compositeDisposable != null && !compositeDisposable.isDisposed()) {
-            compositeDisposable.clear();
-        }
     }
 }

@@ -1,25 +1,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <!--<item name="android:windowIsTranslucent">true</item>-->
-
-        <item name="android:textAllCaps">false</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme" parent="BaseTheme">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="MainTheme" parent="BaseTheme">
+        <item name="colorPrimaryDark">@color/holo_blue_light</item>
         <item name="android:windowBackground">@color/white</item>
     </style>
 
@@ -61,9 +55,9 @@
         <!--图片列表底部背景色-->
         <item name="picture.bottom.bg">@color/white</item>
         <!--图片列表预览文字颜色-->
-        <item name="picture.preview.textColor">@color/darker_gray</item>
+        <item name="picture.preview.textColor">@color/gray_dark</item>
         <!--图片列表已完成文字颜色-->
-        <item name="picture.complete.textColor">@color/darker_gray</item>
+        <item name="picture.complete.textColor">@color/gray_dark</item>
         <!--图片已选数量圆点背景色-->
         <item name="picture.num.style">@drawable/num_oval</item>
         <!--预览界面标题文字颜色-->

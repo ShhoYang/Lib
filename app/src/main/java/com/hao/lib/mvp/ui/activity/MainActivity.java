@@ -11,11 +11,6 @@ import com.hao.lib.widget.StatusBarUtils;
 
 public class MainActivity extends BaseViewPagerActivity {
 
-
-    @Override
-    protected void setStatsBarColor() {
-    }
-
     @Override
     protected void initInject() {
 
@@ -25,7 +20,7 @@ public class MainActivity extends BaseViewPagerActivity {
     protected void initView() {
         showBack(false);
         setTitle("新闻");
-        setColor(new ArgbEvaluator(), 0, R.color.holo_blue_light, R.color.holo_green_light);
+        setColor(0, R.color.holo_blue_light, R.color.holo_green_light);
     }
 
     @Override
@@ -49,41 +44,43 @@ public class MainActivity extends BaseViewPagerActivity {
 
         int pos = position % 5;
 
-        ArgbEvaluator evaluator = new ArgbEvaluator();
+
         if (pos == 0) {
-            setColor(evaluator, positionOffset, R.color.holo_blue_light, R.color.holo_green_light);
+            setColor(positionOffset, R.color.holo_blue_light, R.color.holo_green_light);
 
         } else if (0 < pos && pos < 1) {
-            setColor(evaluator, positionOffset, R.color.holo_green_light, R.color.holo_blue_light);
+            setColor(positionOffset, R.color.holo_green_light, R.color.holo_blue_light);
 
         } else if (pos == 1) {
-            setColor(evaluator, positionOffset, R.color.holo_green_light, R.color.holo_purple);
+            setColor(positionOffset, R.color.holo_green_light, R.color.holo_purple);
 
         } else if (1 < pos && pos < 2) {
-            setColor(evaluator, positionOffset, R.color.holo_purple, R.color.holo_green_light);
+            setColor(positionOffset, R.color.holo_purple, R.color.holo_green_light);
 
         } else if (pos == 2) {
-            setColor(evaluator, positionOffset, R.color.holo_purple, R.color.holo_orange_light);
+            setColor(positionOffset, R.color.holo_purple, R.color.holo_orange_light);
 
         } else if (2 < pos && pos < 3) {
-            setColor(evaluator, positionOffset, R.color.holo_orange_light, R.color.holo_purple);
+            setColor(positionOffset, R.color.holo_orange_light, R.color.holo_purple);
 
         } else if (pos == 3) {
-            setColor(evaluator, positionOffset, R.color.holo_orange_light, R.color.holo_red_light);
+            setColor(positionOffset, R.color.holo_orange_light, R.color.holo_red_light);
 
         } else if (3 < pos && pos < 4) {
-            setColor(evaluator, positionOffset, R.color.holo_red_light, R.color.holo_orange_light);
+            setColor(positionOffset, R.color.holo_red_light, R.color.holo_orange_light);
 
         } else if (pos == 4) {
-            setColor(evaluator, positionOffset, R.color.holo_red_light, R.color.holo_blue_light);
+            setColor(positionOffset, R.color.holo_red_light, R.color.holo_blue_light);
 
         } else if (4 < pos && pos < 5) {
-            setColor(evaluator, positionOffset, R.color.holo_blue_light, R.color.holo_red_light);
+            setColor(positionOffset, R.color.holo_blue_light, R.color.holo_red_light);
         }
     }
 
-    public void setColor(ArgbEvaluator evaluator, float positionOffset, int color, int nextColor) {
-        int evaluate = (Integer) evaluator.evaluate(positionOffset, getResources().getColor(color), getResources().getColor(nextColor));
+    private ArgbEvaluator mEvaluator = new ArgbEvaluator();
+
+    public void setColor(float positionOffset, int color, int nextColor) {
+        int evaluate = (Integer) mEvaluator.evaluate(positionOffset, getResources().getColor(color), getResources().getColor(nextColor));
         StatusBarUtils.setColor(this, evaluate);
         setTitleBackground(evaluate);
         setTabLayoutBackground(evaluate);

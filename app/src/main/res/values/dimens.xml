@@ -19,6 +19,6 @@
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="menu_bottom_dialog_item_height">44dp</dimen>
     <dimen name="menu_popup_window_item_height">40dp</dimen>
-    <dimen name="statusbar_view_height">0dp</dimen>
+    <dimen name="status_bar_view_height">0dp</dimen>
 
 </resources>

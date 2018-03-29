@@ -1,4 +1,4 @@
-package com.hao.lib.widget;
+package com.hao.lib.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -55,12 +55,12 @@ public class ClearEditView extends LinearLayout {
             return;
         }
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ClearEditView);
-        mTextColor = typedArray.getColor(R.styleable.ClearEditView_text_color, mTextColor);
-        mTextSize = typedArray.getDimensionPixelSize(R.styleable.ClearEditView_text_size, DisplayUtils.sp2px(context, 16));
-        mMaxLength = typedArray.getInteger(R.styleable.ClearEditView_max_length, mMaxLength);
-        mHint = typedArray.getString(R.styleable.ClearEditView_text_hint);
+        mTextColor = typedArray.getColor(R.styleable.ClearEditView_textColor, mTextColor);
+        mTextSize = typedArray.getDimensionPixelSize(R.styleable.ClearEditView_textSize, DisplayUtils.sp2px(context, 16));
+        mMaxLength = typedArray.getInteger(R.styleable.ClearEditView_maxLength, mMaxLength);
+        mHint = typedArray.getString(R.styleable.ClearEditView_hint);
         mIconId = typedArray.getResourceId(R.styleable.ClearEditView_icon, mIconId);
-        mInputType = typedArray.getInteger(R.styleable.ClearEditView_input_type, mInputType);
+        mInputType = typedArray.getInteger(R.styleable.ClearEditView_inputType, mInputType);
         typedArray.recycle();
     }
 

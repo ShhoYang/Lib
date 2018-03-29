@@ -1,4 +1,4 @@
-package com.hao.lib.widget;
+package com.hao.lib.view;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

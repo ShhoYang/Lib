@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,7 +28,7 @@ import com.hao.lib.R;
 import com.hao.lib.base.mvp.APresenter;
 import com.hao.lib.utils.AppManager;
 import com.hao.lib.utils.DisplayUtils;
-import com.hao.lib.widget.StatusBarUtils;
+import com.hao.lib.view.StatusBarUtils;
 
 import javax.inject.Inject;
 
@@ -76,14 +77,16 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (fullScreen()) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            //requestWindowFeature(Window.FEATURE_NO_TITLE);
+            //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             setContentView(getLayoutId());
         } else if (!hasToolbar()) {
             setContentView(getLayoutId());
             setStatsBarColor();
         } else {
             setContentView(R.layout.activity_base);
-            createUI();
+            LinearLayout activity = $(R.id.activity_base);
+            View.inflate(this, getLayoutId(), activity);
             setStatsBarColor();
         }
         mUnbinder = ButterKnife.bind(this);
@@ -128,11 +131,6 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
             mUnbinder.unbind();
         }
         AppManager.getInstance().popActivity(this);
-    }
-
-    private void createUI() {
-        LinearLayout activity = $(R.id.activity_base);
-        View.inflate(this, getLayoutId(), activity);
     }
 
     protected void setStatsBarColor() {

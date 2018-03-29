@@ -7,7 +7,7 @@ import com.hao.lib.Constant;
 import com.hao.lib.R;
 import com.hao.lib.base.activity.BaseViewPagerActivity;
 import com.hao.lib.mvp.ui.fragment.MainFragment;
-import com.hao.lib.widget.StatusBarUtils;
+import com.hao.lib.view.StatusBarUtils;
 
 public class MainActivity extends BaseViewPagerActivity {
 

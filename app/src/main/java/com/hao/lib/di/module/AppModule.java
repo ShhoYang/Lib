@@ -4,6 +4,7 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.hao.lib.App;
+import com.hao.lib.rx.Api;
 import com.hao.lib.rx.ApiService;
 import com.hao.lib.rx.gson.GsonConverterFactory;
 import com.hao.lib.rx.porxy.HttpProxyHandler;
@@ -38,19 +39,19 @@ public class AppModule {
 
     @Provides
     @Singleton
-     App provideApplication() {
+    App provideApplication() {
         return mApplication;
     }
 
     @Provides
     @Singleton
-     PersistentCookieJar providePersistentCookieJar() {
+    PersistentCookieJar providePersistentCookieJar() {
         return new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(mApplication));
     }
 
     @Provides
     @Singleton
-     OkHttpClient provideOkHttpClient(PersistentCookieJar cookieJar) {
+    OkHttpClient provideOkHttpClient(PersistentCookieJar cookieJar) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
@@ -69,7 +70,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-     ApiService provideApi(OkHttpClient okHttpClient) {
+    ApiService provideApiService(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -78,9 +79,15 @@ public class AppModule {
                 .client(okHttpClient)
                 .build();
         HttpProxyHandler proxyHandler = new HttpProxyHandler(mApplication);
-        ApiService apiService = retrofit.create(ApiService.class);
+        Class<ApiService> apiServiceClass = ApiService.class;
+        ApiService apiService = retrofit.create(apiServiceClass);
         proxyHandler.setProxyObject(apiService);
-        return (ApiService) Proxy.newProxyInstance(ApiService.class.getClassLoader(), new Class<?>[]{ApiService.class}, proxyHandler);
-        //return new Api(apiService1);
+        return (ApiService) Proxy.newProxyInstance(apiServiceClass.getClassLoader(), new Class<?>[]{apiServiceClass}, proxyHandler);
+    }
+
+    @Provides
+    @Singleton
+    Api provideApi(ApiService apiService) {
+        return new Api(apiService);
     }
 }

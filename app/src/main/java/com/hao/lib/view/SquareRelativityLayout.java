@@ -1,4 +1,4 @@
-package com.hao.lib.widget;
+package com.hao.lib.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

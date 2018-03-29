@@ -1,10 +1,12 @@
 package com.hao.lib.mvp.presenter.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.hao.lib.Constant;
 import com.hao.lib.mvp.contract.fragment.MainContract;
 import com.hao.lib.rx.Api;
+import com.socks.library.KLog;
 
 /**
  * @author Yang Shihao
@@ -12,10 +14,13 @@ import com.hao.lib.rx.Api;
 
 public class MainPresenter extends MainContract.Presenter {
 
+    private static final String TAG = "MainPresenter";
+
     private String mType;
 
     public MainPresenter(MainContract.View view, Api api) {
         super(view, api);
+        KLog.d(TAG, "MainPresenter: " + api.hashCode());
     }
 
     @Override

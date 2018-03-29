@@ -1,4 +1,4 @@
-package com.hao.lib.widget;
+package com.hao.lib.view;
 
 import android.app.Activity;
 import android.content.Context;

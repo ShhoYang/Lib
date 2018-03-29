@@ -17,7 +17,6 @@ public class Api {
 
     private ApiService apiService= null;
 
-    @Inject
     public Api(ApiService apiService) {
         this.apiService = apiService;
     }

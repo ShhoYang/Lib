@@ -1,4 +1,4 @@
-package com.hao.lib.widget;
+package com.hao.lib.view;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -58,10 +58,10 @@ public class TabView extends LinearLayout {
             return;
         }
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabView);
-        mIconId = typedArray.getResourceId(R.styleable.TabView_tab_icon, mIconId);
-        mText = typedArray.getString(R.styleable.TabView_tab_text);
-        mTextColor = typedArray.getResourceId(R.styleable.TabView_tab_color, mTextColor);
-        mSelected = typedArray.getBoolean(R.styleable.TabView_tab_selected, false);
+        mIconId = typedArray.getResourceId(R.styleable.TabView_icon, mIconId);
+        mText = typedArray.getString(R.styleable.TabView_text);
+        mTextColor = typedArray.getResourceId(R.styleable.TabView_textColor, mTextColor);
+        mSelected = typedArray.getBoolean(R.styleable.TabView_selected, false);
     }
 
     public TabView setFragment(Fragment fragment) {

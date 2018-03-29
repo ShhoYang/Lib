@@ -8,6 +8,7 @@ import com.hao.lib.di.scope.FragmentScope;
 import com.hao.lib.mvp.contract.fragment.MainContract;
 import com.hao.lib.mvp.presenter.fragment.MainPresenter;
 import com.hao.lib.rx.Api;
+import com.socks.library.KLog;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import dagger.Module;
@@ -20,6 +21,8 @@ import dagger.Provides;
 @Module
 public class MainModule {
 
+    private static final String TAG = "MainModule";
+
     final Activity mActivity;
     final MainContract.View mView;
 
@@ -31,6 +34,7 @@ public class MainModule {
     @Provides
     @FragmentScope
     MainPresenter provideMainPresenter(Api api) {
+        KLog.d(TAG, "provideMainPresenter: " + api.hashCode());
         return new MainPresenter(mView, api);
     }
 

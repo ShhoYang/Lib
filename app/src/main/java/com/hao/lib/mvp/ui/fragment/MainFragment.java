@@ -1,6 +1,8 @@
 package com.hao.lib.mvp.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.hao.lib.App;
 import com.hao.lib.Constant;
@@ -9,6 +11,7 @@ import com.hao.lib.di.component.fragment.DaggerMainComponent;
 import com.hao.lib.di.module.fragment.MainModule;
 import com.hao.lib.mvp.contract.fragment.MainContract;
 import com.hao.lib.mvp.presenter.fragment.MainPresenter;
+import com.hao.lib.mvp.ui.activity.DetailsActivity;
 
 public class MainFragment extends BaseListFragment<MainPresenter>
         implements MainContract.View {
@@ -33,5 +36,10 @@ public class MainFragment extends BaseListFragment<MainPresenter>
     @Override
     protected void initView() {
         setDefaultItemDecoration();
+    }
+
+    @Override
+    public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+        startActivity(DetailsActivity.class);
     }
 }

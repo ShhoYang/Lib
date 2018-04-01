@@ -1,6 +1,7 @@
 package com.hao.lib.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.hao.lib.R;
@@ -23,8 +24,16 @@ public class MainAdapter extends CommonAdapter<News> {
     }
 
     @Override
-    protected void convert(ViewHolder holder, News news, int position) {
+    protected void convert(final ViewHolder holder, News news, final int position) {
         holder.setText(R.id.tv_,news.getTitle());
-        ImageManager.getInstance().loadImage(mContext,news.getThumbnail_pic_s(), (ImageView) holder.getView(R.id.iv_));
+        ImageManager.getInstance().loadImage(mContext,R.mipmap.motto, (ImageView) holder.getView(R.id.iv_));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mOnItemClickListener!= null){
+                    mOnItemClickListener.onItemClick(holder.getView(R.id.iv_),null,position);
+                }
+            }
+        });
     }
 }

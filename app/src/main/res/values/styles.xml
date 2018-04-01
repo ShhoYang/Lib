@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme" parent="BaseTheme">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
     <style name="FullscreenTheme" parent="BaseTheme">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -15,8 +19,7 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="AppTheme" parent="BaseTheme">
-        <item name="android:windowBackground">@color/white</item>
+    <style name="StatusBarTransparentTheme" parent="AppTheme">
     </style>
 
     <style name="WelcomeTheme" parent="FullscreenTheme">
@@ -98,9 +101,10 @@
     <style name="AppTitleText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/title_height</item>
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
+
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
@@ -108,7 +112,7 @@
 
     <style name="AppTitleMenu">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">@dimen/title_height</item>
         <item name="android:foreground">@drawable/foreground</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:maxLength">4</item>
@@ -122,7 +126,7 @@
 
     <style name="AppTitleIcon">
         <item name="android:layout_width">@dimen/title_height</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">@dimen/title_height</item>
         <item name="android:foreground">@drawable/foreground</item>
         <item name="android:padding">15dp</item>
         <item name="android:visibility">gone</item>

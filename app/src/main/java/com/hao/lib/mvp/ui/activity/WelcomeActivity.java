@@ -34,6 +34,6 @@ public class WelcomeActivity extends BaseActivity {
             public void run() {
                 startActivityAndFinish(MainActivity.class);
             }
-        }, 3000);
+        }, 1000);
     }
 }

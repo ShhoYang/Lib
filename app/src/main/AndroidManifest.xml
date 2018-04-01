@@ -55,7 +55,8 @@
         <activity
             android:name=".TestActivity"
             android:theme="@style/FullscreenTheme"></activity>
-        <activity android:name=".mvp.ui.activity.DetailsActivity"></activity>
+        <activity android:name=".mvp.ui.activity.DetailsActivity"
+            android:theme="@style/StatusBarTransparentTheme"/>
     </application>
 
 </manifest>

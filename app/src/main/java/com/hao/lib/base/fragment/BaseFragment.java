@@ -155,6 +155,14 @@ public abstract class BaseFragment<P extends APresenter> extends Fragment {
         startActivity(intent);
     }
 
+    public void startActivity(Bundle bundle, Bundle options, Class<?> cls) {
+        Intent intent = new Intent(mActivity, cls);
+        if (bundle != null) {
+            intent.putExtra(Constant.EXTRA_BUNDLE, bundle);
+        }
+        startActivity(intent, options);
+    }
+
     public void startActivityAndFinish(Class<?> cls) {
         startActivity(null, cls);
         mActivity.finish();

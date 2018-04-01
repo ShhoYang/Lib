@@ -1,11 +1,15 @@
 package com.hao.lib.mvp.ui.fragment;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.hao.lib.App;
 import com.hao.lib.Constant;
+import com.hao.lib.R;
 import com.hao.lib.base.fragment.BaseListFragment;
 import com.hao.lib.di.component.fragment.DaggerMainComponent;
 import com.hao.lib.di.module.fragment.MainModule;
@@ -29,7 +33,7 @@ public class MainFragment extends BaseListFragment<MainPresenter>
     protected void initInject() {
         DaggerMainComponent.builder()
                 .appComponent(App.getAppComponent())
-                .mainModule(new MainModule(mActivity,this))
+                .mainModule(new MainModule(mActivity, this))
                 .build().inject(this);
     }
 
@@ -38,8 +42,12 @@ public class MainFragment extends BaseListFragment<MainPresenter>
         setDefaultItemDecoration();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-        startActivity(DetailsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constant.EXTRA_BEAN, mPresenter.getDataList().get(position));
+        Bundle options = ActivityOptions.makeSceneTransitionAnimation(mActivity, view, getString(R.string.transition_name)).toBundle();
+        startActivity(bundle, options, DetailsActivity.class);
     }
 }

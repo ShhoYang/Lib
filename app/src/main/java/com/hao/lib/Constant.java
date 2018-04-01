@@ -13,6 +13,7 @@ public interface Constant {
     String[] CHANNELS_KEY = {"card_top", "shehui", "guonei", "guoji", "yule", "tiyu", "junshi", "keji", "caijing", "shishang"};
 
     String EXTRA_BUNDLE = "EXTRA_BUNDLE";
+    String EXTRA_BEAN = "EXTRA_BEAN";
     String EXTRA_STRING_1 = "EXTRA_STRING_1";
 
 }

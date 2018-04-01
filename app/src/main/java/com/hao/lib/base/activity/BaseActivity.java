@@ -15,8 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -28,7 +26,7 @@ import com.hao.lib.R;
 import com.hao.lib.base.mvp.APresenter;
 import com.hao.lib.utils.AppManager;
 import com.hao.lib.utils.DisplayUtils;
-import com.hao.lib.view.StatusBarUtils;
+import com.jaeger.library.StatusBarUtil;
 
 import javax.inject.Inject;
 
@@ -85,9 +83,10 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
             setStatsBarColor();
         } else {
             setContentView(R.layout.activity_base);
+            setStatsBarColor();
             LinearLayout activity = $(R.id.activity_base);
             View.inflate(this, getLayoutId(), activity);
-            setStatsBarColor();
+
         }
         mUnbinder = ButterKnife.bind(this);
         AppManager.getInstance().pushActivity(this);
@@ -134,7 +133,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     }
 
     protected void setStatsBarColor() {
-        StatusBarUtils.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
     }
 
     protected void initUI() {
@@ -180,6 +179,10 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         }
     }
 
+    @Nullable
+    public RelativeLayout getTitleView() {
+        return mRlTitle;
+    }
 
     /**
      * 设置Title背景颜色
@@ -189,6 +192,16 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
             return;
         }
         mRlTitle.setBackgroundColor(color);
+    }
+
+    /**
+     *
+     */
+    protected void setTitleOffset() {
+        if (mRlTitle == null) {
+            return;
+        }
+        mRlTitle.setPadding(0, DisplayUtils.getStatusBarHeight(this), 0, 0);
     }
 
     /**

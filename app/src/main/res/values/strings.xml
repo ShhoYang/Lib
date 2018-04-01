@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">干货</string>
+    <string name="transition_name">makeSceneTransitionAnimation</string>
 </resources>

@@ -1,10 +1,13 @@
 package com.hao.lib.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * @author Yang Shihao
  */
 
-public class News {
+public class News implements Parcelable {
 
     private String uniquekey;
     private String title;
@@ -87,4 +90,41 @@ public class News {
     public void setThumbnail_pic_s03(String thumbnail_pic_s03) {
         this.thumbnail_pic_s03 = thumbnail_pic_s03;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.url);
+        dest.writeString(this.thumbnail_pic_s);
+    }
+
+    public News() {
+    }
+
+    public News(String title) {
+        this.title = title;
+    }
+
+    protected News(Parcel in) {
+        this.title = in.readString();
+        this.url = in.readString();
+        this.thumbnail_pic_s = in.readString();
+    }
+
+    public static final Parcelable.Creator<News> CREATOR = new Parcelable.Creator<News>() {
+        @Override
+        public News createFromParcel(Parcel source) {
+            return new News(source);
+        }
+
+        @Override
+        public News[] newArray(int size) {
+            return new News[size];
+        }
+    };
 }

@@ -91,4 +91,12 @@ public class DisplayUtils {
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.density;
     }
+
+    /**
+     * 获得状态栏高度
+     */
+    public static int getStatusBarHeight(Context context) {
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return context.getResources().getDimensionPixelSize(resourceId);
+    }
 }

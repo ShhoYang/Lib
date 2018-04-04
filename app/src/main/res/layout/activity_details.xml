@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,12 +21,12 @@
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/motto"
-                android:transitionName="@string/transition_name"/>
+                android:transitionName="@string/transition_name" />
 
             <WebView
                 android:id="@+id/web"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -36,22 +35,17 @@
     <RelativeLayout
         android:id="@id/base_rl_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/title_height">
 
         <ImageView
             android:id="@id/base_iv_left"
             style="@style/AppTitleIcon"
-            android:src="@drawable/ic_arrow_back_white_24dp"
-            android:visibility="visible"/>
+            android:src="@drawable/ic_arrow_back_white_24dp" />
 
         <TextView
             android:id="@id/base_tv_title"
             style="@style/AppTitleText"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:text="详情"/>
+            android:text="详情" />
 
     </RelativeLayout>
 

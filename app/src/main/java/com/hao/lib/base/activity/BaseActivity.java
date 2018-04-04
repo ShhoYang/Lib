@@ -3,12 +3,15 @@ package com.hao.lib.base.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -71,6 +74,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     @BindView(R.id.base_tv_right)
     TextView mTvRight;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,10 +87,9 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
             setStatsBarColor();
         } else {
             setContentView(R.layout.activity_base);
-            setStatsBarColor();
             LinearLayout activity = $(R.id.activity_base);
             View.inflate(this, getLayoutId(), activity);
-
+            setStatsBarColor();
         }
         mUnbinder = ButterKnife.bind(this);
         AppManager.getInstance().pushActivity(this);
@@ -157,6 +160,11 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
 
     protected abstract void initData();
 
+    @Nullable
+    public RelativeLayout getTitleView() {
+        return mRlTitle;
+    }
+
     protected boolean fullScreen() {
         return false;
     }
@@ -168,20 +176,10 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     /**
      * 是否显示返回键,默认显示
      */
-    protected void showBack(boolean b) {
-        if (mTvLeft == null) {
-            return;
+    protected void backVisibility(int visibility) {
+        if (mTvLeft != null) {
+            mIvLeft.setVisibility(visibility);
         }
-        if (b) {
-            mIvLeft.setVisibility(View.VISIBLE);
-        } else {
-            mIvLeft.setVisibility(View.GONE);
-        }
-    }
-
-    @Nullable
-    public RelativeLayout getTitleView() {
-        return mRlTitle;
     }
 
     /**
@@ -208,27 +206,24 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
      * 设置title
      */
     public void setTitle(String title) {
-        if (mTvTitle == null) {
-            return;
+        if (mTvTitle != null) {
+            mTvTitle.setText(title);
         }
-        mTvTitle.setText(title);
     }
 
     /**
      * 左边的图片------------------------------------------------------------------------------------
      */
     protected void setImageLeft(@DrawableRes int resourceId) {
-        if (mIvLeft == null) {
-            return;
+        if (mIvLeft != null) {
+            mIvLeft.setImageResource(resourceId);
         }
-        mIvLeft.setImageResource(resourceId);
     }
 
     protected void setLeftImageVisibility(int visibility) {
-        if (mIvLeft == null) {
-            return;
+        if (mIvLeft != null) {
+            mIvLeft.setVisibility(View.GONE);
         }
-        mIvLeft.setVisibility(View.GONE);
     }
 
     @Optional
@@ -241,19 +236,15 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
      * 左边的文字------------------------------------------------------------------------------------
      */
     protected void setTextLeft(String text) {
-        if (mIvLeft == null) {
-            return;
+        if (mIvLeft != null) {
+            mTvLeft.setText(text);
         }
-        mTvLeft.setText(text);
-        mTvLeft.setVisibility(View.VISIBLE);
-        mIvLeft.setVisibility(View.GONE);
     }
 
     protected void setLeftTextVisibility(int visibility) {
-        if (mTvTitle == null) {
-            return;
+        if (mTvTitle != null) {
+            mIvLeft.setVisibility(visibility);
         }
-        mIvLeft.setVisibility(visibility);
     }
 
     @Optional
@@ -266,18 +257,15 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
      * 右边的图片------------------------------------------------------------------------------------
      */
     protected void setImageRight(@DrawableRes int resourceId) {
-        if (mIvRight == null) {
-            return;
+        if (mIvRight != null) {
+            mIvRight.setImageResource(resourceId);
         }
-        mIvRight.setVisibility(View.VISIBLE);
-        mIvRight.setImageResource(resourceId);
     }
 
     protected void setRightImageVisibility(int visibility) {
-        if (mIvRight == null) {
-            return;
+        if (mIvRight != null) {
+            mIvRight.setVisibility(visibility);
         }
-        mIvRight.setVisibility(visibility);
     }
 
     @Optional
@@ -290,18 +278,15 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
      * 右边的文字------------------------------------------------------------------------------------
      */
     protected void setTextRight(String text) {
-        if (mTvRight == null) {
-            return;
+        if (mTvRight != null) {
+            mTvRight.setText(text);
         }
-        mTvRight.setVisibility(View.VISIBLE);
-        mTvRight.setText(text);
     }
 
     protected void setRightTextVisibility(int visibility) {
-        if (mTvRight == null) {
-            return;
+        if (mTvRight != null) {
+            mTvRight.setVisibility(visibility);
         }
-        mTvRight.setVisibility(visibility);
     }
 
     @Optional

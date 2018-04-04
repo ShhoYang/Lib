@@ -23,4 +23,5 @@
     <color name="holo_red_dark">#CC0000</color>
     <color name="holo_orange_light">#FFBB33</color>
     <color name="holo_orange_dark">#FF8800</color>
+    <color name="aa">@android:color/secondary_text_dark_nodisable</color>
 </resources>

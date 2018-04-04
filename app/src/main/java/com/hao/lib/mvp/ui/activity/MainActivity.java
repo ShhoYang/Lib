@@ -2,6 +2,7 @@ package com.hao.lib.mvp.ui.activity;
 
 import android.animation.ArgbEvaluator;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.hao.lib.Constant;
 import com.hao.lib.R;
@@ -18,7 +19,7 @@ public class MainActivity extends BaseViewPagerActivity {
 
     @Override
     protected void initView() {
-        showBack(false);
+        backVisibility(View.GONE);
         setTitle("新闻");
         setColor(0, R.color.holo_blue_light, R.color.holo_green_light);
     }

@@ -34,11 +34,11 @@ public class MainModule {
     @Provides
     @FragmentScope
     MainPresenter provideMainPresenter(Api api) {
-        KLog.d(TAG, "provideMainPresenter: " + api.hashCode());
         return new MainPresenter(mView, api);
     }
 
     @Provides
+    @FragmentScope
     MultiItemTypeAdapter provideMainAdapter(MainPresenter mainPresenter) {
         return new MainAdapter(mActivity, R.layout.item_main, mainPresenter.getDataList());
     }

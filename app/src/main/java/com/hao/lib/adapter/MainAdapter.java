@@ -26,7 +26,7 @@ public class MainAdapter extends CommonAdapter<News> {
     @Override
     protected void convert(final ViewHolder holder, News news, final int position) {
         holder.setText(R.id.tv_,news.getTitle());
-        ImageManager.getInstance().loadImage(mContext,R.mipmap.motto, (ImageView) holder.getView(R.id.iv_));
+        ImageManager.getInstance().loadImage(mContext,news.getThumbnail_pic_s(), (ImageView) holder.getView(R.id.iv_));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

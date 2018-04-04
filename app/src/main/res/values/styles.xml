@@ -19,8 +19,7 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="StatusBarTransparentTheme" parent="AppTheme">
-    </style>
+    <style name="StatusBarTransparentTheme" parent="AppTheme"></style>
 
     <style name="WelcomeTheme" parent="FullscreenTheme">
         <item name="android:windowBackground">@mipmap/motto</item>
@@ -99,16 +98,22 @@
     </style>
 
     <style name="AppTitleText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/title_height</item>
-        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
 
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
+
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
     </style>
+
 
     <style name="AppTitleMenu">
         <item name="android:layout_width">wrap_content</item>
@@ -121,7 +126,6 @@
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_m</item>
-        <item name="android:visibility">gone</item>
     </style>
 
     <style name="AppTitleIcon">
@@ -129,7 +133,6 @@
         <item name="android:layout_height">@dimen/title_height</item>
         <item name="android:foreground">@drawable/foreground</item>
         <item name="android:padding">15dp</item>
-        <item name="android:visibility">gone</item>
     </style>
 
 </resources>

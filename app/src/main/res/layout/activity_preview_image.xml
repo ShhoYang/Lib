@@ -17,8 +17,7 @@
         <ImageView
             android:id="@id/base_iv_left"
             style="@style/AppTitleIcon"
-            android:src="@drawable/ic_arrow_back_white_24dp"
-            android:visibility="visible"/>
+            android:src="@drawable/ic_arrow_back_white_24dp" />
 
         <TextView
             android:id="@+id/tv_index"

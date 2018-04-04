@@ -4,11 +4,6 @@ import com.hao.lib.base.activity.BaseActivity;
 
 public class TestActivity extends BaseActivity {
     @Override
-    protected boolean hasToolbar() {
-        return false;
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.activity_test;
     }

@@ -37,6 +37,6 @@
         android:padding="@dimen/margin_s"
         android:layout_gravity="bottom"
         android:textColor="@color/white"
-        android:textSize="28px"/>
+        android:textSize="14dp"/>
 
 </merge>

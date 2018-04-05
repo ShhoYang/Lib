@@ -35,15 +35,17 @@
     <RelativeLayout
         android:id="@id/base_rl_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@id/base_iv_left"
             style="@style/AppTitleIcon"
+            android:visibility="visible"
             android:src="@drawable/ic_arrow_back_white_24dp" />
 
         <TextView
             android:id="@id/base_tv_title"
+            android:layout_width="match_parent"
             style="@style/AppTitleText"
             android:text="详情" />
 

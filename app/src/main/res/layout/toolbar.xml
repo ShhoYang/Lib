@@ -19,14 +19,6 @@
     <TextView
         android:id="@id/base_tv_title"
         style="@style/AppTitleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@null"
-        android:ellipsize="marquee"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:marqueeRepeatLimit="marquee_forever"
         tools:text="TITLE" />
 
     <ImageView

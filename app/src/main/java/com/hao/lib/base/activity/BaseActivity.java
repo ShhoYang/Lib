@@ -3,7 +3,6 @@ package com.hao.lib.base.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -186,20 +185,18 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
      * 设置Title背景颜色
      */
     protected void setTitleBackground(@ColorInt int color) {
-        if (mRlTitle == null) {
-            return;
+        if (mRlTitle != null) {
+            mRlTitle.setBackgroundColor(color);
         }
-        mRlTitle.setBackgroundColor(color);
     }
 
     /**
      *
      */
     protected void setTitleOffset() {
-        if (mRlTitle == null) {
-            return;
+        if (mRlTitle != null) {
+            mRlTitle.setPadding(0, DisplayUtils.getStatusBarHeight(this), 0, 0);
         }
-        mRlTitle.setPadding(0, DisplayUtils.getStatusBarHeight(this), 0, 0);
     }
 
     /**

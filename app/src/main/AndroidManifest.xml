@@ -36,11 +36,7 @@
         <activity
             android:name=".mvp.ui.activity.WelcomeActivity"
             android:theme="@style/WelcomeTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".mvp.ui.activity.MainActivity"
@@ -51,10 +47,17 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.ui.activity.PreviewImageActivity"
+            android:theme="@style/FullscreenTheme"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestActivity"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".mvp.ui.activity.DetailsActivity"
             android:theme="@style/StatusBarTransparentTheme"/>
     </application>

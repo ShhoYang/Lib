@@ -72,9 +72,7 @@ public class PreviewImageActivity extends BaseActivity implements ViewPager.OnPa
 
     @Override
     protected void initView() {
-        mTvIndex = (TextView) $(R.id.tv_index);
-        mViewPager = (ViewPager) $(R.id.vp);
-        mTvDesc = (TextView) $(R.id.tv_desc);
+
     }
 
     @Override

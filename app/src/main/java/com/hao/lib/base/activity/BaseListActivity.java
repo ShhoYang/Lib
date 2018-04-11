@@ -140,13 +140,6 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
     }
 
     /**
-     * 如果需要被ScrollView嵌套，用NestedScrollView,然后调用该方法,可解决滑动冲突
-     */
-    protected void setNestedScrollingEnabled(boolean enable) {
-        mRecyclerView.setNestedScrollingEnabled(enable);
-    }
-
-    /**
      * 设置Header和Footer的颜色
      */
     protected void setRefreshThemeColor(@ColorRes int colorId) {

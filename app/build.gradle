@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.jaeger.statusbarutil:library:1.5.0'
     implementation 'com.contrarywind:Android-PickerView:4.0.1'
     implementation 'com.github.zhaokaiqiang.klog:library:1.6.0'
+    //implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-1'
     implementation "com.jakewharton:butterknife:$rootProject.butterknifeVersion"

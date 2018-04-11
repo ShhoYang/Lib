@@ -8,7 +8,7 @@
     <color name="black">#000</color>
     <color name="line">@color/gray_light</color>
     <color name="transparent">#00000000</color>
-    <color name="shadow">#88000000</color>
+    <color name="translucent">#88000000</color>
     <color name="gray_light">#DDD</color>
     <color name="gray_dark">#AAA</color>
     <color name="text">#444</color>
@@ -23,5 +23,4 @@
     <color name="holo_red_dark">#CC0000</color>
     <color name="holo_orange_light">#FFBB33</color>
     <color name="holo_orange_dark">#FF8800</color>
-    <color name="aa">@android:color/secondary_text_dark_nodisable</color>
 </resources>

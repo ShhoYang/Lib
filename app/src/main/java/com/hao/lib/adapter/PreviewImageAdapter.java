@@ -21,7 +21,7 @@ import java.util.List;
 public class PreviewImageAdapter extends PagerAdapter {
 
     private Context mContext;
-    private List<String> mImageUrlList = new ArrayList<>();
+    private List<String> mImageUrlList;
     private LinkedList<ZoomImageView> mImageViewCacheList = new LinkedList<>();
 
     public PreviewImageAdapter(Context context, List<String> imageUrlList) {

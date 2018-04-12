@@ -56,23 +56,6 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        if (mPresenter != null) {
-            mPresenter.onStop();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (mPresenter != null) {
-            mPresenter.onDestroy();
-            mPresenter = null;
-        }
-        super.onDestroy();
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.activity_base_list;
     }

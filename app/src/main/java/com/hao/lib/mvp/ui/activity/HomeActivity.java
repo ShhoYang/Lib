@@ -2,39 +2,56 @@ package com.hao.lib.mvp.ui.activity;
 
 import android.animation.ArgbEvaluator;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import com.hao.lib.Constant;
 import com.hao.lib.R;
-import com.hao.lib.base.activity.BaseViewPagerActivity;
-import com.hao.lib.mvp.ui.fragment.MainFragment;
-import com.hao.lib.view.StatusBarUtils;
+import com.hao.lib.base.mvp.AViewPagerPresenter;
+import com.hao.lib.base.ui.BaseViewPagerActivity;
+import com.hao.lib.di.component.activity.DaggerActivityCommonComponent;
+import com.hao.lib.di.module.activity.ActivityCommonModule;
+import com.hao.lib.mvp.ui.fragment.NewsFragment;
 
-public class MainActivity extends BaseViewPagerActivity {
+public class HomeActivity extends BaseViewPagerActivity<AViewPagerPresenter> {
 
     @Override
-    protected void initInject() {
+    protected boolean hasToolbar() {
+        return false;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_home;
+    }
+
+    @Override
+    protected void setStatsBarColor() {
 
     }
 
     @Override
-    protected void initView() {
-        backVisibility(View.GONE);
-        setTitle("新闻");
-        setColor(0, R.color.holo_blue_light, R.color.holo_green_light);
+    public void initInject() {
+        DaggerActivityCommonComponent.builder()
+                .activityCommonModule(new ActivityCommonModule(this))
+                .build().inject(this);
     }
 
     @Override
-    protected String[] getTitles() {
+    public void initView() {
+        super.initView();
+        setTitleOffset();
+    }
+
+    @Override
+    public String[] getTitles() {
         return Constant.CHANNELS;
     }
 
     @Override
-    protected Fragment[] getFragments() {
+    public Fragment[] getFragments() {
         int length = Constant.CHANNELS_KEY.length;
         Fragment[] fragment = new Fragment[length];
         for (int i = 0; i < length; i++) {
-            fragment[i] = MainFragment.newInstance(Constant.CHANNELS_KEY[i]);
+            fragment[i] = NewsFragment.newInstance(Constant.CHANNELS_KEY[i]);
         }
         return fragment;
     }
@@ -44,7 +61,6 @@ public class MainActivity extends BaseViewPagerActivity {
         super.onPageScrolled(position, positionOffset, positionOffsetPixels);
 
         int pos = position % 5;
-
 
         if (pos == 0) {
             setColor(positionOffset, R.color.holo_blue_light, R.color.holo_green_light);
@@ -82,8 +98,7 @@ public class MainActivity extends BaseViewPagerActivity {
 
     public void setColor(float positionOffset, int color, int nextColor) {
         int evaluate = (Integer) mEvaluator.evaluate(positionOffset, getResources().getColor(color), getResources().getColor(nextColor));
-        StatusBarUtils.setColor(this, evaluate);
         setTitleBackground(evaluate);
-        setTabLayoutBackground(evaluate);
+        mUIProxy.setTabLayoutBackground(evaluate);
     }
 }

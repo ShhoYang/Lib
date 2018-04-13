@@ -3,7 +3,7 @@ package com.hao.lib.rx;
 
 import android.support.annotation.NonNull;
 
-import com.hao.lib.base.mvp.IView;
+import com.hao.lib.base.ui.IView;
 import com.hao.lib.rx.exception.ApiException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
@@ -24,20 +24,17 @@ public abstract class RxSubscriber<D> {
     private Disposable mSubscribe;
 
     public RxSubscriber(Observable<D> observable) {
-        subscribe(observable, null);
+        subscribe(observable);
     }
 
     public RxSubscriber(Observable<D> observable, IView view) {
-        subscribe(observable, view);
+        subscribe(observable);
     }
 
-    private void subscribe(Observable<D> observable, final IView view) {
+    private void subscribe(Observable<D> observable) {
         mSubscribe = observable.subscribe(new Consumer<D>() {
             @Override
             public void accept(@NonNull D d) throws Exception {
-                if (view != null) {
-                    view.dismissDialog();
-                }
                 if (d == null) {
                     _onNull();
                 } else {
@@ -47,9 +44,6 @@ public abstract class RxSubscriber<D> {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(@NonNull Throwable throwable) throws Exception {
-                if (view != null) {
-                    view.dismissDialog();
-                }
                 if (throwable instanceof HttpException
                         || throwable instanceof CompositeException
                         || throwable instanceof SocketTimeoutException

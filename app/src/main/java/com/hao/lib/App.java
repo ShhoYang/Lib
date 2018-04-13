@@ -5,11 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
 
-import com.hao.lib.mvp.ui.activity.CrashActivity;
-import com.hao.lib.mvp.ui.activity.MainActivity;
 import com.hao.lib.di.component.AppComponent;
 import com.hao.lib.di.component.DaggerAppComponent;
 import com.hao.lib.di.module.AppModule;
+import com.hao.lib.mvp.ui.activity.CrashActivity;
+import com.hao.lib.mvp.ui.activity.HomeActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -38,7 +38,7 @@ public class App extends MultiDexApplication {
         mApp = this;
 
         CaocConfig.Builder.create()
-                .restartActivity(MainActivity.class)
+                .restartActivity(HomeActivity.class)
                 .errorActivity(CrashActivity.class)
                 .apply();
 

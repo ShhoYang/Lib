@@ -13,8 +13,11 @@ import android.widget.ImageView;
 
 import com.hao.lib.Constant;
 import com.hao.lib.R;
-import com.hao.lib.base.activity.BaseActivity;
+import com.hao.lib.base.ui.BaseActivity;
 import com.hao.lib.bean.News;
+import com.hao.lib.di.component.activity.DaggerActivityCommonComponent;
+import com.hao.lib.di.module.activity.ActivityCommonModule;
+import com.hao.lib.utils.ImageManager;
 
 import butterknife.BindView;
 
@@ -39,13 +42,15 @@ public class DetailsActivity extends BaseActivity {
     }
 
     @Override
-    protected int getLayoutId() {
+    public int getLayoutId() {
         return R.layout.activity_details;
     }
 
     @Override
-    protected void initInject() {
-
+    public void initInject() {
+        DaggerActivityCommonComponent.builder()
+                .activityCommonModule(new ActivityCommonModule(this))
+                .build().inject(this);
     }
 
     @Override
@@ -54,7 +59,7 @@ public class DetailsActivity extends BaseActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    protected void initView() {
+    public void initView() {
         setTitleOffset();
         mWebView.setNestedScrollingEnabled(false);
         mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -77,17 +82,21 @@ public class DetailsActivity extends BaseActivity {
 
 
     @Override
-    protected void initData() {
-        Bundle bundle = getBundle();
+    public void initData() {
+        Bundle bundle = mUIProxy.getBundle();
         if(bundle!= null){
-            News news = bundle.getParcelable(Constant.EXTRA_BEAN);
+            News news = bundle.getParcelable(Constant.EXTRA_BEAN_1);
             if(news!= null){
                 if(TextUtils.isEmpty(news.getTitle())){
                     setTitle("详情");
                 }else{
                     setTitle(news.getTitle());
                 }
+                ImageManager.getInstance().loadImage(this,news.getThumbnail_pic_s(),mIvBg);
+                mWebView.loadUrl(news.getUrl());
+                return;
             }
+            return;
         }
         mWebView.loadUrl("http://mini.eastday.com/mobile/180331191333590.html");
     }

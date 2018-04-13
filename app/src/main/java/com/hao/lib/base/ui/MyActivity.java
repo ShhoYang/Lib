@@ -1,31 +1,24 @@
-package com.hao.lib.base.activity;
+package com.hao.lib.base.ui;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.hao.lib.Constant;
 import com.hao.lib.R;
 import com.hao.lib.base.mvp.APresenter;
+import com.hao.lib.base.proxy.UIProxy;
 import com.hao.lib.utils.AppManager;
 import com.hao.lib.utils.DisplayUtils;
 import com.jaeger.library.StatusBarUtil;
@@ -41,13 +34,16 @@ import butterknife.Unbinder;
 /**
  * @author Yang Shihao
  */
-public abstract class BaseActivity<P extends APresenter> extends AppCompatActivity {
+public abstract class MyActivity<P extends APresenter,X extends UIProxy> extends AppCompatActivity
+        implements IView {
 
+    private static final String TAG = "MyActivity";
+
+    @Nullable
     @Inject
     protected P mPresenter;
     protected Activity mContext;
     private Unbinder mUnbinder;
-    private ProgressDialog mDialog;
 
     @Nullable
     @BindView(R.id.base_rl_title)
@@ -73,6 +69,9 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     @BindView(R.id.base_tv_right)
     TextView mTvRight;
 
+    @Inject
+    protected X mUIProxy;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,7 +85,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
             setStatsBarColor();
         } else {
             setContentView(R.layout.activity_base);
-            LinearLayout activity = $(R.id.activity_base);
+            LinearLayout activity = findViewById(R.id.activity_base);
             View.inflate(this, getLayoutId(), activity);
             setStatsBarColor();
         }
@@ -94,7 +93,10 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         AppManager.getInstance().pushActivity(this);
         mContext = this;
         initInject();
-        initUI();
+        if (mPresenter != null) {
+            mPresenter.setUIProxy(mUIProxy);
+            mPresenter.initBundle();
+        }
         initView();
         initData();
     }
@@ -112,10 +114,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     @Override
     protected void onStop() {
         super.onStop();
-        if (mDialog != null) {
-            mDialog.dismiss();
-            mDialog = null;
-        }
+        mUIProxy.dismissDialog();
         if (mPresenter != null) {
             mPresenter.onStop();
         }
@@ -137,27 +136,6 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     protected void setStatsBarColor() {
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
     }
-
-    protected void initUI() {
-
-    }
-
-    protected <T extends View> T $(@IdRes int resId) {
-        return (T) super.findViewById(resId);
-    }
-
-    protected <T extends View> T $(View layoutView, @IdRes int resId) {
-        return (T) layoutView.findViewById(resId);
-    }
-
-    protected abstract @LayoutRes
-    int getLayoutId();
-
-    protected abstract void initInject();
-
-    protected abstract void initView();
-
-    protected abstract void initData();
 
     @Nullable
     public RelativeLayout getTitleView() {
@@ -290,89 +268,5 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     @OnClick(R.id.base_tv_right)
     protected void onTextViewRightClicked() {
 
-    }
-
-    /**
-     * 加载对话框------------------------------------------------------------------------------------
-     */
-    public void showDialog() {
-        showDialog("正在加载...");
-    }
-
-    public void showDialog(String message) {
-        if (mDialog == null) {
-            mDialog = new ProgressDialog(this);
-        }
-        mDialog.setMessage(message);
-        if (!mDialog.isShowing()) {
-            mDialog.show();
-        }
-    }
-
-    public void dismissDialog() {
-        if (mDialog != null) {
-            mDialog.dismiss();
-        }
-    }
-
-    /**
-     * 吐司-----------------------------------------------------------------------------------------
-     */
-    private Toast mToast;
-
-    public void toast(String msg) {
-        if (TextUtils.isEmpty(msg)) {
-            return;
-        }
-        if (mToast == null) {
-            mToast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
-        } else {
-            mToast.setText(msg);
-        }
-        mToast.setDuration(Toast.LENGTH_SHORT);
-        mToast.show();
-    }
-
-    public void toast(@StringRes int resId) {
-        toast(getString(resId));
-    }
-
-    /**
-     * Activity跳转------------------------------------------------------------------------------------
-     */
-    public void startActivity(Class<?> cls) {
-        startActivity(null, cls);
-    }
-
-    public void startActivity(Bundle bundle, Class<?> cls) {
-        Intent intent = new Intent(this, cls);
-        if (bundle != null) {
-            intent.putExtra(Constant.EXTRA_BUNDLE, bundle);
-        }
-        startActivity(intent);
-    }
-
-    public void startActivityAndFinish(Class<?> cls) {
-        startActivity(null, cls);
-        finish();
-
-    }
-
-    public void startActivityAndFinish(Bundle bundle, Class<?> cls) {
-        startActivity(bundle, cls);
-        finish();
-    }
-
-    public void finishActivity() {
-        finish();
-    }
-
-    public Bundle getBundle() {
-        Intent intent = getIntent();
-        if (intent == null) {
-            return null;
-        }
-
-        return intent.getBundleExtra(Constant.EXTRA_BUNDLE);
     }
 }

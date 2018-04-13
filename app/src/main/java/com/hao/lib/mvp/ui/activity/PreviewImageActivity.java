@@ -2,13 +2,15 @@ package com.hao.lib.mvp.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hao.lib.Constant;
 import com.hao.lib.R;
 import com.hao.lib.adapter.PreviewImageAdapter;
-import com.hao.lib.base.activity.BaseActivity;
+import com.hao.lib.base.ui.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +20,6 @@ import butterknife.BindView;
 
 public class PreviewImageActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
-    private static final String EXTRA_IMAGE = "EXTRA_IMAGE";
-    private static final String EXTRA_DESC = "EXTRA_DESC";
-    private static final String EXTRA_INDEX = "EXTRA_INDEX";
-    
     @BindView(R.id.vp)
     ViewPager mViewPager;
     @BindView(R.id.tv_index)
@@ -33,25 +31,13 @@ public class PreviewImageActivity extends BaseActivity implements ViewPager.OnPa
     private boolean mShowTitle = false;
     private List<String> mDescList;
 
-    /**
-     * 打开大图
-     *
-     * @param context
-     * @param images    图片集合
-     * @param showIndex 要显示的Index
-     */
-    public static void start(Context context, List<Integer> images, int showIndex) {
-        Intent intent = new Intent(context, PreviewImageActivity.class);
-        intent.putIntegerArrayListExtra(EXTRA_IMAGE, (ArrayList<Integer>) images);
-        intent.putExtra(EXTRA_INDEX, showIndex);
-        context.startActivity(intent);
-    }
-
     public static void start(Context context, List<String> images, List<String> desc, int showIndex) {
         Intent intent = new Intent(context, PreviewImageActivity.class);
-        intent.putStringArrayListExtra(EXTRA_IMAGE, (ArrayList<String>) images);
-        intent.putStringArrayListExtra(EXTRA_DESC, (ArrayList<String>) desc);
-        intent.putExtra(EXTRA_INDEX, showIndex);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(Constant.EXTRA_BEAN_1, (ArrayList<String>) images);
+        bundle.putStringArrayList(Constant.EXTRA_BEAN_2, (ArrayList<String>) desc);
+        bundle.putInt(Constant.EXTRA_INT_1, showIndex);
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 
@@ -61,34 +47,39 @@ public class PreviewImageActivity extends BaseActivity implements ViewPager.OnPa
     }
 
     @Override
-    protected int getLayoutId() {
+    public int getLayoutId() {
         return R.layout.activity_preview_image;
     }
 
     @Override
-    protected void initInject() {
+    public void initInject() {
 
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
 
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
         Intent intent = getIntent();
         if (intent == null) {
             return;
         }
 
-        List images = intent.getStringArrayListExtra(EXTRA_IMAGE);
+        Bundle bundle = intent.getExtras();
+        if (bundle == null) {
+            return;
+        }
+
+        List images = bundle.getStringArrayList(Constant.EXTRA_BEAN_1);
         if (images == null || images.size() == 0) {
             return;
         }
         mTotalSize = images.size();
-        mDescList = intent.getStringArrayListExtra(EXTRA_DESC);
-        int index = intent.getIntExtra(EXTRA_INDEX, 0);
+        mDescList = bundle.getStringArrayList(Constant.EXTRA_BEAN_2);
+        int index = bundle.getInt(Constant.EXTRA_INT_1, 0);
         if (mDescList == null || mDescList.size() == 0) {
             mTvDesc.setVisibility(View.GONE);
         } else {

@@ -2,6 +2,8 @@ package com.hao.lib.base.mvp;
 
 import android.view.View;
 
+import com.hao.lib.base.proxy.ListUIProxy;
+import com.hao.lib.base.proxy.UIProxy;
 import com.hao.lib.rx.Api;
 import com.hao.lib.rx.RxSubscriber;
 
@@ -13,7 +15,8 @@ import io.reactivex.Observable;
 /**
  * @author Yang Shihao
  */
-public abstract class AListPresenter<V extends IListView, D> extends APresenter<V> {
+public abstract class AListPresenter<V, D> extends APresenter<V> {
+    private static final String TAG = "AListPresenter";
 
     private static final int PAGE_SIZE = 20;
 
@@ -21,8 +24,15 @@ public abstract class AListPresenter<V extends IListView, D> extends APresenter<
     protected int mPage = 1;
     protected boolean mIsRefresh = false;
 
+    protected ListUIProxy mUIProxy;
+
     public AListPresenter(V view, Api api) {
         super(view, api);
+    }
+
+    @Override
+    public void setUIProxy(UIProxy UIProxy) {
+        mUIProxy= (ListUIProxy) UIProxy;
     }
 
     @Override
@@ -40,17 +50,17 @@ public abstract class AListPresenter<V extends IListView, D> extends APresenter<
     }
 
     public void setDataList(final List<D> list) {
-        if (mView == null) {
+        if (mUIProxy == null) {
             return;
         }
         if (mDataList.size() == 0 && (list == null || list.size() == 0)) {
-            mView.noData();
+            mUIProxy.noData();
         } else {
             setPage();
             mDataList.addAll(list);
-            mView.updateList();
+            mUIProxy.updateList();
             if (list.size() < PAGE_SIZE) {
-                mView.noMoreData();
+                mUIProxy.noMoreData();
             }
         }
     }
@@ -65,18 +75,20 @@ public abstract class AListPresenter<V extends IListView, D> extends APresenter<
             @Override
             protected void _onError(String code) {
                 super._onError(code);
-                mView.loadError();
+                if (mUIProxy != null) {
+                    mUIProxy.loadError();
+                }
             }
         });
     }
 
     protected void clear() {
-        if (mView == null) {
+        if (mUIProxy == null) {
             return;
         }
         mDataList.clear();
-        mView.updateList();
-        mView.noData();
+        mUIProxy.updateList();
+        mUIProxy.noData();
     }
 
     protected String getPage() {

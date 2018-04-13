@@ -4,10 +4,9 @@ import android.os.Bundle;
 
 import com.hao.lib.Constant;
 import com.hao.lib.bean.News;
-import com.hao.lib.mvp.contract.fragment.MainContract;
+import com.hao.lib.mvp.contract.fragment.NewsContract;
 import com.hao.lib.rx.Api;
 import com.hao.lib.rx.RxSubscriber;
-import com.socks.library.KLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,21 +15,20 @@ import java.util.List;
  * @author Yang Shihao
  */
 
-public class MainPresenter extends MainContract.Presenter {
+public class NewsPresenter extends NewsContract.Presenter {
 
-    private static final String TAG = "MainPresenter";
+    private static final String TAG = "NewsPresenter";
 
     private String mType;
 
-    public MainPresenter(MainContract.View view, Api api) {
+    public NewsPresenter(NewsContract.View view, Api api) {
         super(view, api);
-        KLog.d(TAG, "MainPresenter: " + api.hashCode());
     }
 
     @Override
     public void initBundle() {
         super.initBundle();
-        Bundle build = mView.getBundle();
+        Bundle build = mUIProxy.getBundle();
         if (build != null) {
             mType = build.getString(Constant.EXTRA_STRING_1, "");
         }

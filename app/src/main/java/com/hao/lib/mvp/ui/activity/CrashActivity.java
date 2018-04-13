@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hao.lib.R;
-import com.hao.lib.base.activity.BaseActivity;
+import com.hao.lib.base.ui.BaseActivity;
 import com.hao.lib.utils.DateUtils;
 import com.hao.lib.utils.FileLocalUtils;
 import com.hao.lib.utils.FileUtils;
@@ -29,23 +29,23 @@ public class CrashActivity extends BaseActivity {
     TextView mTvDetails;
 
     @Override
-    protected int getLayoutId() {
+    public int getLayoutId() {
         return R.layout.activity_crash;
     }
 
     @Override
-    protected void initInject() {
+    public void initInject() {
 
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         backVisibility(View.GONE);
         setTitle("SORRY");
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
         final String error = CustomActivityOnCrash.getStackTraceFromIntent(getIntent());
 
         RxPermissions rxPermissions = new RxPermissions(this);

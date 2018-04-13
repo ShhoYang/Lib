@@ -5,12 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/face_status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/status_bar_view_height" />
-
     <RelativeLayout
+        android:id="@id/base_rl_title"
+        android:background="@color/holo_blue_light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@id/base_tv_title"
+            style="@style/AppTitleText"
+            android:layout_width="match_parent"
+            android:text="新闻" />
+
+    </RelativeLayout>
+
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -28,31 +39,10 @@
             android:id="@id/base_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/base_tab_layout" />
+            android:layout_marginTop="36dp" />
 
-        <LinearLayout
-            android:id="@id/base_ll_empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="visible">
+        <include layout="@layout/empty_view" />
 
-            <ImageView
-                android:id="@id/base_iv_empty"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@mipmap/no_data" />
-
-            <TextView
-                android:id="@id/base_tv_empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="暂无数据,点击重新加载" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </FrameLayout>
 
 </LinearLayout>

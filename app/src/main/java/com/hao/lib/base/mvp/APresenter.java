@@ -1,5 +1,6 @@
 package com.hao.lib.base.mvp;
 
+import com.hao.lib.base.proxy.UIProxy;
 import com.hao.lib.rx.Api;
 import com.hao.lib.rx.RxSubscriber;
 
@@ -9,23 +10,27 @@ import io.reactivex.disposables.Disposable;
 /**
  * @author Yang Shihao
  */
-public class APresenter<V extends IView> {
+public class APresenter<V> {
 
+    private static final String TAG = "APresenter";
 
     private CompositeDisposable mDisposableStop;
     private CompositeDisposable mDisposableDestroy;
 
     protected V mView;
     protected Api mApi;
+    private UIProxy mUIProxy;
 
     public APresenter(V view, Api api) {
         mView = view;
         mApi = api;
-
-        initBundle();
     }
 
-    protected void initBundle() {
+    public void setUIProxy(UIProxy UIProxy) {
+        mUIProxy = UIProxy;
+    }
+
+    public void initBundle() {
 
     }
 

@@ -10,26 +10,22 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.hao.lib.Constant;
-
 /**
  * @author Yang Shihao
  */
-public class BaseViewProxy  {
+public class UIProxy {
 
     protected Activity mActivity;
-    private Fragment mFragment;
+    protected Fragment mFragment;
     private ProgressDialog mDialog;
 
-    public BaseViewProxy(@NonNull Object object) {
-        if (object instanceof Activity) {
-            mActivity = (Activity) object;
-        } else if (object instanceof Fragment) {
-            mFragment = (Fragment) object;
-            mActivity = mFragment.getActivity();
-        } else {
-            new IllegalArgumentException("argument only extends Activity or Fragment");
-        }
+    public UIProxy(@NonNull Activity activity) {
+        mActivity = activity;
+    }
+
+    public UIProxy(@NonNull Fragment fragment) {
+        mFragment = fragment;
+        mActivity = mFragment.getActivity();
     }
 
     /**
@@ -87,7 +83,7 @@ public class BaseViewProxy  {
     public void startActivity(Bundle bundle, Class<?> cls) {
         Intent intent = new Intent(mActivity, cls);
         if (bundle != null) {
-            intent.putExtra(Constant.EXTRA_BUNDLE, bundle);
+            intent.putExtras(bundle);
         }
         if (mFragment == null) {
             mActivity.startActivity(intent);
@@ -117,7 +113,7 @@ public class BaseViewProxy  {
             if (intent == null) {
                 return null;
             }
-            return intent.getBundleExtra(Constant.EXTRA_BUNDLE);
+            return intent.getExtras();
 
         } else {
             return mFragment.getArguments();

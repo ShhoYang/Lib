@@ -2,6 +2,7 @@ package com.hao.lib;
 
 import com.hao.lib.base.activity.BaseActivity;
 import com.hao.lib.mvp.ui.activity.PreviewImageActivity;
+import com.socks.library.KLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class TestActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        KLog.d("1111111", "initView: " + (getIntent() == null));
     }
 
     @Override

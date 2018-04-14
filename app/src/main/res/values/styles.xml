@@ -26,11 +26,6 @@
         <item name="android:windowBackground">@mipmap/motto</item>
     </style>
 
-    <style name="MainTheme" parent="BaseTheme">
-        <item name="colorPrimaryDark">@color/holo_blue_light</item>
-        <item name="android:windowBackground">@color/white</item>
-    </style>
-
     <style name="DialogBase" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:alpha">1</item>
@@ -130,7 +125,6 @@
     </style>
 
     <style name="AppTitleIcon">
-
         <item name="android:layout_width">@dimen/title_height</item>
         <item name="android:layout_height">@dimen/title_height</item>
         <item name="android:foreground">@drawable/foreground</item>

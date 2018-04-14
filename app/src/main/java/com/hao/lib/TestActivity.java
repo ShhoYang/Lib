@@ -1,8 +1,8 @@
 package com.hao.lib;
 
-import com.hao.lib.base.ui.MyActivity;
+import com.hao.lib.base.ui.BaseActivity;
 
-public class TestActivity extends MyActivity {
+public class TestActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
@@ -15,6 +15,7 @@ public class TestActivity extends MyActivity {
 
     @Override
     public void initView() {
+
     }
 
     @Override

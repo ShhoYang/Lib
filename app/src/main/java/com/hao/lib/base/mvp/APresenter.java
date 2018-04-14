@@ -19,7 +19,7 @@ public class APresenter<V> {
 
     protected V mView;
     protected Api mApi;
-    private UIProxy mUIProxy;
+    protected UIProxy mUIProxy;
 
     public APresenter(V view, Api api) {
         mView = view;

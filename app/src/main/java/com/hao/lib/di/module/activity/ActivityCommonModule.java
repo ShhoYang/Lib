@@ -5,10 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.hao.lib.base.mvp.AListPresenter;
 import com.hao.lib.base.mvp.APresenter;
-import com.hao.lib.base.mvp.AViewPagerPresenter;
-import com.hao.lib.base.proxy.ListUIProxy;
 import com.hao.lib.base.proxy.UIProxy;
-import com.hao.lib.base.proxy.ViewPagerUIProxy;
 import com.hao.lib.di.scope.ActivityScope;
 
 import dagger.Module;
@@ -34,18 +31,6 @@ public class ActivityCommonModule {
     }
 
     @Provides
-    @ActivityScope
-    ListUIProxy provideListUIProxy() {
-        return new ListUIProxy(mActivity);
-    }
-
-    @Provides
-    @ActivityScope
-    ViewPagerUIProxy provideViewPagerUIProxy() {
-        return new ViewPagerUIProxy(mActivity);
-    }
-
-    @Provides
     @Nullable
     @ActivityScope
     APresenter provideAPresenter() {
@@ -56,13 +41,6 @@ public class ActivityCommonModule {
     @Nullable
     @ActivityScope
     AListPresenter provideAListPresenter() {
-        return null;
-    }
-
-    @Provides
-    @Nullable
-    @ActivityScope
-    AViewPagerPresenter provideAViewPagerPresenter() {
         return null;
     }
 }

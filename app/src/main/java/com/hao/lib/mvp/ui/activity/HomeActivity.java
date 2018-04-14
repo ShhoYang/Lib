@@ -5,13 +5,12 @@ import android.support.v4.app.Fragment;
 
 import com.hao.lib.Constant;
 import com.hao.lib.R;
-import com.hao.lib.base.mvp.AViewPagerPresenter;
 import com.hao.lib.base.ui.BaseViewPagerActivity;
 import com.hao.lib.di.component.activity.DaggerActivityCommonComponent;
 import com.hao.lib.di.module.activity.ActivityCommonModule;
 import com.hao.lib.mvp.ui.fragment.NewsFragment;
 
-public class HomeActivity extends BaseViewPagerActivity<AViewPagerPresenter> {
+public class HomeActivity extends BaseViewPagerActivity {
 
     @Override
     protected boolean hasToolbar() {
@@ -49,11 +48,11 @@ public class HomeActivity extends BaseViewPagerActivity<AViewPagerPresenter> {
     @Override
     public Fragment[] getFragments() {
         int length = Constant.CHANNELS_KEY.length;
-        Fragment[] fragment = new Fragment[length];
+        Fragment[] fragments = new Fragment[length];
         for (int i = 0; i < length; i++) {
-            fragment[i] = NewsFragment.newInstance(Constant.CHANNELS_KEY[i]);
+            fragments[i] = NewsFragment.newInstance(Constant.CHANNELS_KEY[i]);
         }
-        return fragment;
+        return fragments;
     }
 
     @Override

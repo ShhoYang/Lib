@@ -84,15 +84,15 @@ public class DetailsActivity extends BaseActivity {
     @Override
     public void initData() {
         Bundle bundle = mUIProxy.getBundle();
-        if(bundle!= null){
+        if (bundle != null) {
             News news = bundle.getParcelable(Constant.EXTRA_BEAN_1);
-            if(news!= null){
-                if(TextUtils.isEmpty(news.getTitle())){
+            if (news != null) {
+                if (TextUtils.isEmpty(news.getTitle())) {
                     setTitle("详情");
-                }else{
+                } else {
                     setTitle(news.getTitle());
                 }
-                ImageManager.getInstance().loadImage(this,news.getThumbnail_pic_s(),mIvBg);
+                ImageManager.getInstance().loadImage(this, news.getThumbnail_pic_s(), mIvBg);
                 mWebView.loadUrl(news.getUrl());
                 return;
             }

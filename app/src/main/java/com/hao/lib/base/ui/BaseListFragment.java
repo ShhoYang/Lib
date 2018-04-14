@@ -2,12 +2,10 @@ package com.hao.lib.base.ui;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.hao.lib.R;
 import com.hao.lib.base.mvp.AListPresenter;
-import com.hao.lib.base.proxy.ListUIProxy;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -21,10 +19,8 @@ import butterknife.BindView;
 /**
  * @author Yang Shihao
  */
-public abstract class BaseListFragment<P extends AListPresenter> extends MyFragment<P,ListUIProxy>
+public abstract class BaseListFragment<P extends AListPresenter> extends BaseFragment<P>
         implements OnRefreshListener, OnLoadMoreListener, MultiItemTypeAdapter.OnItemClickListener {
-
-    private static final String TAG = "BaseListFragment";
 
     @BindView(R.id.base_recycler_view)
     RecyclerView mRecyclerView;
@@ -47,30 +43,12 @@ public abstract class BaseListFragment<P extends AListPresenter> extends MyFragm
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        if (mPresenter != null) {
-            mPresenter.onStop();
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (mPresenter != null) {
-            mPresenter.onDestroy();
-            mPresenter = null;
-        }
-        super.onDestroyView();
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.activity_base_list;
     }
 
     @Override
     public void initView() {
-        Log.d(TAG, "initView: "+ mUIProxy.toString());
         mMultiItemTypeAdapter.setOnItemClickListener(this);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);

@@ -5,7 +5,6 @@ import android.view.View;
 
 import com.hao.lib.R;
 import com.hao.lib.base.mvp.AListPresenter;
-import com.hao.lib.base.proxy.ListUIProxy;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -19,7 +18,7 @@ import butterknife.BindView;
 /**
  * @author Yang Shihao
  */
-public abstract class BaseListActivity<P extends AListPresenter> extends MyActivity<P,ListUIProxy>
+public abstract class BaseListActivity<P extends AListPresenter> extends BaseActivity<P>
         implements OnRefreshListener, OnLoadMoreListener, MultiItemTypeAdapter.OnItemClickListener {
 
     @BindView(R.id.base_recycler_view)

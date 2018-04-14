@@ -2,8 +2,6 @@ package com.hao.lib.base.mvp;
 
 import android.view.View;
 
-import com.hao.lib.base.proxy.ListUIProxy;
-import com.hao.lib.base.proxy.UIProxy;
 import com.hao.lib.rx.Api;
 import com.hao.lib.rx.RxSubscriber;
 
@@ -24,15 +22,8 @@ public abstract class AListPresenter<V, D> extends APresenter<V> {
     protected int mPage = 1;
     protected boolean mIsRefresh = false;
 
-    protected ListUIProxy mUIProxy;
-
     public AListPresenter(V view, Api api) {
         super(view, api);
-    }
-
-    @Override
-    public void setUIProxy(UIProxy UIProxy) {
-        mUIProxy= (ListUIProxy) UIProxy;
     }
 
     @Override

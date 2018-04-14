@@ -12,5 +12,5 @@ import dagger.Component;
 @Component(modules = FragmentCommonModule.class)
 public interface FragmentCommonComponent {
 
-//    void inject(BaseFragment baseFragment);
+   // void inject(BaseFragment baseFragment);
 }

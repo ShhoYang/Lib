@@ -17,9 +17,9 @@ import java.util.List;
  * @date 2018/3/16
  */
 
-public class MainAdapter extends CommonAdapter<News> {
+public class NewsAdapter extends CommonAdapter<News> {
 
-    public MainAdapter(Context context, int layoutId, List<News> datas) {
+    public NewsAdapter(Context context, int layoutId, List<News> datas) {
         super(context, layoutId, datas);
     }
 

@@ -3,7 +3,7 @@ package com.hao.lib.di.module.fragment;
 import android.support.v4.app.Fragment;
 
 import com.hao.lib.R;
-import com.hao.lib.adapter.MainAdapter;
+import com.hao.lib.adapter.NewsAdapter;
 import com.hao.lib.di.scope.FragmentScope;
 import com.hao.lib.mvp.contract.fragment.NewsContract;
 import com.hao.lib.mvp.presenter.fragment.NewsPresenter;
@@ -43,6 +43,6 @@ public class NewsModule {
     @Provides
     @FragmentScope
     MultiItemTypeAdapter provideMainAdapter(Fragment fragment,NewsContract.Presenter mainPresenter) {
-        return new MainAdapter(fragment.getContext(), R.layout.item_main, mainPresenter.getDataList());
+        return new NewsAdapter(fragment.getContext(), R.layout.item_main, mainPresenter.getDataList());
     }
 }

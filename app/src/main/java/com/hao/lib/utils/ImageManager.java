@@ -2,14 +2,21 @@ package com.hao.lib.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.hao.lib.R;
 
@@ -19,27 +26,20 @@ import java.io.IOException;
 
 /**
  * @author Yang Shihao
- *         <p>
- *         Glide图片管理类
+ * <p>
+ * Glide图片管理类
  */
 
 public class ImageManager {
 
     private RequestOptions requestOptions = new RequestOptions()
-            .placeholder(R.mipmap.placeholder)
+            //.placeholder(R.mipmap.placeholder)
             .error(R.mipmap.placeholder)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
-
-    private RequestOptions requestNoHolderOptions = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
 
     private RequestOptions requestCircleOptions = new RequestOptions()
-            .placeholder(R.mipmap.placeholder)
+            //.placeholder(R.mipmap.placeholder)
             .error(R.mipmap.placeholder)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .transform(new CircleCrop());
-
-    private RequestOptions requestCircleNoHolderOptions = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .transform(new CircleCrop());
 
@@ -51,60 +51,31 @@ public class ImageManager {
      * 加载普通图片
      */
     public void loadImage(Context context, Object url, ImageView iv) {
-        if (url == null) {
-            Glide.with(context).load(R.mipmap.placeholder).apply(requestOptions).into(iv);
-        } else {
-            Glide.with(context).load(url).apply(requestOptions).into(iv);
-        }
+        loadImage(context, url, requestOptions, iv);
     }
 
     public void loadImage(Context context, Object url, int placeholder, ImageView iv) {
-        if (url == null) {
-            Glide.with(context).load(placeholder).into(iv);
-        } else {
-            RequestOptions options = new RequestOptions()
-                    .placeholder(placeholder)
-                    .error(placeholder)
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
-            Glide.with(context).load(url).apply(options).into(iv);
-        }
+        RequestOptions options = new RequestOptions()
+                // .placeholder(placeholder)
+                .error(placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+        loadImage(context, url, options, iv);
     }
-
-    public void loadImageNoHolder(Context context, Object url, ImageView iv) {
-        if (url != null) {
-            Glide.with(context).load(url).apply(requestNoHolderOptions).into(iv);
-        }
-    }
-
 
     /**
      * 加载圆形图片
      */
     public void loadCircleImage(Context context, Object url, ImageView iv) {
-        if (url == null) {
-            Glide.with(context).load(R.mipmap.placeholder).apply(requestCircleOptions).into(iv);
-        } else {
-            Glide.with(context).load(url).apply(requestCircleOptions).into(iv);
-        }
+        loadImage(context, url, requestCircleOptions, iv);
     }
 
     public void loadCircleImage(Context context, Object url, int placeholder, ImageView iv) {
-        if (url == null) {
-            Glide.with(context).load(placeholder).apply(requestCircleOptions).into(iv);
-        } else {
-            RequestOptions options = new RequestOptions()
-                    .placeholder(placeholder)
-                    .error(placeholder)
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .transform(new CircleCrop());
-            Glide.with(context).load(url).apply(options).into(iv);
-        }
-    }
-
-    public void loadCircleImageNoHolder(Context context, Object url, ImageView iv) {
-        if (url != null) {
-            Glide.with(context).load(url).apply(requestCircleNoHolderOptions).into(iv);
-        }
+        RequestOptions options = new RequestOptions()
+               // .placeholder(placeholder)
+                .error(placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .transform(new CircleCrop());
+        loadImage(context, url, options, iv);
     }
 
     /**
@@ -112,7 +83,7 @@ public class ImageManager {
      */
     public void loadRoundCornerImage(Context context, Object url, int roundingRadius, ImageView iv) {
         RequestOptions options = new RequestOptions()
-                .placeholder(R.mipmap.placeholder)
+               // .placeholder(R.mipmap.placeholder)
                 .error(R.mipmap.placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .transform(new RoundedCorners(roundingRadius));
@@ -120,18 +91,31 @@ public class ImageManager {
     }
 
     public void loadRatioImage(Context context, Object url, final ImageView iv) {
-        Glide.with(context).asBitmap().load(url).into(new SimpleTarget<Bitmap>() {
+        Glide.with(context).asBitmap().load(url).apply(requestOptions).listener(new RequestListener<Bitmap>() {
             @Override
-            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                iv.setImageBitmap(resource);
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                return false;
             }
-        });
+
+            @Override
+            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                ViewGroup.LayoutParams params = iv.getLayoutParams();
+                params.height = (int) (params.width * 1.0F * resource.getHeight() / resource.getWidth());
+                iv.setLayoutParams(params);
+                iv.setImageBitmap(resource);
+                return false;
+            }
+        }).into(iv);
+    }
+
+    private void loadImage(Context context, Object url, RequestOptions options, ImageView iv) {
+        Glide.with(context).asBitmap().load(url).transition(new BitmapTransitionOptions().crossFade(500)).apply(options).into(iv);
     }
 
     /**
      * 加载Bitmap
      */
-    public void loadImage(Context context, Bitmap bitmap, ImageView imageView) {
+    /*public void loadImage(Context context, Bitmap bitmap, ImageView imageView) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 30, baos);
         Glide.with(context).load(baos.toByteArray()).apply(requestOptions).into(imageView);
@@ -145,7 +129,7 @@ public class ImageManager {
             } catch (IOException e) {
             }
         }
-    }
+    }*/
 
     /**
      * 释放内存

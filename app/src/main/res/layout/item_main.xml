@@ -6,10 +6,10 @@
     android:padding="@dimen/margin_m">
 
     <ImageView
-        android:scaleType="centerCrop"
         android:id="@+id/iv_"
         android:layout_width="128dp"
-        android:layout_height="72dp" />
+        android:layout_height="72dp"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/tv_"

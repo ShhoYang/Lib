@@ -74,7 +74,7 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mAdapter = new EmptyWrapper(mMultiItemTypeAdapter);
         if (mEmptyView == null) {
-            mEmptyView = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.empty_view, null);
+            mEmptyView = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.empty_view, mRecyclerView,false);
             mEmptyViewText = mEmptyView.findViewById(R.id.base_tv_empty);
         }
         mAdapter.setEmptyView(mEmptyView);

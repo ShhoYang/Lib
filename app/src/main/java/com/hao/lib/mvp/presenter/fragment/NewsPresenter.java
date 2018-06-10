@@ -47,11 +47,12 @@ public class NewsPresenter extends NewsContract.Presenter {
 
             @Override
             protected void _onError(String code) {
-                List<News> list = new ArrayList<>();
+                mView.loadError();
+               /* List<News> list = new ArrayList<>();
                 for (int i = 0; i < 10; i++) {
                     list.add(new News("新闻" + i));
                 }
-                setDataList(list);
+                setDataList(list);*/
             }
         });
     }

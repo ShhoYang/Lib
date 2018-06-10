@@ -1,7 +1,5 @@
 package com.hao.lib.mvp.contract.fragment;
 
-import android.view.View;
-
 import com.hao.lib.base.mvp.AListPresenter;
 import com.hao.lib.base.ui.IListView;
 import com.hao.lib.bean.News;

@@ -72,7 +72,7 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new EmptyWrapper(mMultiItemTypeAdapter);
         if (mEmptyView == null) {
-            mEmptyView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.empty_view, null);
+            mEmptyView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.empty_view, mRecyclerView,false);
             mEmptyViewText = mEmptyView.findViewById(R.id.base_tv_empty);
         }
         mAdapter.setEmptyView(mEmptyView);

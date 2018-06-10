@@ -83,7 +83,7 @@ public class DetailsActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        Bundle bundle = mUIProxy.getBundle();
+        Bundle bundle = getBundle();
         if (bundle != null) {
             News news = bundle.getParcelable(Constant.EXTRA_BEAN_1);
             if (news != null) {

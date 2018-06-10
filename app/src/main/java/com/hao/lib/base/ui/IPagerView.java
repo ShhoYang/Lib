@@ -2,13 +2,14 @@ package com.hao.lib.base.ui;
 
 import android.support.v4.app.Fragment;
 
+import java.util.List;
+
 /**
  * @author Yang Shihao
- * @date 2018/4/13
  */
-public interface IPagerView {
+public interface IPagerView extends IView {
 
-    String[] getTitles();
+    void setViewPagerData(String[] titles, Fragment[] fragments);
 
-    Fragment[] getFragments();
+    void setViewPagerData(List<String> titles, List<Fragment> fragments);
 }

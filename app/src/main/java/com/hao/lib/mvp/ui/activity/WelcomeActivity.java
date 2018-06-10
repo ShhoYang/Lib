@@ -36,7 +36,7 @@ public class WelcomeActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mUIProxy.startActivityAndFinish(HomeActivity.class);
+                startActivityAndFinish(HomeActivity.class);
             }
         }, 1000);
     }

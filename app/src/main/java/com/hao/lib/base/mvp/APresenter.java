@@ -1,6 +1,5 @@
 package com.hao.lib.base.mvp;
 
-import com.hao.lib.base.proxy.UIProxy;
 import com.hao.lib.rx.Api;
 import com.hao.lib.rx.RxSubscriber;
 
@@ -19,15 +18,11 @@ public class APresenter<V> {
 
     protected V mView;
     protected Api mApi;
-    protected UIProxy mUIProxy;
 
     public APresenter(V view, Api api) {
         mView = view;
         mApi = api;
-    }
-
-    public void setUIProxy(UIProxy UIProxy) {
-        mUIProxy = UIProxy;
+        initBundle();
     }
 
     public void initBundle() {

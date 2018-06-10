@@ -1,6 +1,9 @@
 package com.hao.lib.mvp.contract.fragment;
 
+import android.view.View;
+
 import com.hao.lib.base.mvp.AListPresenter;
+import com.hao.lib.base.ui.IListView;
 import com.hao.lib.bean.News;
 import com.hao.lib.rx.Api;
 
@@ -11,7 +14,7 @@ import com.hao.lib.rx.Api;
 
 public interface NewsContract {
 
-    interface View{
+    interface View extends IListView{
 
     }
 

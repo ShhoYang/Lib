@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.hao.lib.utils.ImageManager;
 import com.hao.lib.view.ZoomImageView;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

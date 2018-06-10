@@ -28,7 +28,7 @@ public class NewsPresenter extends NewsContract.Presenter {
     @Override
     public void initBundle() {
         super.initBundle();
-        Bundle build = mUIProxy.getBundle();
+        Bundle build = mView.getBundle();
         if (build != null) {
             mType = build.getString(Constant.EXTRA_STRING_1, "");
         }

@@ -17,11 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
-import com.hao.lib.adapter.MenuItemAdapter;
-import com.hao.lib.R;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
-
-import java.util.List;
+import com.zhy.adapter.recyclerview.CommonAdapter;
 
 /**
  * @author Yang Shihao
@@ -34,15 +30,13 @@ public class MenuPopupWindow implements PopupWindow.OnDismissListener {
     private Context mContext;
     private int mWidth;
     private int mHeight;
-    private int mTextColor = -1;
-    private int mBackGround = -1;
     private int mAnimationStyle = -1;
-    private float mWindowBackgroundAlpha = 0.7f;
+    private float mWindowBackgroundAlpha = DEFAULT_ALPHA;
+    private boolean mBackgroundDimEnabled = true;
 
     private Window mWindow;
     private PopupWindow mPopupWindow;
-    private List mMenuItems;
-    private ItemClickListener mItemClickListener;
+    private CommonAdapter mAdapter;
 
     private MenuPopupWindow(Context context) {
         mContext = context;
@@ -56,7 +50,15 @@ public class MenuPopupWindow implements PopupWindow.OnDismissListener {
         return mHeight;
     }
 
+    public View getContentView() {
+        if (mPopupWindow == null) {
+            return null;
+        }
+        return mPopupWindow.getContentView();
+    }
+
     public MenuPopupWindow showAsDropDown(View anchor, int xOff, int yOff) {
+        changeAlpha(mWindowBackgroundAlpha);
         if (mPopupWindow != null) {
             mPopupWindow.showAsDropDown(anchor, xOff, yOff);
         }
@@ -64,6 +66,7 @@ public class MenuPopupWindow implements PopupWindow.OnDismissListener {
     }
 
     public MenuPopupWindow showAsDropDown(View anchor) {
+        changeAlpha(mWindowBackgroundAlpha);
         if (mPopupWindow != null) {
             mPopupWindow.showAsDropDown(anchor);
         }
@@ -72,6 +75,7 @@ public class MenuPopupWindow implements PopupWindow.OnDismissListener {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public MenuPopupWindow showAsDropDown(View anchor, int xOff, int yOff, int gravity) {
+        changeAlpha(mWindowBackgroundAlpha);
         if (mPopupWindow != null) {
             mPopupWindow.showAsDropDown(anchor, xOff, yOff, gravity);
         }
@@ -82,49 +86,55 @@ public class MenuPopupWindow implements PopupWindow.OnDismissListener {
      * 相对于父控件的位置（通过设置Gravity.CENTER，下方Gravity.BOTTOM等 ），可以设置具体位置坐标
      */
     public MenuPopupWindow showAtLocation(View parent, int gravity, int x, int y) {
+        changeAlpha(mWindowBackgroundAlpha);
         if (mPopupWindow != null) {
             mPopupWindow.showAtLocation(parent, gravity, x, y);
         }
         return this;
     }
 
-    private PopupWindow build() {
-        if (mMenuItems == null) {
-            new NullPointerException("menu is null");
+    public boolean isShowing() {
+        return mPopupWindow.isShowing();
+    }
+
+    private void changeAlpha(float alpha) {
+        if (!mBackgroundDimEnabled) {
+            return;
         }
+        Activity activity = (Activity) mContext;
+        if (activity == null) {
+            return;
+        }
+        mWindow = activity.getWindow();
+        WindowManager.LayoutParams windowParams = mWindow.getAttributes();
+        windowParams.alpha = alpha;
+        mWindow.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        mWindow.setAttributes(windowParams);
+    }
+
+
+    @Override
+    public void onDismiss() {
+        dismiss();
+    }
+
+    /**
+     * 关闭popWindow
+     */
+    public void dismiss() {
+        changeAlpha(1.0F);
+        if (mPopupWindow != null && mPopupWindow.isShowing()) {
+            mPopupWindow.dismiss();
+        }
+    }
+
+    private PopupWindow build() {
         RecyclerView contentView = new RecyclerView(mContext);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         contentView.setLayoutParams(params);
         contentView.setLayoutManager(new LinearLayoutManager(mContext));
-        if (mBackGround != -1) {
-            contentView.setBackgroundColor(mBackGround);
-        }
         contentView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-        MenuItemAdapter adapter = new MenuItemAdapter(mContext, R.layout.menu_popup_window_item, mMenuItems);
-        adapter.setTextColor(mTextColor);
-        if (mItemClickListener != null) {
-            adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    mItemClickListener.itemClick(position);
-                }
-
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    return false;
-                }
-            });
-        }
-        contentView.setAdapter(adapter);
-        Activity activity = (Activity) mContext;
-        if (activity != null) {
-            mWindow = activity.getWindow();
-            WindowManager.LayoutParams windowParams = mWindow.getAttributes();
-            windowParams.alpha = mWindowBackgroundAlpha;
-            mWindow.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            mWindow.setAttributes(windowParams);
-        }
-
+        contentView.setAdapter(mAdapter);
         if (mWidth == 0 && mHeight == 0) {
             mPopupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         } else if (mHeight == 0) {
@@ -137,31 +147,13 @@ public class MenuPopupWindow implements PopupWindow.OnDismissListener {
         if (mAnimationStyle != -1) {
             mPopupWindow.setAnimationStyle(mAnimationStyle);
         }
-        mPopupWindow.setFocusable(true);
+        mPopupWindow.setFocusable(false);
         mPopupWindow.setTouchable(true);
+        mPopupWindow.setOutsideTouchable(false);
         mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mPopupWindow.setOnDismissListener(this);
         mPopupWindow.update();
         return mPopupWindow;
-    }
-
-    @Override
-    public void onDismiss() {
-        dismiss();
-    }
-
-    /**
-     * 关闭popWindow
-     */
-    public void dismiss() {
-        if (mWindow != null) {
-            WindowManager.LayoutParams params = mWindow.getAttributes();
-            params.alpha = 1.0f;
-            mWindow.setAttributes(params);
-        }
-        if (mPopupWindow != null && mPopupWindow.isShowing()) {
-            mPopupWindow.dismiss();
-        }
     }
 
     public static class Builder {
@@ -182,33 +174,23 @@ public class MenuPopupWindow implements PopupWindow.OnDismissListener {
             return this;
         }
 
-        public Builder setTextColor(int color) {
-            mMenuPopupWindow.mTextColor = color;
-            return this;
-        }
-
-        public Builder setBackGroundColor(int color) {
-            mMenuPopupWindow.mBackGround = color;
-            return this;
-        }
-
         public Builder setAnimationStyle(int animationStyle) {
             mMenuPopupWindow.mAnimationStyle = animationStyle;
             return this;
         }
 
-        public Builder setWindowBackgroundAlpha(@FloatRange(from = 0, to = 1.0f) float darkValue) {
-            mMenuPopupWindow.mWindowBackgroundAlpha = darkValue;
+        public Builder setWindowBackgroundAlpha(@FloatRange(from = 0, to = 1.0f) float backgroundAlpha) {
+            mMenuPopupWindow.mWindowBackgroundAlpha = backgroundAlpha;
             return this;
         }
 
-        public Builder setMenuItems(List menuItems) {
-            mMenuPopupWindow.mMenuItems = menuItems;
+        public Builder setBackgroundDimEnabled(boolean backgroundDimEnabled) {
+            mMenuPopupWindow.mBackgroundDimEnabled = backgroundDimEnabled;
             return this;
         }
 
-        public Builder setItemClickListener(ItemClickListener itemClickListener) {
-            mMenuPopupWindow.mItemClickListener = itemClickListener;
+        public Builder setAdapter(CommonAdapter adapter) {
+            mMenuPopupWindow.mAdapter = adapter;
             return this;
         }
 
@@ -216,9 +198,5 @@ public class MenuPopupWindow implements PopupWindow.OnDismissListener {
             mMenuPopupWindow.build();
             return mMenuPopupWindow;
         }
-    }
-
-    public interface ItemClickListener {
-        void itemClick(int position);
     }
 }

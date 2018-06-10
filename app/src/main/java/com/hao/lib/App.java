@@ -19,8 +19,11 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.socks.library.KLog;
 
 import cat.ereza.customactivityoncrash.config.CaocConfig;
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 
 /**
  * @author Yang Shihao
@@ -48,7 +51,7 @@ public class App extends MultiDexApplication {
     }
 
 
-    public static App getApplication(){
+    public static App getApplication() {
         return mApp;
     }
 
@@ -71,6 +74,15 @@ public class App extends MultiDexApplication {
             @Override
             public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
                 return new ClassicsFooter(context);
+            }
+        });
+    }
+
+    static {
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                KLog.d("Rxjava exception");
             }
         });
     }

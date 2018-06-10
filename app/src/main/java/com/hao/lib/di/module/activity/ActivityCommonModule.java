@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 
 import com.hao.lib.base.mvp.AListPresenter;
 import com.hao.lib.base.mvp.APresenter;
-import com.hao.lib.base.proxy.UIProxy;
 import com.hao.lib.di.scope.ActivityScope;
 
 import dagger.Module;
@@ -22,12 +21,6 @@ public class ActivityCommonModule {
 
     public ActivityCommonModule(Activity activity) {
         mActivity  = activity;
-    }
-
-    @Provides
-    @ActivityScope
-    UIProxy provideUIProxy() {
-        return new UIProxy(mActivity);
     }
 
     @Provides

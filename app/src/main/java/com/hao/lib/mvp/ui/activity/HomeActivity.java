@@ -98,6 +98,6 @@ public class HomeActivity extends BaseViewPagerActivity {
     public void setColor(float positionOffset, int color, int nextColor) {
         int evaluate = (Integer) mEvaluator.evaluate(positionOffset, getResources().getColor(color), getResources().getColor(nextColor));
         setTitleBackground(evaluate);
-        mUIProxy.setTabLayoutBackground(evaluate);
+        setTabLayoutBackground(evaluate);
     }
 }

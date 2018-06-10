@@ -2,11 +2,9 @@ package com.hao.lib.di.module.fragment;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import com.hao.lib.base.mvp.AListPresenter;
 import com.hao.lib.base.mvp.APresenter;
-import com.hao.lib.base.proxy.UIProxy;
 import com.hao.lib.di.scope.FragmentScope;
 
 import dagger.Module;
@@ -25,13 +23,6 @@ public class FragmentCommonModule {
 
     public FragmentCommonModule(Fragment fragment) {
         mFragment = fragment;
-    }
-
-    @Provides
-    @FragmentScope
-    UIProxy provideUIProxy() {
-        Log.d(TAG, "provideUIProxy: ");
-        return new UIProxy(mFragment);
     }
 
     @Provides

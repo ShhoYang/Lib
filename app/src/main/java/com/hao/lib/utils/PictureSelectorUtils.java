@@ -3,11 +3,11 @@ package com.hao.lib.utils;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
+import com.hao.lib.R;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.hao.lib.R;
 
 import java.util.List;
 

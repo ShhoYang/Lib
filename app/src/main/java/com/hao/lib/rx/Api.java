@@ -6,8 +6,6 @@ import com.hao.lib.bean.News;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import io.reactivex.Observable;
 
 /**

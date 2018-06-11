@@ -67,7 +67,7 @@ public class MenuBottomDialog {
             mMenuBottomDialog = new MenuBottomDialog(mContext);
         }
 
-        public MenuBottomDialog.Builder setAdapter(@NonNull RecyclerView.Adapter adapter) {
+        public Builder setAdapter(@NonNull RecyclerView.Adapter adapter) {
             mMenuBottomDialog.mAdapter = adapter;
             return this;
         }

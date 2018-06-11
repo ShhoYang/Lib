@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hao.lib.App;
 import com.hao.lib.Constant;
 import com.hao.lib.R;
@@ -45,9 +46,10 @@ public class NewsFragment extends BaseListFragment<NewsContract.Presenter>
         setDefaultItemDecoration();
     }
 
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constant.EXTRA_BEAN_1, mPresenter.getDataList().get(position));
         Bundle options = ActivityOptions.makeSceneTransitionAnimation(mActivity, view, getString(R.string.transition_name)).toBundle();

@@ -1,19 +1,17 @@
 package com.hao.lib.base.ui;
 
 import android.support.annotation.ColorInt;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.hao.lib.R;
-import com.hao.lib.adapter.CommonViewPagerAdapter;
 import com.hao.lib.adapter.FragmentWithTitleAdapter;
 import com.hao.lib.base.mvp.APresenter;
+import com.hao.lib.view.EmptyView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,9 +29,9 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
     @BindView(R.id.base_view_pager)
     ViewPager mViewPager;
 
-    private CommonViewPagerAdapter mEmptyAdapter;
-
-    private LinearLayout mEmptyView;
+    @Nullable
+    @BindView(R.id.base_empty)
+    EmptyView mEmptyView;
 
     @Override
     public int getLayoutId() {
@@ -44,7 +42,6 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
     public void initView() {
         mViewPager.addOnPageChangeListener(this);
         mTabLayout.setupWithViewPager(mViewPager);
-        loadEmptyAdapter();
     }
 
     @Override
@@ -68,18 +65,6 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
 
     }
 
-    private void loadEmptyAdapter() {
-        if (mEmptyAdapter == null) {
-            if (mEmptyView == null) {
-                mEmptyView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.empty_view, null);
-            }
-            List<View> list = new ArrayList(1);
-            list.add(mEmptyView);
-            mEmptyAdapter = new CommonViewPagerAdapter(list);
-        }
-        mViewPager.setAdapter(mEmptyAdapter);
-    }
-
     public void setOffscreenPageLimit(int limit) {
         mViewPager.setOffscreenPageLimit(limit);
     }
@@ -89,8 +74,9 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
     }
 
     public void setEmptyViewClickListener(View.OnClickListener emptyViewClickListener) {
-        mEmptyView.findViewById(R.id.base_iv_empty).setOnClickListener(emptyViewClickListener);
-        mEmptyView.findViewById(R.id.base_tv_empty).setOnClickListener(emptyViewClickListener);
+        if(mEmptyView!= null){
+            mEmptyView.setOnClickListener(emptyViewClickListener);
+        }
     }
 
     public void setViewPagerData(String[] titles, Fragment[] fragments) {
@@ -108,6 +94,10 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
         int titleSize = titles.size();
         if (fragmentSize == 0 || titleSize == 0 || fragmentSize != titleSize) {
             return;
+        }
+
+        if(mEmptyView!= null){
+            mEmptyView.hide();
         }
 
         if (fragmentSize == 1) {

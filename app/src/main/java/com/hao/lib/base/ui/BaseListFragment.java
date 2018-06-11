@@ -6,22 +6,20 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hao.lib.R;
 import com.hao.lib.base.mvp.AListPresenter;
-import com.hao.lib.base.proxy.EmptyWrapper;
 import com.hao.lib.utils.DisplayUtils;
+import com.hao.lib.view.EmptyView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import javax.inject.Inject;
 
@@ -31,7 +29,9 @@ import butterknife.BindView;
  * @author Yang Shihao
  */
 public abstract class BaseListFragment<P extends AListPresenter> extends BaseFragment<P>
-        implements OnRefreshListener, OnLoadMoreListener, MultiItemTypeAdapter.OnItemClickListener {
+        implements OnRefreshListener, OnLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+
+    private static final String TAG = "BaseListFragment";
 
     @BindView(R.id.base_recycler_view)
     RecyclerView mRecyclerView;
@@ -40,15 +40,9 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     SmartRefreshLayout mRefreshLayout;
 
     @Inject
-    MultiItemTypeAdapter mMultiItemTypeAdapter;
+    BaseQuickAdapter mAdapter;
 
-    private EmptyWrapper mAdapter;
-
-    private LinearLayout mEmptyView;
-    private TextView mEmptyViewText;
-
-    private String mNoDataText = "暂无数据";
-    private String mLoadErrorText = "加载失败";
+    private EmptyView mEmptyView;
 
     private boolean mIsRefresh = false;
 
@@ -68,17 +62,13 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
 
     @Override
     public void initView() {
-        mMultiItemTypeAdapter.setOnItemClickListener(this);
+        mEmptyView = new EmptyView(mActivity);
+        mAdapter.setEmptyView(mEmptyView);
+        mAdapter.setOnItemClickListener(this);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        mRecyclerView.setAdapter(mAdapter);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        mAdapter = new EmptyWrapper(mMultiItemTypeAdapter);
-        if (mEmptyView == null) {
-            mEmptyView = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.empty_view, mRecyclerView,false);
-            mEmptyViewText = mEmptyView.findViewById(R.id.base_tv_empty);
-        }
-        mAdapter.setEmptyView(mEmptyView);
-        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -101,31 +91,13 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     }
 
     @Override
-    public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         if (mPresenter != null) {
             mPresenter.onItemClick(view, position);
         }
     }
 
-    @Override
-    public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-        if (mPresenter != null) {
-            mPresenter.onItemLongClick(view, position);
-        }
-        return false;
-    }
-
-    private void setNoDataText(String noDataText) {
-        mNoDataText = noDataText;
-    }
-
-    private void setLoadErrorText(String loadErrorText) {
-        mLoadErrorText = loadErrorText;
-    }
-
     private void setEmptyViewClickListener(View.OnClickListener emptyViewClickListener) {
-        mEmptyViewText.setOnClickListener(emptyViewClickListener);
-        mEmptyView.findViewById(R.id.base_iv_empty).setOnClickListener(emptyViewClickListener);
     }
 
     /**
@@ -227,15 +199,15 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     }
 
     public void noData() {
-        mEmptyViewText.setText(mNoDataText);
         mRefreshLayout.finishRefresh();
         mRefreshLayout.finishLoadMore();
+        mEmptyView.noData();
     }
 
     public void loadError() {
         mRefreshLayout.finishRefresh();
         mRefreshLayout.finishLoadMore();
-        mEmptyViewText.setText(mLoadErrorText);
+        mEmptyView.loadError();
     }
 
     public void notifyItemRangeInserted(int positionStart, int itemCount) {

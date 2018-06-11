@@ -62,7 +62,7 @@ public abstract class AListPresenter<V extends IListView, D> extends APresenter<
         }
     }
 
-    public void setObservable(Observable<List<D>> observable) {
+    public void setDataObservable(Observable<List<D>> observable) {
         addRx2Destroy(new RxSubscriber<List<D>>(observable) {
             @Override
             protected void _onNext(List<D> ds) {

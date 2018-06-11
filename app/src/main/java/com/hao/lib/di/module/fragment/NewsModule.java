@@ -1,14 +1,16 @@
 package com.hao.lib.di.module.fragment;
 
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.hao.lib.R;
 import com.hao.lib.adapter.NewsAdapter;
+import com.hao.lib.bean.News;
 import com.hao.lib.di.scope.FragmentScope;
 import com.hao.lib.mvp.contract.fragment.NewsContract;
 import com.hao.lib.mvp.presenter.fragment.NewsPresenter;
 import com.hao.lib.rx.Api;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -30,19 +32,13 @@ public class NewsModule {
 
     @Provides
     @FragmentScope
-    Fragment provideFragment() {
-        return (Fragment) mView;
-    }
-
-    @Provides
-    @FragmentScope
     NewsContract.Presenter provideMainPresenter(Api api) {
         return new NewsPresenter(mView, api);
     }
 
     @Provides
     @FragmentScope
-    MultiItemTypeAdapter provideMainAdapter(Fragment fragment,NewsContract.Presenter mainPresenter) {
-        return new NewsAdapter(fragment.getContext(), R.layout.item_main, mainPresenter.getDataList());
+    BaseQuickAdapter provideMainAdapter(NewsContract.Presenter mainPresenter) {
+        return new NewsAdapter(R.layout.item_main, mainPresenter.getDataList());
     }
 }

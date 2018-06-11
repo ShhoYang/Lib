@@ -17,8 +17,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
-import com.zhy.adapter.recyclerview.CommonAdapter;
-
 /**
  * @author Yang Shihao
  */
@@ -36,7 +34,7 @@ public class MenuPopupWindow implements PopupWindow.OnDismissListener {
 
     private Window mWindow;
     private PopupWindow mPopupWindow;
-    private CommonAdapter mAdapter;
+    private RecyclerView.Adapter mAdapter;
 
     private MenuPopupWindow(Context context) {
         mContext = context;
@@ -189,7 +187,7 @@ public class MenuPopupWindow implements PopupWindow.OnDismissListener {
             return this;
         }
 
-        public Builder setAdapter(CommonAdapter adapter) {
+        public Builder setAdapter(@NonNull RecyclerView.Adapter adapter) {
             mMenuPopupWindow.mAdapter = adapter;
             return this;
         }

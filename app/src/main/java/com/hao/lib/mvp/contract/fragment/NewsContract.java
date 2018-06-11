@@ -5,6 +5,8 @@ import com.hao.lib.base.ui.IListView;
 import com.hao.lib.bean.News;
 import com.hao.lib.rx.Api;
 
+import javax.inject.Inject;
+
 /**
  * @author Yang Shihao
  * @date 2018/3/16

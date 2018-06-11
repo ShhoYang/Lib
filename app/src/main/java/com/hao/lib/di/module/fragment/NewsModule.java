@@ -1,12 +1,8 @@
 package com.hao.lib.di.module.fragment;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.hao.lib.R;
 import com.hao.lib.adapter.NewsAdapter;
-import com.hao.lib.bean.News;
 import com.hao.lib.di.scope.FragmentScope;
 import com.hao.lib.mvp.contract.fragment.NewsContract;
 import com.hao.lib.mvp.presenter.fragment.NewsPresenter;
@@ -22,8 +18,6 @@ import dagger.Provides;
 @Module
 public class NewsModule {
 
-    private static final String TAG = "NewsModule";
-
     final NewsContract.View mView;
 
     public NewsModule(NewsContract.View view) {
@@ -32,13 +26,13 @@ public class NewsModule {
 
     @Provides
     @FragmentScope
-    NewsContract.Presenter provideMainPresenter(Api api) {
+    NewsContract.Presenter provideNewsPresenter(Api api) {
         return new NewsPresenter(mView, api);
     }
 
     @Provides
     @FragmentScope
-    BaseQuickAdapter provideMainAdapter(NewsContract.Presenter mainPresenter) {
-        return new NewsAdapter(R.layout.item_main, mainPresenter.getDataList());
+    BaseQuickAdapter provideNewsAdapter(NewsContract.Presenter presenter) {
+        return new NewsAdapter(R.layout.item_main, presenter.getDataList());
     }
 }

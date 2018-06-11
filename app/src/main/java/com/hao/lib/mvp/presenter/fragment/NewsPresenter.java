@@ -11,6 +11,8 @@ import com.hao.lib.rx.RxSubscriber;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * @author Yang Shihao
  */
@@ -21,6 +23,7 @@ public class NewsPresenter extends NewsContract.Presenter {
 
     private String mType;
 
+    @Inject
     public NewsPresenter(NewsContract.View view, Api api) {
         super(view, api);
     }
@@ -47,14 +50,14 @@ public class NewsPresenter extends NewsContract.Presenter {
 
             @Override
             protected void _onError(String code) {
-               if(mView!= null){
-                   mView.loadError();
-               }
-               /* List<News> list = new ArrayList<>();
+//               if(mView!= null){
+//                   mView.loadError();
+//               }
+                List<News> list = new ArrayList<>();
                 for (int i = 0; i < 10; i++) {
                     list.add(new News("新闻" + i));
                 }
-                setDataList(list);*/
+                setDataList(list);
             }
         });
     }

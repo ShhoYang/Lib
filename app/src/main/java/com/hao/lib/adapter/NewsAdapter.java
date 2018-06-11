@@ -16,20 +16,22 @@ import java.util.List;
  * @date 2018/3/16
  */
 
-public class NewsAdapter extends BaseQuickAdapter<News,BaseViewHolder> {
+public class NewsAdapter extends BaseQuickAdapter<News, BaseViewHolder> {
 
     public NewsAdapter(int layoutResId, List<News> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, News news) {
+    protected void convert(final BaseViewHolder holder, News news) {
         holder.setText(R.id.tv_, news.getTitle());
         ImageManager.getInstance().loadImage(mContext, news.getThumbnail_pic_s(), (ImageView) holder.getView(R.id.iv_));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (getOnItemClickListener() != null) {
+                    getOnItemClickListener().onItemClick(null, view, holder.getLayoutPosition());
+                }
             }
         });
     }

@@ -48,11 +48,11 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
 
     @Nullable
     @BindView(R.id.base_rl_title)
-    RelativeLayout mRlTitle;
+    protected RelativeLayout mRlTitle;
 
     @Nullable
     @BindView(R.id.base_iv_left)
-    ImageView mIvLeft;
+    protected ImageView mIvLeft;
 
     @Nullable
     @BindView(R.id.base_tv_left)
@@ -60,7 +60,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
 
     @Nullable
     @BindView(R.id.base_tv_title)
-    TextView mTvTitle;
+    protected TextView mTvTitle;
 
     @Nullable
     @BindView(R.id.base_iv_right)

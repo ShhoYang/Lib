@@ -13,7 +13,7 @@ import io.reactivex.Observable;
  */
 public class Api {
 
-    private ApiService apiService= null;
+    private ApiService apiService = null;
 
     public Api(ApiService apiService) {
         this.apiService = apiService;
@@ -24,4 +24,3 @@ public class Api {
         return apiService.getNews(Constant.API_KEY, type).compose(RxSchedulers.<List<News>>io_main());
     }
 }
-

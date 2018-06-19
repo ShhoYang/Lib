@@ -48,7 +48,4 @@ dependencies {
     implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
-    implementation files('lib/jackson-databind-2.2.3.jar')
-    implementation files('lib/jackson-core-2.2.3.jar')
-    implementation files('lib/jackson-annotations-2.2.3.jar')
 }

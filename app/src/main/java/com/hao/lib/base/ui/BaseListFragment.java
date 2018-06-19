@@ -2,26 +2,19 @@ package com.hao.lib.base.ui;
 
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hao.lib.R;
 import com.hao.lib.base.mvp.AListPresenter;
-import com.hao.lib.utils.DisplayUtils;
 import com.hao.lib.view.EmptyView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -39,7 +32,6 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     @BindView(R.id.base_refresh_view)
     SmartRefreshLayout mRefreshLayout;
 
-    @Inject
     BaseQuickAdapter mAdapter;
 
     private EmptyView mEmptyView;
@@ -62,6 +54,7 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
 
     @Override
     public void initView() {
+        mAdapter = createAdapter();
         mEmptyView = new EmptyView(mActivity);
         mAdapter.setEmptyView(mEmptyView);
         mAdapter.setOnItemClickListener(this);
@@ -95,6 +88,10 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
         if (mPresenter != null) {
             mPresenter.onItemClick(view, position);
         }
+    }
+
+    public BaseQuickAdapter getAdapter() {
+        return mAdapter;
     }
 
     private void setEmptyViewClickListener(View.OnClickListener emptyViewClickListener) {
@@ -150,34 +147,6 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     }
 
     /**
-     * 设置Margin
-     */
-    public void setMargin(int dp) {
-        setMargin(dp, dp, dp, dp);
-    }
-
-    /**
-     * 设置Margin
-     */
-    public void setMargin(int left, int top, int right, int bottom) {
-        int pxL = DisplayUtils.dip2px(mActivity, left);
-        int pxT = DisplayUtils.dip2px(mActivity, top);
-        int pxR = DisplayUtils.dip2px(mActivity, right);
-        int pxB = DisplayUtils.dip2px(mActivity, bottom);
-        ViewGroup.LayoutParams params = mRecyclerView.getLayoutParams();
-        if (params instanceof SmartRefreshLayout.LayoutParams) {
-            ((SmartRefreshLayout.LayoutParams) params).setMargins(pxL, pxT, pxR, pxB);
-        } else if (params instanceof LinearLayout.LayoutParams) {
-            ((LinearLayout.LayoutParams) params).setMargins(pxL, pxT, pxR, pxB);
-        } else if (params instanceof RelativeLayout.LayoutParams) {
-            ((RelativeLayout.LayoutParams) params).setMargins(pxL, pxT, pxR, pxB);
-        } else if (params instanceof NestedScrollView.LayoutParams) {
-            ((NestedScrollView.LayoutParams) params).setMargins(pxL, pxT, pxR, pxB);
-        }
-        mRecyclerView.setLayoutParams(params);
-    }
-
-    /**
      * 结束刷新
      */
     public void finishRefresh() {
@@ -211,26 +180,20 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     }
 
     public void notifyItemRangeInserted(int positionStart, int itemCount) {
-        if (mAdapter != null) {
-            mAdapter.notifyItemRangeInserted(positionStart, itemCount);
-        }
+        mAdapter.notifyItemRangeInserted(positionStart, itemCount);
     }
 
     public void notifyItemChanged(int position) {
-        if (mAdapter != null) {
-            mAdapter.notifyItemChanged(position);
-        }
+        mAdapter.notifyItemChanged(position);
     }
 
     public void notifyItemChanged(int position, Object payload) {
-        if (mAdapter != null) {
-            mAdapter.notifyItemChanged(position, payload);
-        }
+        mAdapter.notifyItemChanged(position, payload);
     }
 
     public void notifyItemRemoved(int position) {
-        if (mAdapter != null) {
-            mAdapter.notifyItemRemoved(position);
-        }
+        mAdapter.notifyItemRemoved(position);
     }
+
+    public abstract BaseQuickAdapter createAdapter();
 }

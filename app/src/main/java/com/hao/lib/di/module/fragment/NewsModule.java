@@ -1,8 +1,5 @@
 package com.hao.lib.di.module.fragment;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.hao.lib.R;
-import com.hao.lib.adapter.NewsAdapter;
 import com.hao.lib.di.scope.FragmentScope;
 import com.hao.lib.mvp.contract.fragment.NewsContract;
 import com.hao.lib.mvp.presenter.fragment.NewsPresenter;
@@ -28,11 +25,5 @@ public class NewsModule {
     @FragmentScope
     NewsContract.Presenter provideNewsPresenter(Api api) {
         return new NewsPresenter(mView, api);
-    }
-
-    @Provides
-    @FragmentScope
-    BaseQuickAdapter provideNewsAdapter(NewsContract.Presenter presenter) {
-        return new NewsAdapter(R.layout.item_main, presenter.getDataList());
     }
 }

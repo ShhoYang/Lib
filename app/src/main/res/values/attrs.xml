@@ -49,4 +49,11 @@
         <attr name="indicatorColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="ToolbarLayout">
+        <attr name="tb_show_back" format="boolean" />
+        <attr name="tb_title_text" format="string" />
+        <attr name="tb_menu_text" format="string" />
+        <attr name="tb_menu_icon" format="reference" />
+    </declare-styleable>
+
 </resources>

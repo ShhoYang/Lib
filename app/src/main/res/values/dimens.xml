@@ -16,6 +16,7 @@
     <dimen name="text_xxl">24sp</dimen>
 
     <dimen name="title_height">56dp</dimen>
+    <dimen name="title_min_height">20dp</dimen>
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="menu_bottom_dialog_item_height">44dp</dimen>
     <dimen name="menu_popup_window_item_height">40dp</dimen>

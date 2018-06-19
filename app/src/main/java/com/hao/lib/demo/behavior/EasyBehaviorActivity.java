@@ -1,5 +1,6 @@
-package com.hao.lib.test.behavior;
+package com.hao.lib.demo.behavior;
 
+import android.support.design.widget.AppBarLayout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,6 @@ public class EasyBehaviorActivity extends BaseActivity {
 
     @Override
     public void initInject() {
-
     }
 
     @Override

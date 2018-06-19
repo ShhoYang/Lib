@@ -1,4 +1,4 @@
-package com.hao.lib.test;
+package com.hao.lib.demo;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -48,7 +48,7 @@ public class TestActivity extends BaseActivity {
         }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new NewsAdapter(R.layout.item_main, list));
+        mRecyclerView.setAdapter(new NewsAdapter(R.layout.item_news, list));
     }
 
     @Override

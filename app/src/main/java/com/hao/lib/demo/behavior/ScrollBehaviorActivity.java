@@ -1,4 +1,4 @@
-package com.hao.lib.test.behavior;
+package com.hao.lib.demo.behavior;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +25,6 @@ public class ScrollBehaviorActivity extends BaseActivity {
 
     @Override
     public void initInject() {
-
     }
 
     @Override
@@ -36,7 +35,7 @@ public class ScrollBehaviorActivity extends BaseActivity {
             list.add(new News(i + ""));
         }
 
-        mRecyclerView.setAdapter(new NewsAdapter(R.layout.item_main, list));
+        mRecyclerView.setAdapter(new NewsAdapter(R.layout.item_news, list));
     }
 
     @Override

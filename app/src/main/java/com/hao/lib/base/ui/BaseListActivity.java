@@ -1,26 +1,19 @@
 package com.hao.lib.base.ui;
 
 import android.support.annotation.ColorRes;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hao.lib.R;
 import com.hao.lib.base.mvp.AListPresenter;
-import com.hao.lib.utils.DisplayUtils;
 import com.hao.lib.view.EmptyView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -36,7 +29,6 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
     @BindView(R.id.base_refresh_view)
     SmartRefreshLayout mRefreshLayout;
 
-    @Inject
     BaseQuickAdapter mAdapter;
 
     private EmptyView mEmptyView;
@@ -59,6 +51,7 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
 
     @Override
     public void initView() {
+        mAdapter = getAdapter();
         mEmptyView = new EmptyView(this);
         mAdapter.setEmptyView(mEmptyView);
         mAdapter.setOnItemClickListener(this);
@@ -92,6 +85,10 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
         if (mPresenter != null) {
             mPresenter.onItemClick(view, position);
         }
+    }
+
+    public BaseQuickAdapter getAdapter() {
+        return mAdapter;
     }
 
     private void setNoDataText(String noDataText) {
@@ -153,34 +150,6 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
     }
 
     /**
-     * 设置Margin
-     */
-    public void setMargin(int dp) {
-        setMargin(dp, dp, dp, dp);
-    }
-
-    /**
-     * 设置Margin
-     */
-    public void setMargin(int left, int top, int right, int bottom) {
-        int pxL = DisplayUtils.dip2px(this, left);
-        int pxT = DisplayUtils.dip2px(this, top);
-        int pxR = DisplayUtils.dip2px(this, right);
-        int pxB = DisplayUtils.dip2px(this, bottom);
-        ViewGroup.LayoutParams params = mRecyclerView.getLayoutParams();
-        if (params instanceof SmartRefreshLayout.LayoutParams) {
-            ((SmartRefreshLayout.LayoutParams) params).setMargins(pxL, pxT, pxR, pxB);
-        } else if (params instanceof LinearLayout.LayoutParams) {
-            ((LinearLayout.LayoutParams) params).setMargins(pxL, pxT, pxR, pxB);
-        } else if (params instanceof RelativeLayout.LayoutParams) {
-            ((RelativeLayout.LayoutParams) params).setMargins(pxL, pxT, pxR, pxB);
-        } else if (params instanceof NestedScrollView.LayoutParams) {
-            ((NestedScrollView.LayoutParams) params).setMargins(pxL, pxT, pxR, pxB);
-        }
-        mRecyclerView.setLayoutParams(params);
-    }
-
-    /**
      * 结束刷新
      */
     public void finishRefresh() {
@@ -214,26 +183,20 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
     }
 
     public void notifyItemRangeInserted(int positionStart, int itemCount) {
-        if (mAdapter != null) {
-            mAdapter.notifyItemRangeInserted(positionStart, itemCount);
-        }
+        mAdapter.notifyItemRangeInserted(positionStart, itemCount);
     }
 
     public void notifyItemChanged(int position) {
-        if (mAdapter != null) {
-            mAdapter.notifyItemChanged(position);
-        }
+        mAdapter.notifyItemChanged(position);
     }
 
     public void notifyItemChanged(int position, Object payload) {
-        if (mAdapter != null) {
-            mAdapter.notifyItemChanged(position, payload);
-        }
+        mAdapter.notifyItemChanged(position, payload);
     }
 
     public void notifyItemRemoved(int position) {
-        if (mAdapter != null) {
-            mAdapter.notifyItemRemoved(position);
-        }
+        mAdapter.notifyItemRemoved(position);
     }
+
+    public abstract BaseQuickAdapter createAdapter();
 }

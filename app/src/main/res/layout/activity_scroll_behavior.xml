@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".test.behavior.EasyBehaviorActivity">
+    tools:context=".demo.behavior.EasyBehaviorActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -12,13 +12,9 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/motto" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.hao.lib.test.behavior.ScrollBehavior">
-
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
+            app:layout_behavior="com.hao.lib.demo.behavior.ScrollBehavior"
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
@@ -29,6 +25,5 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </android.support.design.widget.CoordinatorLayout>

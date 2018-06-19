@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hao.lib.App;
 import com.hao.lib.Constant;
 import com.hao.lib.R;
+import com.hao.lib.adapter.NewsAdapter;
 import com.hao.lib.base.ui.BaseListFragment;
 import com.hao.lib.di.component.fragment.DaggerNewsComponent;
 import com.hao.lib.di.module.fragment.FragmentCommonModule;
@@ -45,6 +46,10 @@ public class NewsFragment extends BaseListFragment<NewsContract.Presenter>
         setDefaultItemDecoration();
     }
 
+    @Override
+    public BaseQuickAdapter createAdapter() {
+        return new NewsAdapter(R.layout.item_news, mPresenter.getDataList());
+    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override

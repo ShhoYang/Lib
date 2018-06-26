@@ -21,6 +21,7 @@ import com.hao.lib.R;
 import com.hao.lib.base.mvp.APresenter;
 import com.hao.lib.rx.RxBus;
 import com.hao.lib.utils.AppManager;
+import com.hao.lib.utils.DisplayUtils;
 import com.hao.lib.utils.T;
 import com.hao.lib.view.ToolbarLayout;
 import com.jaeger.library.StatusBarUtil;
@@ -72,6 +73,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         AppManager.getInstance().pushActivity(this);
         mContext = this;
         initInject();
+        onInitView();
         initView();
         initData();
     }
@@ -99,15 +101,6 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         AppManager.getInstance().popActivity(this);
     }
 
-    protected void setStatsBarColor() {
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
-    }
-
-    @Nullable
-    public ToolbarLayout getToolbar() {
-        return mToolbarLayout;
-    }
-
     protected boolean fullScreen() {
         return false;
     }
@@ -116,80 +109,111 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         return true;
     }
 
+    protected void setStatsBarColor() {
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
+    }
+
+
     /**
      * ToolbarLayout的操作
      */
-    public void setTitleBackgroundColor(@ColorInt int color) {
+    protected ToolbarLayout getToolbar() {
+        return mToolbarLayout;
+    }
+
+    protected void setTitleOffset() {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.setPadding(0, DisplayUtils.getStatusBarHeight(this), 0, 0);
+        }
+    }
+
+    protected void onInitView() {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackClicked();
+                }
+            }, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onMenuClicked();
+                }
+            });
+        }
+    }
+
+    protected void setTitleBackgroundColor(@ColorInt int color) {
         if (mToolbarLayout != null) {
             mToolbarLayout.setBackgroundColor(color);
         }
     }
 
-    public void setTitle(String text) {
+    protected void setTitle(String text) {
         if (mToolbarLayout != null) {
             mToolbarLayout.setTitle(text);
         }
     }
 
-    public void setTitleTextSize(float size) {
+    protected void setTitleTextSize(float size) {
         if (mToolbarLayout != null) {
             mToolbarLayout.setTitleTextSize(size);
         }
     }
 
-    public void showBack() {
+    protected void showBack() {
         if (mToolbarLayout != null) {
             mToolbarLayout.showBack();
         }
     }
 
-    public void hideBack() {
+    protected void hideBack() {
         if (mToolbarLayout != null) {
             mToolbarLayout.hideBack();
         }
     }
 
-    public void showTextMenu() {
+    protected void showTextMenu() {
         if (mToolbarLayout != null) {
             mToolbarLayout.showTextMenu();
         }
     }
 
-    public void hideTextMenu() {
+    protected void hideTextMenu() {
         if (mToolbarLayout != null) {
             mToolbarLayout.hideTextMenu();
         }
     }
 
-    public void setMenuText(String text) {
+    protected void setMenuText(String text) {
         if (mToolbarLayout != null) {
             mToolbarLayout.setMenuText(text);
         }
     }
 
-    public void showIconMenu() {
+    protected void showIconMenu() {
         if (mToolbarLayout != null) {
             mToolbarLayout.showIconMenu();
         }
     }
 
-    public void hideIconMenu() {
+    protected void hideIconMenu() {
         if (mToolbarLayout != null) {
             mToolbarLayout.hideIconMenu();
         }
     }
 
-    public void setMenuIcon(@DrawableRes int resId) {
+    protected void setMenuIcon(@DrawableRes int resId) {
         if (mToolbarLayout != null) {
             mToolbarLayout.setMenuIcon(resId);
         }
     }
 
-    public void onBackClicked() {
+    protected void onBackClicked() {
         finish();
     }
 
-    public void onMenuClicked() {
+    protected void onMenuClicked() {
 
     }
 

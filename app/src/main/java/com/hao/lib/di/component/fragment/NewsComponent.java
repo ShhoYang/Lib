@@ -4,7 +4,7 @@ import com.hao.lib.di.component.AppComponent;
 import com.hao.lib.di.module.fragment.FragmentCommonModule;
 import com.hao.lib.di.module.fragment.NewsModule;
 import com.hao.lib.di.scope.FragmentScope;
-import com.hao.lib.mvp.ui.fragment.NewsFragment;
+import com.hao.lib.ui.fragment.NewsFragment;
 
 import dagger.Component;
 

@@ -1,4 +1,4 @@
-package com.hao.lib.base.ui;
+package com.hao.lib.base.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.StringRes;

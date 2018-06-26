@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mvp.ui.activity.WelcomeActivity"
+            android:name=".ui.activity.WelcomeActivity"
             android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,18 +25,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".mvp.ui.activity.HomeActivity"
+            android:name=".ui.activity.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/StatusBarTransparentTheme" />
         <activity
-            android:name=".mvp.ui.activity.CrashActivity"
+            android:name=".ui.activity.CrashActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.ui.activity.PreviewImageActivity"
+            android:name=".ui.activity.PreviewImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
         <activity
-            android:name=".mvp.ui.activity.DetailsActivity"
+            android:name=".ui.activity.DetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/StatusBarTransparentTheme" />
     </application>

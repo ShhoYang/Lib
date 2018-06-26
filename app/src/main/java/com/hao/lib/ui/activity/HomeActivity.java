@@ -1,14 +1,15 @@
-package com.hao.lib.mvp.ui.activity;
+package com.hao.lib.ui.activity;
 
 import android.animation.ArgbEvaluator;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 
 import com.hao.lib.Constant;
 import com.hao.lib.R;
 import com.hao.lib.base.ui.BaseViewPagerActivity;
 import com.hao.lib.di.component.activity.DaggerActivityCommonComponent;
 import com.hao.lib.di.module.activity.ActivityCommonModule;
-import com.hao.lib.mvp.ui.fragment.NewsFragment;
+import com.hao.lib.ui.fragment.NewsFragment;
 
 public class HomeActivity extends BaseViewPagerActivity {
 
@@ -36,8 +37,9 @@ public class HomeActivity extends BaseViewPagerActivity {
 
     @Override
     public void initView() {
-        super.initView();
-        //setTitleOffset();
+        hideBack();
+        setTitleBackgroundColor(ContextCompat.getColor(this, R.color.holo_blue_light));
+        setTitleOffset();
     }
 
     @Override

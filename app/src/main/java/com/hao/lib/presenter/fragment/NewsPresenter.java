@@ -1,10 +1,10 @@
-package com.hao.lib.mvp.presenter.fragment;
+package com.hao.lib.presenter.fragment;
 
 import android.os.Bundle;
 
 import com.hao.lib.Constant;
 import com.hao.lib.bean.News;
-import com.hao.lib.mvp.contract.fragment.NewsContract;
+import com.hao.lib.contract.fragment.NewsContract;
 import com.hao.lib.rx.Api;
 
 import java.util.List;

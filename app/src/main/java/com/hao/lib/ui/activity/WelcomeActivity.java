@@ -1,4 +1,4 @@
-package com.hao.lib.mvp.ui.activity;
+package com.hao.lib.ui.activity;
 
 import android.os.Handler;
 

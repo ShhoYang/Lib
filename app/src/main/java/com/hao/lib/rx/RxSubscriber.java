@@ -3,7 +3,7 @@ package com.hao.lib.rx;
 
 import android.support.annotation.NonNull;
 
-import com.hao.lib.base.ui.IView;
+import com.hao.lib.base.mvp.IView;
 import com.hao.lib.rx.exception.ApiException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 

@@ -35,6 +35,13 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
     <!--图片选择器主题-->
     <style name="PictureSelector" parent="BaseTheme">
         <!-- Customize your theme here. -->

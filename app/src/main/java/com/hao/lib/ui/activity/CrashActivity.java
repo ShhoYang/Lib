@@ -1,10 +1,9 @@
-package com.hao.lib.mvp.ui.activity;
+package com.hao.lib.ui.activity;
 
 import android.Manifest;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.view.View;
 import android.widget.TextView;
 
 import com.hao.lib.R;

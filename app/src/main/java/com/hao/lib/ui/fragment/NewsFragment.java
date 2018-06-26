@@ -1,4 +1,4 @@
-package com.hao.lib.mvp.ui.fragment;
+package com.hao.lib.ui.fragment;
 
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
@@ -16,8 +16,8 @@ import com.hao.lib.base.ui.BaseListFragment;
 import com.hao.lib.di.component.fragment.DaggerNewsComponent;
 import com.hao.lib.di.module.fragment.FragmentCommonModule;
 import com.hao.lib.di.module.fragment.NewsModule;
-import com.hao.lib.mvp.contract.fragment.NewsContract;
-import com.hao.lib.mvp.ui.activity.DetailsActivity;
+import com.hao.lib.contract.fragment.NewsContract;
+import com.hao.lib.ui.activity.DetailsActivity;
 
 public class NewsFragment extends BaseListFragment<NewsContract.Presenter>
         implements NewsContract.View {
@@ -42,7 +42,6 @@ public class NewsFragment extends BaseListFragment<NewsContract.Presenter>
 
     @Override
     public void initView() {
-        super.initView();
         setDefaultItemDecoration();
     }
 

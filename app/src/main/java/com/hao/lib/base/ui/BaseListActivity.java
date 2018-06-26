@@ -50,7 +50,8 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
     }
 
     @Override
-    public void initView() {
+    protected final void onInitView() {
+        super.onInitView();
         mAdapter = getAdapter();
         mEmptyView = new EmptyView(this);
         mAdapter.setEmptyView(mEmptyView);
@@ -59,6 +60,8 @@ public abstract class BaseListActivity<P extends AListPresenter> extends BaseAct
         mRecyclerView.setAdapter(mAdapter);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
+        mRefreshLayout.setEnableLoadMore(false);
+        mRefreshLayout.setEnableOverScrollDrag(true);
     }
 
     @Override

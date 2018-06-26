@@ -21,7 +21,7 @@ import butterknife.BindView;
  * @author Yang Shihao
  */
 public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseActivity<P>
-        implements IPagerView, ViewPager.OnPageChangeListener {
+        implements  ViewPager.OnPageChangeListener {
 
     @BindView(R.id.base_tab_layout)
     TabLayout mTabLayout;
@@ -39,7 +39,7 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
     }
 
     @Override
-    public void initView() {
+    public final void onInitView() {
         mViewPager.addOnPageChangeListener(this);
         mTabLayout.setupWithViewPager(mViewPager);
     }

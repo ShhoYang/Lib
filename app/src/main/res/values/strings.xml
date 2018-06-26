@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">干货</string>
     <string name="transition_name">makeSceneTransitionAnimation</string>
+    <string name="title_activity_home">新闻</string>
 </resources>

@@ -2,7 +2,6 @@ package com.hao.lib.base.mvp;
 
 import android.view.View;
 
-import com.hao.lib.base.ui.IListView;
 import com.hao.lib.rx.Api;
 import com.hao.lib.rx.RxSubscriber;
 

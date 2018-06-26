@@ -1,8 +1,8 @@
 package com.hao.lib.di.module.fragment;
 
 import com.hao.lib.di.scope.FragmentScope;
-import com.hao.lib.mvp.contract.fragment.NewsContract;
-import com.hao.lib.mvp.presenter.fragment.NewsPresenter;
+import com.hao.lib.contract.fragment.NewsContract;
+import com.hao.lib.presenter.fragment.NewsPresenter;
 import com.hao.lib.rx.Api;
 
 import dagger.Module;

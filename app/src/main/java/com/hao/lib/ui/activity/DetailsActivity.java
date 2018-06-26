@@ -1,4 +1,4 @@
-package com.hao.lib.mvp.ui.activity;
+package com.hao.lib.ui.activity;
 
 import android.animation.ArgbEvaluator;
 import android.graphics.Color;
@@ -55,29 +55,31 @@ public class DetailsActivity extends BaseActivity {
 
     @Override
     protected void setStatsBarColor() {
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void initView() {
-//        setTitleOffset();
-//        mWebView.setNestedScrollingEnabled(false);
-//        mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                mMaxOffset = mIvBg.getBottom() - getTitleView().getBottom();
-//                if (mMaxOffset == 0) {
-//                    setTitleBackground(ContextCompat.getColor(mContext, R.color.colorPrimary));
-//                } else {
-//                    mFraction = scrollY * 1.0F / mMaxOffset;
-//                    if (mFraction > 1) {
-//                        mFraction = 1;
-//                    }
-//                }
-//
-//                setTitleBackground((Integer) mEvaluator.evaluate(mFraction, Color.TRANSPARENT, ContextCompat.getColor(mContext, R.color.colorPrimary)));
-//            }
-//        });
+        setTitleOffset();
+        setTitleBackgroundColor(ContextCompat.getColor(this,R.color.transparent));
+        mWebView.setNestedScrollingEnabled(false);
+        mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                mMaxOffset = mIvBg.getBottom() - getToolbar().getBottom();
+                if (mMaxOffset == 0) {
+                    setTitleBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                } else {
+                    mFraction = scrollY * 1.0F / mMaxOffset;
+                    if (mFraction > 1) {
+                        mFraction = 1;
+                    }
+                }
+
+                setTitleBackgroundColor((Integer) mEvaluator.evaluate(mFraction, Color.TRANSPARENT, ContextCompat.getColor(mContext, R.color.colorPrimary)));
+            }
+        });
     }
 
 

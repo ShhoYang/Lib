@@ -41,6 +41,7 @@ public abstract class BaseFragment<P extends APresenter> extends Fragment {
         mUnbinder = ButterKnife.bind(this, mRootView);
         mActivity = getActivity();
         initInject();
+        onInitView();
         initView();
         initData();
         return mRootView;
@@ -66,6 +67,10 @@ public abstract class BaseFragment<P extends APresenter> extends Fragment {
             mUnbinder.unbind();
         }
         super.onDestroyView();
+    }
+
+    protected void onInitView(){
+
     }
 
     /**

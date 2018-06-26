@@ -54,7 +54,8 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     }
 
     @Override
-    public void initView() {
+    public final void onInitView() {
+        super.onInitView();
         mAdapter = createAdapter();
         mEmptyView = new EmptyView(mActivity);
         mAdapter.setEmptyView(mEmptyView);
@@ -63,6 +64,8 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
         mRecyclerView.setAdapter(mAdapter);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
+        mRefreshLayout.setEnableLoadMore(false);
+        mRefreshLayout.setEnableOverScrollDrag(true);
     }
 
     @Override

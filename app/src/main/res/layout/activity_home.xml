@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TableLayout
+    <com.hao.lib.view.ToolbarLayout
+        android:id="@id/base_toolbar"
+        app:tb_title_text="@string/title_activity_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -13,7 +15,7 @@
         android:id="@id/base_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="36dp"
-        android:layout_below="@id/base_rl_title"
+        android:layout_below="@id/base_toolbar"
         android:background="@color/white"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabSelectedTextColor="@color/colorPrimary"
@@ -29,6 +31,6 @@
         android:id="@+id/base_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/base_rl_title" />
+        android:layout_below="@id/base_toolbar" />
 
 </RelativeLayout>

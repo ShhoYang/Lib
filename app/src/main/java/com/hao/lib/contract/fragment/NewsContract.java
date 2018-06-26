@@ -1,11 +1,9 @@
-package com.hao.lib.mvp.contract.fragment;
+package com.hao.lib.contract.fragment;
 
 import com.hao.lib.base.mvp.AListPresenter;
-import com.hao.lib.base.ui.IListView;
+import com.hao.lib.base.mvp.IListView;
 import com.hao.lib.bean.News;
 import com.hao.lib.rx.Api;
-
-import javax.inject.Inject;
 
 /**
  * @author Yang Shihao

@@ -1,6 +1,5 @@
 package com.hao.lib.demo.behavior;
 
-import android.support.design.widget.AppBarLayout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;

@@ -1,4 +1,4 @@
-package com.hao.lib.base.ui;
+package com.hao.lib.base.mvp;
 
 /**
  * @author Yang Shihao

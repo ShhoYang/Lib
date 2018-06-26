@@ -6,12 +6,12 @@ import com.hao.lib.Constant;
 import com.hao.lib.bean.News;
 import com.hao.lib.mvp.contract.fragment.NewsContract;
 import com.hao.lib.rx.Api;
-import com.hao.lib.rx.RxSubscriber;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
 
 /**
  * @author Yang Shihao
@@ -38,27 +38,7 @@ public class NewsPresenter extends NewsContract.Presenter {
     }
 
     @Override
-    public void getPageData(boolean isRefresh) {
-        super.getPageData(isRefresh);
-        //setObservable(mApi.getNews(mType));
-        addRx2Destroy(new RxSubscriber<List<News>>(mApi.getNews(mType)) {
-
-            @Override
-            protected void _onNext(List<News> news) {
-                setDataList(news);
-            }
-
-            @Override
-            protected void _onError(String code) {
-//               if(mView!= null){
-//                   mView.loadError();
-//               }
-                List<News> list = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
-                    list.add(new News("新闻" + i));
-                }
-                setDataList(list);
-            }
-        });
+    public Observable<List<News>> getDataSource() {
+        return mApi.getNews(mType);
     }
 }

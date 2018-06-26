@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    //title
-    <item name="base_rl_title" type="id"/>
-    <item name="base_iv_left" type="id"/>
-    <item name="base_tv_left" type="id"/>
-    <item name="base_tv_title" type="id"/>
-    <item name="base_iv_right" type="id"/>
-    <item name="base_tv_right" type="id"/>
-    //List
-    <item name="base_recycler_view" type="id"/>
-    <item name="base_refresh_view" type="id"/>
-    //ViewPager
-    <item name="base_tab_layout" type="id"/>
-    <item name="base_view_pager" type="id"/>
-    //empty
-    <item name="base_empty" type="id"/>
+
+    <item name="base_toolbar" type="id" />
+    <item name="base_recycler_view" type="id" />
+    <item name="base_refresh_view" type="id" />
+    <item name="base_tab_layout" type="id" />
+    <item name="base_view_pager" type="id" />
+    <item name="base_empty" type="id" />
 </resources>

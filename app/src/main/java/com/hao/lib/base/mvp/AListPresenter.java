@@ -17,7 +17,7 @@ import io.reactivex.Observable;
 public abstract class AListPresenter<V extends IListView, D> extends APresenter<V> {
     private static final String TAG = "AListPresenter";
 
-    private static final int PAGE_SIZE = 20;
+    public static final int PAGE_SIZE = 20;
 
     protected List<D> mDataList = new ArrayList<>();
     protected int mPage = 1;
@@ -35,48 +35,96 @@ public abstract class AListPresenter<V extends IListView, D> extends APresenter<
 
     public void getPageData(boolean isRefresh) {
         mIsRefresh = isRefresh;
+        addRx2Destroy(new RxSubscriber<List<D>>(getDataSource()) {
+            @Override
+            protected void _onNext(List<D> ds) {
+                loadSuccessful(ds);
+            }
+
+            @Override
+            protected void _onError(String code) {
+                super._onError(code);
+                loadFailed();
+            }
+        });
     }
 
     public List<D> getDataList() {
         return mDataList;
     }
 
-    public void setDataList(final List<D> list) {
+    /**
+     * 获取数据成功
+     */
+    public void loadSuccessful(List<D> list) {
         if (mView == null) {
             return;
         }
-        if (mDataList.size() == 0 && (list == null || list.size() == 0)) {
+        if (mIsRefresh) {
+            refreshFinished(list);
+        } else {
+            loadMoreFinished(list);
+        }
+    }
+
+    /**
+     * 获取数据失败
+     */
+    public void loadFailed() {
+        if (mView == null) {
+            return;
+        }
+        if (mIsRefresh) {
+            mView.refreshError();
+        } else {
+            mView.loadMoreError();
+        }
+    }
+
+    /**
+     * 刷新完成
+     */
+    private void refreshFinished(List<D> list) {
+        if (mView == null) {
+            return;
+        }
+        mPage = 1;
+        int size = mDataList.size();
+        if (size != 0) {
+            mDataList.clear();
+        }
+        if (list == null || list.size() == 0) {
+            if (size != 0) {
+                mView.updateList();
+            }
             mView.noData();
         } else {
-            setPage();
+            mDataList.addAll(list);
+            mView.updateList();
+            mView.finishRefresh();
+        }
+    }
+
+    /**
+     * 加载更多完成
+     */
+    private void loadMoreFinished(List<D> list) {
+        if (mView == null) {
+            return;
+        }
+        if (list == null || list.size() == 0) {
+            mView.finishLoadMore(true);
+        } else {
             int end = mDataList.size();
             mDataList.addAll(list);
             if (end == 0) {
                 mView.updateList();
             } else {
-                mView.notifyItemRangeInserted(end, list.size());
+                mView.insert(end, list.size());
             }
-            if (list.size() < PAGE_SIZE) {
-                mView.noMoreData();
-            }
+            mView.finishLoadMore(list.size() < PAGE_SIZE);
+            mPage++;
         }
-    }
-
-    public void setDataObservable(Observable<List<D>> observable) {
-        addRx2Destroy(new RxSubscriber<List<D>>(observable) {
-            @Override
-            protected void _onNext(List<D> ds) {
-                setDataList(ds);
-            }
-
-            @Override
-            protected void _onError(String code) {
-                super._onError(code);
-                if (mView != null) {
-                    mView.loadError();
-                }
-            }
-        });
     }
 
     protected void clear() {
@@ -88,25 +136,12 @@ public abstract class AListPresenter<V extends IListView, D> extends APresenter<
         mView.noData();
     }
 
-    protected String getPage() {
+    protected int getPage() {
         if (mIsRefresh) {
-            return "1";
+            return 1;
         } else {
-            return (mPage + 1) + "";
+            return mPage + 1;
         }
-    }
-
-    protected void setPage() {
-        if (mIsRefresh) {
-            mDataList.clear();
-            mPage = 1;
-        } else {
-            mPage++;
-        }
-    }
-
-    public static String getPageSize() {
-        return PAGE_SIZE + "";
     }
 
     public void onItemClick(View view, int position) {
@@ -115,4 +150,6 @@ public abstract class AListPresenter<V extends IListView, D> extends APresenter<
 
     public void onItemLongClick(View view, int position) {
     }
+
+    public abstract Observable<List<D>> getDataSource();
 }

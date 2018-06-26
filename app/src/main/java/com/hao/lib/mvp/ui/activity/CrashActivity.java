@@ -40,7 +40,7 @@ public class CrashActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        backVisibility(View.GONE);
+        hideBack();
         setTitle("SORRY");
     }
 

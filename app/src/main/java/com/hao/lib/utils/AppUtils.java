@@ -112,9 +112,7 @@ public class AppUtils {
     /**
      * 获取服务是否开启
      *
-     * @param context   上下文
      * @param className 完整包名的服务类名
-     * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isRunningService(Context context, String className) {
 
@@ -145,9 +143,6 @@ public class AppUtils {
 
     /**
      * 打开外部app
-     *
-     * @param context
-     * @param packagename
      */
     public static void gotoOtherApp(Context context, String packagename) {
         PackageInfo packageinfo = null;

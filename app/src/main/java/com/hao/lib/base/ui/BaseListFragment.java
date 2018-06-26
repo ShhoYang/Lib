@@ -36,14 +36,15 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
 
     private EmptyView mEmptyView;
 
-    private boolean mIsRefresh = false;
+    private boolean mEnableLoreMore = true;
+    private boolean mNeedRefresh = false;
 
     @Override
     public void onResume() {
         super.onResume();
-        if (mIsRefresh) {
+        if (mNeedRefresh) {
             mRefreshLayout.autoRefresh();
-            mIsRefresh = false;
+            mNeedRefresh = false;
         }
     }
 
@@ -147,6 +148,16 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     }
 
     /**
+     * 更新列表
+     */
+    public void updateList() {
+        mAdapter.notifyDataSetChanged();
+        if (mAdapter.getItemCount() >= AListPresenter.PAGE_SIZE) {
+            mRefreshLayout.setEnableLoadMore(mEnableLoreMore);
+        }
+    }
+
+    /**
      * 结束刷新
      */
     public void finishRefresh() {
@@ -154,45 +165,57 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     }
 
     /**
-     * 更新列表
+     * 结束加载
      */
-    public void updateList() {
-        mRefreshLayout.finishRefresh();
-        mRefreshLayout.finishLoadMore();
-        mAdapter.notifyDataSetChanged();
+    public void finishLoadMore(boolean isNoMoreData) {
+        mRefreshLayout.finishLoadMore(0, true, isNoMoreData);
     }
 
-    public void noMoreData() {
-        mRefreshLayout.finishRefresh();
-        mRefreshLayout.finishLoadMoreWithNoMoreData();
-    }
-
+    /**
+     * 没有数据
+     */
     public void noData() {
-        mRefreshLayout.finishRefresh();
-        mRefreshLayout.finishLoadMore();
+        finishRefresh();
         mEmptyView.noData();
     }
 
-    public void loadError() {
-        mRefreshLayout.finishRefresh();
-        mRefreshLayout.finishLoadMore();
+    /**
+     * 刷新失败
+     */
+    public void refreshError() {
+        mRefreshLayout.finishRefresh(0, false);
         mEmptyView.loadError();
     }
 
-    public void notifyItemRangeInserted(int positionStart, int itemCount) {
-        mAdapter.notifyItemRangeInserted(positionStart, itemCount);
+    /**
+     * 加载失败
+     */
+    public void loadMoreError() {
+        mRefreshLayout.finishLoadMore(0, false, false);
     }
 
-    public void notifyItemChanged(int position) {
-        mAdapter.notifyItemChanged(position);
+    public void insert(int positionStart, int itemCount) {
+        if (mAdapter != null) {
+            mAdapter.notifyItemRangeInserted(positionStart, itemCount);
+        }
     }
 
-    public void notifyItemChanged(int position, Object payload) {
-        mAdapter.notifyItemChanged(position, payload);
+    public void changeItem(int position) {
+        if (mAdapter != null) {
+            mAdapter.notifyItemChanged(position);
+        }
     }
 
-    public void notifyItemRemoved(int position) {
-        mAdapter.notifyItemRemoved(position);
+    public void changeItem(int position, String payload) {
+        if (mAdapter != null) {
+            mAdapter.notifyItemChanged(position, payload);
+        }
+    }
+
+    public void removeItem(int position) {
+        if (mAdapter != null) {
+            mAdapter.notifyItemRemoved(position);
+        }
     }
 
     public abstract BaseQuickAdapter createAdapter();

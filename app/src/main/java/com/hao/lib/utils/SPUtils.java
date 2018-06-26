@@ -20,7 +20,7 @@ public class SPUtils {
     /**
      * 保存在手机里面的文件名
      */
-    public static final String FILE_NAME = "SPUtils";
+    private static final String FILE_NAME = "SPUtils";
 
     private static SharedPreferences getSP(Context context) {
         return context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);

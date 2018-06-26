@@ -60,24 +60,24 @@ public class DetailsActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void initView() {
-        setTitleOffset();
-        mWebView.setNestedScrollingEnabled(false);
-        mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                mMaxOffset = mIvBg.getBottom() - getTitleView().getBottom();
-                if (mMaxOffset == 0) {
-                    setTitleBackground(ContextCompat.getColor(mContext, R.color.colorPrimary));
-                } else {
-                    mFraction = scrollY * 1.0F / mMaxOffset;
-                    if (mFraction > 1) {
-                        mFraction = 1;
-                    }
-                }
-
-                setTitleBackground((Integer) mEvaluator.evaluate(mFraction, Color.TRANSPARENT, ContextCompat.getColor(mContext, R.color.colorPrimary)));
-            }
-        });
+//        setTitleOffset();
+//        mWebView.setNestedScrollingEnabled(false);
+//        mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                mMaxOffset = mIvBg.getBottom() - getTitleView().getBottom();
+//                if (mMaxOffset == 0) {
+//                    setTitleBackground(ContextCompat.getColor(mContext, R.color.colorPrimary));
+//                } else {
+//                    mFraction = scrollY * 1.0F / mMaxOffset;
+//                    if (mFraction > 1) {
+//                        mFraction = 1;
+//                    }
+//                }
+//
+//                setTitleBackground((Integer) mEvaluator.evaluate(mFraction, Color.TRANSPARENT, ContextCompat.getColor(mContext, R.color.colorPrimary)));
+//            }
+//        });
     }
 
 

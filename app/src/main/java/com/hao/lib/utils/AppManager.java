@@ -51,6 +51,7 @@ public class AppManager {
                 if (!activity.isFinishing()) {
                     activity.finish();
                 }
+                activity = null;
             }
         }
         KLog.d(TAG, "popActivity: " + mStack.size());
@@ -60,16 +61,19 @@ public class AppManager {
      * 移除指定类名的Activity
      */
     public void finishActivity(Class<?> cls) {
-        if (mStack == null || mStack.isEmpty()) {
-            return;
-        }
-        Iterator<Activity> iterator = mStack.iterator();
-        while (iterator.hasNext()) {
-            Activity activity = iterator.next();
-            if (activity.getClass().equals(cls)) {
-                iterator.remove();
-                if (!activity.isFinishing()) {
-                    activity.finish();
+        synchronized (AppManager.class) {
+            if (mStack == null || mStack.isEmpty()) {
+                return;
+            }
+            Iterator<Activity> iterator = mStack.iterator();
+            while (iterator.hasNext()) {
+                Activity activity = iterator.next();
+                if (activity.getClass().equals(cls)) {
+                    iterator.remove();
+                    if (!activity.isFinishing()) {
+                        activity.finish();
+                    }
+                    activity = null;
                 }
             }
         }
@@ -79,21 +83,24 @@ public class AppManager {
      * 移除指定类名的Activity之外的所有Sctivity
      */
     public void finishAllActivityExceptAppoint(Class<?> cls) {
-        if (mStack == null || mStack.isEmpty()) {
-            return;
-        }
-        Iterator<Activity> iterator = mStack.iterator();
-        while (iterator.hasNext()) {
-            Activity activity = iterator.next();
-            if (activity.getClass().equals(cls)) {
-                continue;
+        synchronized (AppManager.class) {
+            if (mStack == null || mStack.isEmpty()) {
+                return;
             }
-            iterator.remove();
-            if (!activity.isFinishing()) {
-                activity.finish();
+            Iterator<Activity> iterator = mStack.iterator();
+            while (iterator.hasNext()) {
+                Activity activity = iterator.next();
+                if (activity.getClass().equals(cls)) {
+                    continue;
+                }
+                iterator.remove();
+                if (!activity.isFinishing()) {
+                    activity.finish();
+                }
+                activity = null;
             }
         }
-        KLog.d(TAG,"还剩"+mStack.size()+"个Activity");
+        KLog.d(TAG, "还剩" + mStack.size() + "个Activity");
     }
 
 

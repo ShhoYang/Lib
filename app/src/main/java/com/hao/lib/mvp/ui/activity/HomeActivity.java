@@ -37,7 +37,7 @@ public class HomeActivity extends BaseViewPagerActivity {
     @Override
     public void initView() {
         super.initView();
-        setTitleOffset();
+        //setTitleOffset();
     }
 
     @Override
@@ -97,7 +97,7 @@ public class HomeActivity extends BaseViewPagerActivity {
 
     public void setColor(float positionOffset, int color, int nextColor) {
         int evaluate = (Integer) mEvaluator.evaluate(positionOffset, getResources().getColor(color), getResources().getColor(nextColor));
-        setTitleBackground(evaluate);
+        setTitleBackgroundColor(evaluate);
         setTabLayoutBackground(evaluate);
     }
 }

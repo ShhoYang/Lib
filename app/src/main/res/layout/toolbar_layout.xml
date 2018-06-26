@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/title_height"
-    android:background="@color/colorAccent">
+    android:background="@color/colorPrimary">
 
     <ImageView
         android:id="@+id/iv_back"
@@ -12,17 +12,22 @@
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/AppTitleText"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:background="@null"
         android:ellipsize="marquee"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:gravity="center"
         android:marqueeRepeatLimit="marquee_forever"
         android:padding="3dp"
-        android:text="TITLE" />
+        android:singleLine="true"
+        android:text="TITLE"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/iv_menu"

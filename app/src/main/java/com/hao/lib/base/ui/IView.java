@@ -5,7 +5,6 @@ import android.support.annotation.StringRes;
 
 /**
  * @author Yang Shihao
- * @date 2018/4/13
  */
 public interface IView {
 

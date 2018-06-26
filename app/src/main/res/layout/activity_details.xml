@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mvp.ui.activity.DetailsActivity">
 
     <android.support.v4.widget.NestedScrollView
@@ -32,23 +33,10 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <RelativeLayout
-        android:id="@id/base_rl_title"
+    <com.hao.lib.view.ToolbarLayout
+        android:id="@id/base_toolbar"
+        app:tb_title_text="详情"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@id/base_iv_left"
-            style="@style/AppTitleIcon"
-            android:visibility="visible"
-            android:src="@drawable/ic_arrow_back_white_24dp" />
-
-        <TextView
-            android:id="@id/base_tv_title"
-            android:layout_width="match_parent"
-            style="@style/AppTitleText"
-            android:text="详情" />
-
-    </RelativeLayout>
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

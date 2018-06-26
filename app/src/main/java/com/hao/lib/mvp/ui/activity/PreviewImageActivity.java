@@ -3,6 +3,7 @@ package com.hao.lib.mvp.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
@@ -22,8 +23,6 @@ public class PreviewImageActivity extends BaseActivity implements ViewPager.OnPa
 
     @BindView(R.id.vp)
     ViewPager mViewPager;
-    @BindView(R.id.tv_index)
-    TextView mTvIndex;
     @BindView(R.id.tv_desc)
     TextView mTvDesc;
 
@@ -58,7 +57,8 @@ public class PreviewImageActivity extends BaseActivity implements ViewPager.OnPa
 
     @Override
     public void initView() {
-
+        setTitleTextSize(14);
+        setTitleBackgroundColor(ContextCompat.getColor(this, R.color.translucent));
     }
 
     @Override
@@ -92,7 +92,7 @@ public class PreviewImageActivity extends BaseActivity implements ViewPager.OnPa
         mViewPager.addOnPageChangeListener(this);
         if (index < mTotalSize) {
             mViewPager.setCurrentItem(index);
-            mTvIndex.setText(String.format("%d/%d", (index + 1), mTotalSize));
+            setTitle(String.format("%d/%d", (index + 1), mTotalSize));
         }
     }
 
@@ -103,7 +103,7 @@ public class PreviewImageActivity extends BaseActivity implements ViewPager.OnPa
 
     @Override
     public void onPageSelected(int position) {
-        mTvIndex.setText(String.format("%d/%d", position + 1, mTotalSize));
+        setTitle(String.format("%d/%d", position + 1, mTotalSize));
         showImageDesc(position);
     }
 

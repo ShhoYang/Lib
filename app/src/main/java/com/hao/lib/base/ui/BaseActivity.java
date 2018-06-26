@@ -14,19 +14,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hao.lib.R;
 import com.hao.lib.base.mvp.APresenter;
 import com.hao.lib.rx.RxBus;
 import com.hao.lib.utils.AppManager;
-import com.hao.lib.utils.DisplayUtils;
 import com.hao.lib.utils.T;
+import com.hao.lib.view.ToolbarLayout;
 import com.jaeger.library.StatusBarUtil;
 import com.socks.library.KLog;
 
@@ -34,8 +30,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Optional;
 import butterknife.Unbinder;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -47,28 +41,8 @@ import io.reactivex.functions.Consumer;
 public abstract class BaseActivity<P extends APresenter> extends AppCompatActivity {
 
     @Nullable
-    @BindView(R.id.base_rl_title)
-    protected RelativeLayout mRlTitle;
-
-    @Nullable
-    @BindView(R.id.base_iv_left)
-    protected ImageView mIvLeft;
-
-    @Nullable
-    @BindView(R.id.base_tv_left)
-    TextView mTvLeft;
-
-    @Nullable
-    @BindView(R.id.base_tv_title)
-    protected TextView mTvTitle;
-
-    @Nullable
-    @BindView(R.id.base_iv_right)
-    ImageView mIvRight;
-
-    @Nullable
-    @BindView(R.id.base_tv_right)
-    TextView mTvRight;
+    @BindView(R.id.base_toolbar)
+    ToolbarLayout mToolbarLayout;
 
     @Nullable
     @Inject
@@ -103,16 +77,6 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (mTvTitle != null) {
-            ViewGroup.LayoutParams params = mTvTitle.getLayoutParams();
-            params.width = DisplayUtils.getScreenWidth(this) / 2;
-            mTvTitle.setLayoutParams(params);
-        }
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         dismissDialog();
@@ -140,8 +104,8 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     }
 
     @Nullable
-    public RelativeLayout getTitleView() {
-        return mRlTitle;
+    public ToolbarLayout getToolbar() {
+        return mToolbarLayout;
     }
 
     protected boolean fullScreen() {
@@ -153,122 +117,79 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     }
 
     /**
-     * 是否显示返回键,默认显示
+     * ToolbarLayout的操作
      */
-    protected void backVisibility(int visibility) {
-        if (mTvLeft != null) {
-            mIvLeft.setVisibility(visibility);
+    public void setTitleBackgroundColor(@ColorInt int color) {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.setBackgroundColor(color);
         }
     }
 
-    /**
-     * 设置Title背景颜色
-     */
-    protected void setTitleBackground(@ColorInt int color) {
-        if (mRlTitle != null) {
-            mRlTitle.setBackgroundColor(color);
+    public void setTitle(String text) {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.setTitle(text);
         }
     }
 
-    /**
-     * 全屏布局时，不让View和状态栏重叠
-     */
-    protected void setTitleOffset() {
-        if (mRlTitle != null) {
-            mRlTitle.setPadding(0, DisplayUtils.getStatusBarHeight(this), 0, 0);
+    public void setTitleTextSize(float size) {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.setTitleTextSize(size);
         }
     }
 
-    /**
-     * 设置title
-     */
-    public void setTitle(String title) {
-        if (mTvTitle != null) {
-            mTvTitle.setText(title);
+    public void showBack() {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.showBack();
         }
     }
 
-    /**
-     * 左边的图片------------------------------------------------------------------------------------
-     */
-    protected void setImageLeft(@DrawableRes int resourceId) {
-        if (mIvLeft != null) {
-            mIvLeft.setImageResource(resourceId);
+    public void hideBack() {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.hideBack();
         }
     }
 
-    protected void setLeftImageVisibility(int visibility) {
-        if (mIvLeft != null) {
-            mIvLeft.setVisibility(View.GONE);
+    public void showTextMenu() {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.showTextMenu();
         }
     }
 
-    @Optional
-    @OnClick(R.id.base_iv_left)
-    protected void onImageViewLeftClicked() {
+    public void hideTextMenu() {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.hideTextMenu();
+        }
+    }
+
+    public void setMenuText(String text) {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.setMenuText(text);
+        }
+    }
+
+    public void showIconMenu() {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.showIconMenu();
+        }
+    }
+
+    public void hideIconMenu() {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.hideIconMenu();
+        }
+    }
+
+    public void setMenuIcon(@DrawableRes int resId) {
+        if (mToolbarLayout != null) {
+            mToolbarLayout.setMenuIcon(resId);
+        }
+    }
+
+    public void onBackClicked() {
         finish();
     }
 
-    /**
-     * 左边的文字------------------------------------------------------------------------------------
-     */
-    protected void setTextLeft(String text) {
-        if (mIvLeft != null) {
-            mTvLeft.setText(text);
-        }
-    }
-
-    protected void setLeftTextVisibility(int visibility) {
-        if (mTvTitle != null) {
-            mIvLeft.setVisibility(visibility);
-        }
-    }
-
-    @Optional
-    @OnClick(R.id.base_tv_left)
-    protected void onTextViewLeftClicked() {
-
-    }
-
-    /**
-     * 右边的图片------------------------------------------------------------------------------------
-     */
-    protected void setImageRight(@DrawableRes int resourceId) {
-        if (mIvRight != null) {
-            mIvRight.setImageResource(resourceId);
-        }
-    }
-
-    protected void setRightImageVisibility(int visibility) {
-        if (mIvRight != null) {
-            mIvRight.setVisibility(visibility);
-        }
-    }
-
-    @Optional
-    @OnClick(R.id.base_iv_right)
-    protected void onImageViewRightClicked() {
-
-    }
-
-    /**
-     * 右边的文字------------------------------------------------------------------------------------
-     */
-    protected void setTextRight(String text) {
-        if (mTvRight != null) {
-            mTvRight.setText(text);
-        }
-    }
-
-    protected void setRightTextVisibility(int visibility) {
-        if (mTvRight != null) {
-            mTvRight.setVisibility(visibility);
-        }
-    }
-
-    @Optional
-    @OnClick(R.id.base_tv_right)
-    protected void onTextViewRightClicked() {
+    public void onMenuClicked() {
 
     }
 

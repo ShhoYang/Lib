@@ -5,21 +5,23 @@ package com.hao.lib.base.ui;
  */
 public interface IListView extends IView {
 
-    void finishRefresh();
-
     void updateList();
 
-    void noMoreData();
+    void finishRefresh();
+
+    void finishLoadMore(boolean isNoMoreData);
 
     void noData();
 
-    void loadError();
+    void refreshError();
 
-    void notifyItemRangeInserted(int positionStart, int itemCount);
+    void loadMoreError();
 
-    void notifyItemChanged(int position);
+    void insert(int positionStart, int itemCount);
 
-    void notifyItemChanged(int position, Object payload);
+    void changeItem(int position);
 
-    void notifyItemRemoved(int position);
+    void changeItem(int position, String payload);
+
+    void removeItem(int position);
 }

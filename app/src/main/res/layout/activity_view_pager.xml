@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.TabLayout
+    <android.support.design.widget.MyTabLayout
         android:id="@id/base_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="36dp"

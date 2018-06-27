@@ -1,6 +1,5 @@
 package com.hao.lib.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
@@ -9,89 +8,62 @@ import android.util.DisplayMetrics;
  */
 public class DisplayUtils {
 
+    private static DisplayMetrics mDisplayMetrics;
+
     private DisplayUtils() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
+    private static DisplayMetrics getDisplayMetrics(Context context) {
+        if (mDisplayMetrics == null) {
+            mDisplayMetrics = context.getResources().getDisplayMetrics();
+        }
+
+        return mDisplayMetrics;
+    }
+
     /**
-     * 将px值转换为dip或dp值，保证尺寸大小不变
+     * 将px转换为dp值
      */
     public static int px2dip(Context context, float pxValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
+        return (int) (pxValue / getDisplayMetrics(context).density + 0.5f);
     }
+
     /**
-     * 将dip或dp值转换为px值，保证尺寸大小不变
+     * 将dp转换为px
      */
     public static int dip2px(Context context, float dipValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
+        return (int) (dipValue * getDisplayMetrics(context).density + 0.5f);
     }
 
     /**
-     * 将px值转换为sp值，保证文字大小不变
+     * 将px转换为sp
      */
     public static int px2sp(Context context, float pxValue) {
-        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue / fontScale + 0.5f);
+        return (int) (pxValue / getDisplayMetrics(context).scaledDensity + 0.5f);
     }
 
     /**
-     * 将sp值转换为px值，保证文字大小不变
+     * 将sp转换为px
      */
     public static int sp2px(Context context, float spValue) {
-        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
-    }
-
-
-    /**
-     * 获取屏幕宽度(像素)
-     */
-    public static int getScreenWidth(Activity activity){
-        DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        return dm.widthPixels;
+        return (int) (spValue * getDisplayMetrics(context).scaledDensity + 0.5f);
     }
 
     /**
-     * 获取屏幕高度(像素)
-     */
-    public static int getScreenHeight(Activity activity){
-        DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        return dm.heightPixels;
-    }
-
-    /**
-     * 获取屏幕宽度(像素)
+     * 获取屏幕宽度(px)
      */
     public static int getScreenWidth(Context context) {
-        DisplayMetrics dm = context.getResources().getDisplayMetrics();
-        return dm.widthPixels;
+        return getDisplayMetrics(context).widthPixels;
     }
 
     /**
-     * 获取屏幕高度(像素)
+     * 获取屏幕高度(px)
      */
     public static int getScreenHeight(Context context) {
-        DisplayMetrics dm = context.getResources().getDisplayMetrics();
-        return dm.heightPixels;
+        return getDisplayMetrics(context).heightPixels;
     }
-
-    public static int getDensityDpi(Activity activity){
-        DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        return dm.densityDpi;
-    }
-
-    public static float getDensity(Activity activity){
-        DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        return dm.density;
-    }
-
     /**
      * 获得状态栏高度
      */

@@ -5,7 +5,10 @@
 
     <ImageView
         android:id="@+id/iv_back"
-        style="@style/AppTitleIcon"
+        android:layout_width="@dimen/title_height"
+        android:layout_height="@dimen/title_height"
+        android:foreground="@drawable/foreground"
+        android:padding="15dp"
         android:src="@drawable/ic_arrow_back_white_24dp"
         android:visibility="visible" />
 
@@ -26,16 +29,30 @@
         android:singleLine="true"
         android:text="TITLE"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/iv_menu"
-        style="@style/AppTitleIcon"
-        android:layout_alignParentRight="true" />
+        android:layout_width="@dimen/title_height"
+        android:layout_height="@dimen/title_height"
+        android:layout_alignParentRight="true"
+        android:foreground="@drawable/foreground"
+        android:padding="15dp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_menu"
-        style="@style/AppTitleMenu"
-        android:layout_alignParentRight="true" />
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/title_height"
+        android:layout_alignParentRight="true"
+        android:foreground="@drawable/foreground"
+        android:maxLength="4"
+        android:minWidth="@dimen/title_height"
+        android:padding="@dimen/margin_l"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_m"
+        android:visibility="gone" />
 
 </RelativeLayout>

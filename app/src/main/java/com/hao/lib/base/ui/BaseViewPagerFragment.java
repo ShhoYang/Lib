@@ -2,7 +2,7 @@ package com.hao.lib.base.ui;
 
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
+import android.support.design.widget.MyTabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -24,7 +24,7 @@ public abstract class BaseViewPagerFragment<P extends APresenter> extends BaseFr
         implements  ViewPager.OnPageChangeListener {
 
     @BindView(R.id.base_tab_layout)
-    TabLayout mTabLayout;
+    MyTabLayout mTabLayout;
 
     @BindView(R.id.base_view_pager)
     ViewPager mViewPager;
@@ -107,12 +107,12 @@ public abstract class BaseViewPagerFragment<P extends APresenter> extends BaseFr
             if (!mTabLayout.isShown()) {
                 mTabLayout.setVisibility(View.VISIBLE);
             }
-            mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+            mTabLayout.setTabMode(MyTabLayout.MODE_FIXED);
         } else {
             if (!mTabLayout.isShown()) {
                 mTabLayout.setVisibility(View.VISIBLE);
             }
-            mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            mTabLayout.setTabMode(MyTabLayout.MODE_SCROLLABLE);
         }
         mViewPager.setAdapter(new FragmentWithTitleAdapter(getChildFragmentManager(), titles, fragments));
     }

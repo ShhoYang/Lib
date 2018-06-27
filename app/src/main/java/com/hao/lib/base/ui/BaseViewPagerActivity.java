@@ -2,9 +2,10 @@ package com.hao.lib.base.ui;
 
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
+import android.support.design.widget.MyTabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 
 import com.hao.lib.R;
@@ -21,10 +22,10 @@ import butterknife.BindView;
  * @author Yang Shihao
  */
 public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseActivity<P>
-        implements  ViewPager.OnPageChangeListener {
+        implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.base_tab_layout)
-    TabLayout mTabLayout;
+    MyTabLayout mTabLayout;
 
     @BindView(R.id.base_view_pager)
     ViewPager mViewPager;
@@ -74,7 +75,7 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
     }
 
     public void setEmptyViewClickListener(View.OnClickListener emptyViewClickListener) {
-        if(mEmptyView!= null){
+        if (mEmptyView != null) {
             mEmptyView.setOnClickListener(emptyViewClickListener);
         }
     }
@@ -96,26 +97,28 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
             return;
         }
 
-        if(mEmptyView!= null){
+        if (mEmptyView != null) {
             mEmptyView.hide();
         }
 
-        if (fragmentSize == 1) {
-            if (mTabLayout.isShown()) {
-                mTabLayout.setVisibility(View.GONE);
-            }
-        } else if (fragmentSize < 5) {
-            if (!mTabLayout.isShown()) {
-                mTabLayout.setVisibility(View.VISIBLE);
-            }
-            mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        } else {
-            if (!mTabLayout.isShown()) {
-                mTabLayout.setVisibility(View.VISIBLE);
-            }
-            mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        }
+
+//        if (fragmentSize == 1) {
+//            if (mTabLayout.isShown()) {
+//                mTabLayout.setVisibility(View.GONE);
+//            }
+//        } else if (fragmentSize < 5) {
+//            if (!mTabLayout.isShown()) {
+//                mTabLayout.setVisibility(View.VISIBLE);
+//            }
+//            mTabLayout.setTabMode(MyTabLayout.MODE_FIXED);
+//        } else {
+//            if (!mTabLayout.isShown()) {
+//                mTabLayout.setVisibility(View.VISIBLE);
+//            }
+//            mTabLayout.setTabMode(MyTabLayout.MODE_SCROLLABLE);
+//        }
         mViewPager.setAdapter(new FragmentWithTitleAdapter(getSupportFragmentManager(), titles, fragments));
+
     }
 
     /**

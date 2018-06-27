@@ -19,8 +19,6 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="StatusBarTransparentTheme" parent="AppTheme"></style>
-
     <style name="WelcomeTheme" parent="FullscreenTheme">
         <item name="android:windowBackground">@mipmap/motto</item>
     </style>
@@ -97,45 +95,6 @@
         <item name="picture.crop.title.color">@color/white</item>
         <!--相册文件夹列表选中图标-->
         <item name="picture.folder_checked_dot">@drawable/orange_oval</item>
-    </style>
-
-    <style name="AppTitleText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/title_height</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:gravity">center</item>
-        <item name="android:singleLine">true</item>
-
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-
-        <item name="android:ellipsize">marquee</item>
-        <item name="android:focusable">true</item>
-        <item name="android:focusableInTouchMode">true</item>
-        <item name="android:marqueeRepeatLimit">marquee_forever</item>
-    </style>
-
-    <style name="AppTitleMenu">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/title_height</item>
-        <item name="android:foreground">@drawable/foreground</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:maxLength">4</item>
-        <item name="android:minWidth">@dimen/title_height</item>
-        <item name="android:padding">@dimen/margin_l</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/text_m</item>
-        <item name="android:visibility">gone</item>
-    </style>
-
-    <style name="AppTitleIcon">
-        <item name="android:layout_width">@dimen/title_height</item>
-        <item name="android:layout_height">@dimen/title_height</item>
-        <item name="android:foreground">@drawable/foreground</item>
-        <item name="android:padding">15dp</item>
-        <item name="android:visibility">gone</item>
     </style>
 
 </resources>

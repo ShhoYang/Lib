@@ -41,6 +41,8 @@ import io.reactivex.functions.Consumer;
  */
 public abstract class BaseActivity<P extends APresenter> extends AppCompatActivity {
 
+    protected static String TAG;
+
     @Nullable
     @BindView(R.id.base_toolbar)
     ToolbarLayout mToolbarLayout;
@@ -56,6 +58,8 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TAG = "Activity lifecycle " + getClass().getSimpleName();
+        KLog.d(TAG, "onCreate: ");
         if (fullScreen()) {
             //requestWindowFeature(Window.FEATURE_NO_TITLE);
             //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -70,17 +74,36 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
             setStatsBarColor();
         }
         mUnbinder = ButterKnife.bind(this);
-        AppManager.getInstance().pushActivity(this);
+        // AppManager.getInstance().pushActivity(this);
         mContext = this;
         initInject();
         onInitView();
         initView();
+        initView(savedInstanceState);
         initData();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        KLog.d(TAG, "onStart: ");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        KLog.d(TAG, "onPause: ");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        KLog.d(TAG, "onStop: ");
         dismissDialog();
         if (mPresenter != null) {
             mPresenter.onStop();
@@ -90,6 +113,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        KLog.d(TAG, "onDestroy: ");
         clearCompositeDisposable();
         if (mPresenter != null) {
             mPresenter.onDestroy();
@@ -98,7 +122,7 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
-        AppManager.getInstance().popActivity(this);
+        // AppManager.getInstance().popActivity(this);
     }
 
     protected boolean fullScreen() {
@@ -141,6 +165,10 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
                 }
             });
         }
+    }
+
+    protected void initView(@Nullable Bundle savedInstanceState) {
+
     }
 
     protected void setTitleBackgroundColor(@ColorInt int color) {
@@ -330,12 +358,24 @@ public abstract class BaseActivity<P extends APresenter> extends AppCompatActivi
     /**
      * 抽象方法
      */
-    public abstract @LayoutRes
+    protected abstract @LayoutRes
     int getLayoutId();
 
-    public abstract void initInject();
+    protected abstract void initInject();
 
-    public abstract void initView();
+    protected abstract void initView();
 
-    public abstract void initData();
+    protected abstract void initData();
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        KLog.d(TAG, "onNewIntent: ");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        KLog.d(TAG, "onSaveInstanceState: ");
+    }
 }

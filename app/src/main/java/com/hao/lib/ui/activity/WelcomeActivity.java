@@ -4,6 +4,7 @@ import android.os.Handler;
 
 import com.hao.lib.R;
 import com.hao.lib.base.ui.BaseActivity;
+import com.hao.lib.demo.lifecycle.MainActivity;
 import com.hao.lib.di.component.activity.DaggerActivityCommonComponent;
 import com.hao.lib.di.module.activity.ActivityCommonModule;
 
@@ -36,7 +37,7 @@ public class WelcomeActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivityAndFinish(HomeActivity.class);
+                startActivityAndFinish(MainActivity.class);
             }
         }, 1000);
     }

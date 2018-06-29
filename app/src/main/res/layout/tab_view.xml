@@ -33,5 +33,5 @@
         android:paddingRight="4dp"
         android:textColor="@color/white"
         android:textSize="9sp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 </RelativeLayout>

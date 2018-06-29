@@ -24,8 +24,6 @@ public class TabView extends LinearLayout {
 
     private static final String TAG = "MainTab";
 
-    private Fragment mFragment;
-
     private ImageView mIvIcon;
     private TextView mTvText;
     private TextView mTvRedNum;
@@ -34,7 +32,6 @@ public class TabView extends LinearLayout {
     private String mText;
     private int mTextColor = -1;
     private boolean mSelected = false;
-    private TabClickListener mTabClickListener;
 
     public TabView(Context context) {
         super(context);
@@ -64,11 +61,6 @@ public class TabView extends LinearLayout {
         mSelected = typedArray.getBoolean(R.styleable.TabView_selected, false);
     }
 
-    public TabView setFragment(Fragment fragment) {
-        mFragment = fragment;
-        return this;
-    }
-
     public TabView setIconId(@DrawableRes int iconId) {
         mIvIcon.setImageResource(iconId);
         return this;
@@ -89,25 +81,8 @@ public class TabView extends LinearLayout {
         return this;
     }
 
-    public TabView setTabClickListener(final TabClickListener tabClickListener) {
-        mTabClickListener = tabClickListener;
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                click();
-            }
-        });
-        return this;
-    }
-
-    private void click() {
-        if (mTabClickListener != null) {
-            mTabClickListener.tabClick(TabView.this);
-        }
-    }
-
-    public Fragment getFragment() {
-        return mFragment;
+    public String getText() {
+        return mText;
     }
 
     public void setCount(String count) {
@@ -117,10 +92,6 @@ public class TabView extends LinearLayout {
             mTvRedNum.setVisibility(VISIBLE);
             mTvRedNum.setText(count);
         }
-    }
-
-    public interface TabClickListener {
-        void tabClick(TabView mainTab);
     }
 
     @Override

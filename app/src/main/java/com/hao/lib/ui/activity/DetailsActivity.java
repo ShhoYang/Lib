@@ -63,7 +63,6 @@ public class DetailsActivity extends BaseActivity {
     public void initView() {
         setTitleOffset();
         setTitleBackgroundColor(ContextCompat.getColor(this,R.color.transparent));
-        mWebView.setNestedScrollingEnabled(false);
         mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {

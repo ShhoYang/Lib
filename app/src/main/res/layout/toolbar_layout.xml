@@ -49,6 +49,7 @@
         android:foreground="@drawable/foreground"
         android:maxLength="4"
         android:minWidth="@dimen/title_height"
+        android:gravity="center_vertical"
         android:padding="@dimen/margin_l"
         android:singleLine="true"
         android:textColor="@color/white"

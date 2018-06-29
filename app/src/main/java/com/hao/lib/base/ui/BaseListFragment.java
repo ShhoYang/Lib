@@ -15,6 +15,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.socks.library.KLog;
 
 import butterknife.BindView;
 
@@ -39,12 +40,24 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
     private boolean mEnableLoreMore = true;
     private boolean mNeedRefresh = false;
 
+    private boolean mViewCreated = false;
+    private boolean mIsVisible = false;
+
     @Override
     public void onResume() {
         super.onResume();
         if (mNeedRefresh) {
             mRefreshLayout.autoRefresh();
             mNeedRefresh = false;
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            mIsVisible = true;
+            lazyLoad();
         }
     }
 
@@ -70,7 +83,27 @@ public abstract class BaseListFragment<P extends AListPresenter> extends BaseFra
 
     @Override
     public void initData() {
-        mRefreshLayout.autoRefresh();
+        if (isLazy()) {
+            mViewCreated = true;
+            lazyLoad();
+
+        } else {
+            mRefreshLayout.autoRefresh();
+
+        }
+    }
+
+    protected boolean isLazy() {
+        return false;
+    }
+
+    protected void lazyLoad() {
+        KLog.d(TAG, "0: " + mViewCreated + "---" + mIsVisible);
+        if (mViewCreated && mIsVisible) {
+            KLog.d(TAG, "lazyLoad: ");
+            mRefreshLayout.autoRefresh();
+            mViewCreated = false;
+        }
     }
 
     @Override

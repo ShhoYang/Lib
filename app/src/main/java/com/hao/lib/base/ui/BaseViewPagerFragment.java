@@ -21,7 +21,7 @@ import butterknife.BindView;
  * @author Yang Shihao
  */
 public abstract class BaseViewPagerFragment<P extends APresenter> extends BaseFragment<P>
-        implements  ViewPager.OnPageChangeListener {
+        implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.base_tab_layout)
     MyTabLayout mTabLayout;
@@ -73,7 +73,7 @@ public abstract class BaseViewPagerFragment<P extends APresenter> extends BaseFr
     }
 
     public void setEmptyViewClickListener(View.OnClickListener emptyViewClickListener) {
-        if(mEmptyView!= null){
+        if (mEmptyView != null) {
             mEmptyView.setOnClickListener(emptyViewClickListener);
         }
     }
@@ -95,24 +95,16 @@ public abstract class BaseViewPagerFragment<P extends APresenter> extends BaseFr
             return;
         }
 
-        if(mEmptyView!= null){
+        if (mEmptyView != null) {
             mEmptyView.hide();
         }
 
-        if (fragmentSize == 1) {
-            if (mTabLayout.isShown()) {
-                mTabLayout.setVisibility(View.GONE);
-            }
-        } else if (fragmentSize < 5) {
-            if (!mTabLayout.isShown()) {
-                mTabLayout.setVisibility(View.VISIBLE);
-            }
-            mTabLayout.setTabMode(MyTabLayout.MODE_FIXED);
-        } else {
-            if (!mTabLayout.isShown()) {
-                mTabLayout.setVisibility(View.VISIBLE);
-            }
-            mTabLayout.setTabMode(MyTabLayout.MODE_SCROLLABLE);
+        if (fragmentSize == 1 && mTabLayout.isShown()) {
+            mTabLayout.setVisibility(View.GONE);
+
+        } else if (fragmentSize != 1 && !mTabLayout.isShown()) {
+            mTabLayout.setVisibility(View.VISIBLE);
+
         }
         mViewPager.setAdapter(new FragmentWithTitleAdapter(getChildFragmentManager(), titles, fragments));
     }

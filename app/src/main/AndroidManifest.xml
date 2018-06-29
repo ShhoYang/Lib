@@ -39,6 +39,8 @@
             android:name=".ui.activity.DetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/StatusBarTransparentTheme" />
+        <activity
+            android:name=".demo.lifecycle.MainActivity" />
     </application>
 
 </manifest>

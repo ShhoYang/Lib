@@ -28,7 +28,7 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
     MyTabLayout mTabLayout;
 
     @BindView(R.id.base_view_pager)
-    ViewPager mViewPager;
+    protected ViewPager mViewPager;
 
     @Nullable
     @BindView(R.id.base_empty)
@@ -101,22 +101,13 @@ public abstract class BaseViewPagerActivity<P extends APresenter> extends BaseAc
             mEmptyView.hide();
         }
 
+        if (fragmentSize == 1 && mTabLayout.isShown()) {
+            mTabLayout.setVisibility(View.GONE);
 
-//        if (fragmentSize == 1) {
-//            if (mTabLayout.isShown()) {
-//                mTabLayout.setVisibility(View.GONE);
-//            }
-//        } else if (fragmentSize < 5) {
-//            if (!mTabLayout.isShown()) {
-//                mTabLayout.setVisibility(View.VISIBLE);
-//            }
-//            mTabLayout.setTabMode(MyTabLayout.MODE_FIXED);
-//        } else {
-//            if (!mTabLayout.isShown()) {
-//                mTabLayout.setVisibility(View.VISIBLE);
-//            }
-//            mTabLayout.setTabMode(MyTabLayout.MODE_SCROLLABLE);
-//        }
+        } else if (fragmentSize != 1 && !mTabLayout.isShown()) {
+            mTabLayout.setVisibility(View.VISIBLE);
+
+        }
         mViewPager.setAdapter(new FragmentWithTitleAdapter(getSupportFragmentManager(), titles, fragments));
 
     }

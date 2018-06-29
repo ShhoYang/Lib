@@ -19,6 +19,8 @@ public class News implements Parcelable {
     private String thumbnail_pic_s02;
     private String thumbnail_pic_s03;
 
+
+
     public String getUniquekey() {
         return uniquekey;
     }
